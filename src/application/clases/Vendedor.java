@@ -3,6 +3,21 @@ package application.clases;
 import java.sql.Date;
 
 public class Vendedor {
+
+	String id;
+	String nombre;
+	String apellido;
+	TipoDNI tipodni;
+	String calle;
+	int numero;
+	Localidad localidad;
+	Provincia provincia;
+	int telefono;
+	String email;
+	Date fechaNacimiento;
+	double sueldo;
+	String clave;
+	
 	public Vendedor() {
 		super();
 		// TODO Auto-generated constructor stub
@@ -25,19 +40,7 @@ public class Vendedor {
 		this.sueldo = sueldo;
 		this.clave = clave;
 	}
-	String id;
-	String nombre;
-	String apellido;
-	TipoDNI tipodni;
-	String calle;
-	int numero;
-	Localidad localidad;
-	Provincia provincia;
-	int telefono;
-	String email;
-	Date fechaNacimiento;
-	double sueldo;
-	String clave;
+	
 	public String getId() {
 		return id;
 	}

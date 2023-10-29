@@ -2,73 +2,118 @@ package application.clases;
 
 import java.sql.Date;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.ConstraintMode;
+import jakarta.persistence.ForeignKey;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToOne;
+
+@Entity
+@Table(name="Venta")
 public class Venta {
-	public Venta(String id, String idPropiedad, String idCliente, String idVendedor, double importeVenta,
+	
+	@Id
+	@GeneratedValue(strategy= GenerationType.IDENTITY)
+	@Column(name="idVenta")
+	int id;
+	@OneToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name="idPropiedad", nullable = false, referencedColumnName="idPropiedad", 
+				foreignKey=@ForeignKey(name="FK_Venta_Propiedad", value=ConstraintMode.CONSTRAINT))
+	Inmueble propiedad;
+	@OneToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name="idCliente", nullable = false, referencedColumnName="idCliente", 
+				foreignKey=@ForeignKey(name="FK_Venta_Cliente", value=ConstraintMode.CONSTRAINT))
+	Cliente cliente;
+	@OneToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name="idVendedor", nullable = false, referencedColumnName="idVendedor", 
+				foreignKey=@ForeignKey(name="FK_Venta_Vendedor", value=ConstraintMode.CONSTRAINT))
+	Vendedor vendedor;
+	@Column(name="importeVenta", nullable=false)
+	double importeVenta;
+	@Column(name="tiempoVigencia", nullable=false)
+	float tiempoVigencia; //??
+	@Column(name="fecha", nullable=false)
+	Date fecha;
+	
+	// Creo que los constructores no deberian tener el id, pero despues lo vemos
+	
+	public Venta(int id, Inmueble propiedad, Cliente cliente, Vendedor vendedor, double importeVenta,
 			float tiempoVigencia, Date fecha) {
 		super();
 		this.id = id;
-		this.idPropiedad = idPropiedad;
-		this.idCliente = idCliente;
-		this.idVendedor = idVendedor;
+		this.propiedad = propiedad;
+		this.cliente = cliente;
+		this.vendedor = vendedor;
 		this.importeVenta = importeVenta;
 		this.tiempoVigencia = tiempoVigencia;
 		this.fecha = fecha;
 	}
-	public Venta() {
-		super();
-		// TODO Auto-generated constructor stub
+
+	public int getId() {
+		return id;
 	}
-	String id;
-	String idPropiedad;
-	String idCliente;
-	String idVendedor;
-	double importeVenta;
-	float tiempoVigencia; //??
-	Date fecha;
-	public String getIdPropiedad() {
-		return idPropiedad;
+
+	public void setId(int id) {
+		this.id = id;
 	}
-	public void setIdPropiedad(String idPropiedad) {
-		this.idPropiedad = idPropiedad;
+
+	public Inmueble getPropiedad() {
+		return propiedad;
 	}
-	public String getIdCliente() {
-		return idCliente;
+
+	public void setPropiedad(Inmueble propiedad) {
+		this.propiedad = propiedad;
 	}
-	public void setIdCliente(String idCliente) {
-		this.idCliente = idCliente;
+
+	public Cliente getCliente() {
+		return cliente;
 	}
-	public String getIdVendedor() {
-		return idVendedor;
+
+	public void setCliente(Cliente cliente) {
+		this.cliente = cliente;
 	}
-	public void setIdVendedor(String idVendedor) {
-		this.idVendedor = idVendedor;
+
+	public Vendedor getVendedor() {
+		return vendedor;
 	}
+
+	public void setVendedor(Vendedor vendedor) {
+		this.vendedor = vendedor;
+	}
+
 	public double getImporteVenta() {
 		return importeVenta;
 	}
+
 	public void setImporteVenta(double importeVenta) {
 		this.importeVenta = importeVenta;
 	}
+
 	public float getTiempoVigencia() {
 		return tiempoVigencia;
 	}
+
 	public void setTiempoVigencia(float tiempoVigencia) {
 		this.tiempoVigencia = tiempoVigencia;
 	}
+
 	public Date getFecha() {
 		return fecha;
 	}
+
 	public void setFecha(Date fecha) {
 		this.fecha = fecha;
 	}
-	public String getId() {
-		return id;
-	}
-	public void setId(String id) {
-		this.id = id;
-	}
+
 	public boolean equals(Venta v) {
-		if(v.getId().equals(id)) {return true;}
+		if(v.getId()==id) {return true;}
 		else {return false;}
 	}
 }
