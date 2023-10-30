@@ -2,20 +2,40 @@ package application.clases;
 
 import java.sql.Date;
 
-public class Vendedor {
+import javax.persistence.Column;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 
+public class Vendedor {
+	@Id
+	@GeneratedValue(strategy= GenerationType.IDENTITY)
+	@Column(name="idVendedor")
 	String id;
+	@Column(name="nombre", nullable=false)
 	String nombre;
+	@Column(name="apellido", nullable=false)
 	String apellido;
+	@Column(name="tipoDNI", nullable=false)
 	TipoDNI tipodni;
+	@Column(name="calle", nullable=false)
 	String calle;
+	// Esto es dni?
+	@Column(name="dni", nullable=false)
 	int numero;
+	@Column(name="localidad", nullable=false)
 	Localidad localidad;
+	@Column(name="provincia", nullable=false)
 	Provincia provincia;
+	@Column(name="telefono", nullable=false)
 	int telefono;
+	@Column(name="email", nullable=false)
 	String email;
+	@Column(name="fechaNacimiento", nullable=false)
 	Date fechaNacimiento;
+	@Column(name="sueldo", nullable=false)
 	double sueldo;
+	@Column(name="clave", nullable=false)
 	String clave;
 	
 	public Vendedor() {
