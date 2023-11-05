@@ -9,5 +9,6 @@ module Inmobiliaria {
 
     opens application to javafx.graphics, javafx.fxml, javafx.base, org.hibernate.core, hibernate.jpa, jboss.annotations, jboss.jms.api,
     jboss.logging, jboss.transaction.api;
+    opens Controllers to javafx.fxml;
 
 }
