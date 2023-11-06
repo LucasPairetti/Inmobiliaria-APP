@@ -1,10 +1,37 @@
 package application.clases;
 
+import javax.persistence.*;
+
+@Entity
+@Table(name="Cliente")
 public class Cliente {
+	
+	@Id
+	@GeneratedValue(strategy= GenerationType.IDENTITY)
+	@Column(name="idCliente")
+	String id;
+	@Column(name="nombreCliente", nullable = false)
+	String nombre;
+	@Column(name="apellidoCliente", nullable = false)
+	String apellido;
+	@Column(name="telefonoCliente", nullable = false)
+	int telefono;
+	@Column(name="montoDisponible")
+	double montoDisponible;
+	@Column(name="tipoInmuebleBuscado")
+	TipoInmueble tipoInmuebleBuscado;
+	@Column(name="localidadBuscada")
+	Localidad localidadBuscada;
+	@Column(name="Barrio")
+	String barrios;
+	@Column(name="caracteristicasDeseadas")
+	String caracteristicasDeseadas;
+	
 	public Cliente() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
+	
 	public Cliente(String id, String nombre, String apellido, int telefono, double montoDisponible,
 			TipoInmueble tipoInmuebleBuscado, Localidad localidadBuscada, String barrios,
 			String caracteristicasDeseadas) {
@@ -19,15 +46,7 @@ public class Cliente {
 		this.barrios = barrios;
 		this.caracteristicasDeseadas = caracteristicasDeseadas;
 	}
-	String id;
-	String nombre;
-	String apellido;
-	int telefono;
-	double montoDisponible;
-	TipoInmueble tipoInmuebleBuscado;
-	Localidad localidadBuscada;
-	String barrios;
-	String caracteristicasDeseadas;
+	
 	public String getId() {
 		return id;
 	}
