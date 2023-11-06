@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.CargarInmuebleController">
+   <children>
+      <ImageView fitHeight="800.0" fitWidth="1200.0" pickOnBounds="true">
+         <image>
+            <Image url="@imagenes/background.jpg" />
+         </image>
+      </ImageView>
+      <Label layoutX="51.0" layoutY="54.0" prefHeight="63.0" prefWidth="496.0" text="Cargar inmueble" textFill="WHITE">
+         <font>
+            <Font name="Verdana" size="36.0" />
+         </font>
+      </Label>
+      <Button fx:id="GuardarButton" layoutX="1045.0" layoutY="741.0" mnemonicParsing="false" onAction="#ModificarPressed" prefHeight="44.0" prefWidth="138.0" text="Guardar" />
+      <Button fx:id="VolverButton" layoutX="22.0" layoutY="741.0" mnemonicParsing="false" onAction="#VolverPressed" prefHeight="44.0" prefWidth="138.0" text="Volver" />
+      <ComboBox fx:id="ProvinciaMenu" layoutX="71.0" layoutY="194.0" onAction="#ProvinciaSelccionada" prefHeight="44.0" prefWidth="198.0" promptText="Santa Fe" />
+      <Label layoutX="69.0" layoutY="152.0" text="Provincia" />
+      <ComboBox fx:id="LocalidadMenu" layoutX="71.0" layoutY="285.0" onAction="#LocalidadSeleccionada" prefHeight="44.0" prefWidth="198.0" promptText="Localidad" />
+      <Label layoutX="71.0" layoutY="251.0" text="Localidad:" />
+      <ComboBox fx:id="BarrioMenu" layoutX="71.0" layoutY="375.0" prefHeight="44.0" prefWidth="198.0" promptText="Barrio" />
+      <Label layoutX="71.0" layoutY="341.0" text="Barrio:" />
+      <CheckBox fx:id="AguaCheckBox" layoutX="661.0" layoutY="380.0" mnemonicParsing="false" text="Agua Corriente" />
+      <CheckBox fx:id="CloacasCheckBox" layoutX="661.0" layoutY="418.0" mnemonicParsing="false" text="Cloacas" />
+      <CheckBox fx:id="GasCheckBox" layoutX="661.0" layoutY="456.0" mnemonicParsing="false" text="Gas natural" />
+      <CheckBox fx:id="GarajeCheckBox" layoutX="524.0" layoutY="379.0" mnemonicParsing="false" text="Garaje/Cochera" />
+      <CheckBox fx:id="PatioCheckBox" layoutX="524.0" layoutY="418.0" mnemonicParsing="false" text="Patio" />
+      <CheckBox fx:id="PiscinaCheckBox" layoutX="524.0" layoutY="456.0" mnemonicParsing="false" text="Piscina" />
+      <TextField fx:id="OtraLocalidadField" editable="false" layoutX="315.0" layoutY="292.0" prefHeight="34.0" prefWidth="176.0" text="otra localidad" />
+      <Label layoutX="315.0" layoutY="248.0" text="Otra:" />
+      <TextField fx:id="CalleField" layoutX="71.0" layoutY="474.0" prefHeight="34.0" prefWidth="176.0" />
+      <Label layoutX="71.0" layoutY="430.0" text="Calle:" />
+      <TextField fx:id="NumeroField" layoutX="71.0" layoutY="579.0" prefHeight="34.0" prefWidth="176.0" />
+      <Label layoutX="71.0" layoutY="535.0" text="Numero:" />
+      <TextField fx:id="PrecioField" layoutX="309.0" layoutY="196.0" prefHeight="34.0" prefWidth="176.0" promptText="USD" />
+      <Label layoutX="309.0" layoutY="152.0" text="Precio:" />
+      <Label layoutX="309.0" layoutY="342.0" text="Tipo de Inmueble" />
+      <ChoiceBox fx:id="TipoInmuebleMenu" layoutX="309.0" layoutY="375.0" prefHeight="44.0" prefWidth="176.0" />
+      <Label layoutX="309.0" layoutY="437.0" text="Orientacion:" />
+      <ChoiceBox fx:id="OrientacionMenu" layoutX="309.0" layoutY="470.0" prefHeight="44.0" prefWidth="176.0" />
+      <Label layoutX="795.0" layoutY="108.0" text="Datos del edificio" />
+      <TextField fx:id="SuperficieField" layoutX="515.0" layoutY="208.0" prefHeight="34.0" prefWidth="176.0" text="Metros cuadrados" />
+      <Label layoutX="524.0" layoutY="176.0" text="Superficie:" />
+      <CheckBox fx:id="PropiedadHorizontalCheckBox" layoutX="947.0" layoutY="418.0" mnemonicParsing="false" text="Propiedad horizontal" />
+      <TextField fx:id="AntiguedadField" layoutX="719.0" layoutY="211.0" prefHeight="34.0" prefWidth="176.0" text="Años" />
+      <Label layoutX="719.0" layoutY="176.0" text="antiguedad:" />
+      <TextField fx:id="FrenteField" layoutX="524.0" layoutY="309.0" prefHeight="34.0" prefWidth="176.0" text="Metros" />
+      <Label layoutX="528.0" layoutY="274.0" text="Frente" />
+      <TextField fx:id="FondoField" layoutX="719.0" layoutY="309.0" prefHeight="34.0" prefWidth="176.0" text="Metros" />
+      <Label layoutX="719.0" layoutY="275.0" text="Fondo:" />
+      <TextField fx:id="DormitorioField" layoutX="918.0" layoutY="212.0" prefHeight="34.0" prefWidth="176.0" />
+      <Label layoutX="918.0" layoutY="177.0" text="Cantidad de dormitorios:" />
+      <TextField fx:id="BaniosField" layoutX="918.0" layoutY="310.0" prefHeight="34.0" prefWidth="176.0" />
+      <Label layoutX="918.0" layoutY="283.0" text="Baños:" />
+      <CheckBox fx:id="TelefenoCheckBox" layoutX="818.0" layoutY="379.0" mnemonicParsing="false" text="telefono" />
+      <CheckBox fx:id="LavaderoCheckBox" layoutX="817.0" layoutY="418.0" mnemonicParsing="false" text="lavadero" />
+      <CheckBox fx:id="PavimentoCheckBox" layoutX="818.0" layoutY="456.0" mnemonicParsing="false" text="Pavimento" />
+      <TextField fx:id="PropietarioField" editable="false" layoutX="309.0" layoutY="579.0" prefHeight="34.0" prefWidth="176.0" promptText="Nombre" />
+      <Label layoutX="309.0" layoutY="535.0" text="Propietario:" />
+      <TextArea fx:id="ObservacionesField" layoutX="524.0" layoutY="531.0" prefHeight="177.0" prefWidth="400.0" />
+      <Label layoutX="532.0" layoutY="505.0" text="Observaciones:" />
+      <Button fx:id="ImagenButton" layoutX="996.0" layoutY="508.0" mnemonicParsing="false" onAction="#ImagenPressed" prefHeight="30.0" prefWidth="126.0" text="Agregar Imagen" />
+      <ImageView fx:id="ImageView" fitHeight="150.0" fitWidth="200.0" layoutX="959.0" layoutY="545.0" pickOnBounds="true" preserveRatio="true" />
+      <Line endX="569.0" layoutX="612.0" layoutY="144.0" startX="-100.0" stroke="WHITE" />
+      <Line endX="-111.0" endY="617.0" layoutX="623.0" layoutY="114.0" startX="-111.0" startY="31.0" stroke="WHITE" />
+      <Line endX="569.0" layoutX="613.0" layoutY="731.0" startX="-100.0" stroke="WHITE" />
+      <Line endX="-111.0" endY="617.0" layoutX="1293.0" layoutY="114.0" startX="-111.5" startY="29.5" stroke="WHITE" />
+      <TextField fx:id="IdField" editable="false" layoutX="412.0" layoutY="69.0" prefHeight="34.0" prefWidth="126.0" promptText="ID" />
+      <TextField fx:id="FechaField" editable="false" layoutX="602.0" layoutY="69.0" prefHeight="34.0" prefWidth="176.0" promptText="Fecha" />
+      <Label layoutX="381.0" layoutY="77.0" text="ID:" />
+      <Label layoutX="546.0" layoutY="77.0" text="Fecha:" />
+      <TextField fx:id="EstadoField" editable="false" layoutX="965.0" layoutY="78.0" prefHeight="34.0" prefWidth="176.0" promptText="Estado" />
+      <Label layoutX="909.0" layoutY="86.0" text="Estado:" />
+   </children>
+</AnchorPane>

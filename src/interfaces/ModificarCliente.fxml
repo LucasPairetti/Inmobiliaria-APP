@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.ColorAdjust?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.ModificarClienteController">
+   <children>
+      <ImageView fitHeight="800.0" fitWidth="1200.0" pickOnBounds="true">
+         <image>
+            <Image url="@imagenes/background.jpg" />
+         </image>
+      </ImageView>
+      <Label layoutX="63.0" layoutY="57.0" text="MODIFICAR CLIENTE" textFill="WHITE">
+         <font>
+            <Font name="Verdana" size="64.0" />
+         </font>
+      </Label>
+      <TextField fx:id="NombreField" layoutX="76.0" layoutY="205.0" prefHeight="53.0" prefWidth="255.0" promptText="nombre" />
+      <TextField fx:id="ApellidoField" layoutX="76.0" layoutY="310.0" prefHeight="53.0" prefWidth="255.0" promptText="Apellido" />
+      <TextField fx:id="TelefonoField" layoutX="76.0" layoutY="420.0" prefHeight="53.0" prefWidth="255.0" promptText="tel: 03424512345" />
+      <TextField fx:id="barrioField" layoutX="417.0" layoutY="420.0" prefHeight="53.0" prefWidth="255.0" promptText="Apellido" text="Barrio" />
+      <TextField fx:id="MontoUSD" layoutX="773.0" layoutY="198.0" prefHeight="53.0" prefWidth="255.0" promptText="USD" />
+      <Label layoutX="76.0" layoutY="180.0" text="nombre:" />
+      <Label layoutX="76.0" layoutY="292.0" text="Apellido:" />
+      <Label layoutX="76.0" layoutY="399.0" text="telefono:" />
+      <Label layoutX="417.0" layoutY="402.0" text="Barrio:" />
+      <Label layoutX="773.0" layoutY="180.0" text="Monto:" />
+      <TextArea fx:id="caracteristicasTextArea" layoutX="773.0" layoutY="302.0" prefHeight="200.0" prefWidth="265.0" promptText="caracteristicas del cliente (max 500 caracteres)">
+         <effect>
+            <ColorAdjust brightness="0.02" contrast="0.19" hue="1.0" />
+         </effect>
+      </TextArea>
+      <Label layoutX="779.0" layoutY="281.0" text="Caracterisiticas:" />
+      <ComboBox fx:id="LocalidadMenu" layoutX="417.0" layoutY="214.0" prefHeight="44.0" prefWidth="255.0" promptText="Localidad" />
+      <Label layoutX="417.0" layoutY="180.0" text="Localidad:" />
+      <ComboBox fx:id="InmuebleMenu" layoutX="417.0" layoutY="332.0" prefHeight="44.0" prefWidth="255.0" promptText="Tipo de inmueble" />
+      <Label layoutX="417.0" layoutY="298.0" text="Tipo de inmueble:" />
+      <Button fx:id="GuardarBUtton" layoutX="1012.0" layoutY="731.0" mnemonicParsing="false" onAction="#GuardarPressed" prefHeight="53.0" prefWidth="143.0" text="Guardar" />
+      <Button fx:id="CancelarButton" layoutX="43.0" layoutY="731.0" mnemonicParsing="false" onAction="#CancelarPressed" prefHeight="53.0" prefWidth="143.0" text="Cancelar" />
+   </children>
+</AnchorPane>
