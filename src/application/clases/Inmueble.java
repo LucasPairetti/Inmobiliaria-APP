@@ -2,18 +2,102 @@ package application.clases;
 
 import java.sql.Date;
 
+import javax.persistence.Column;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.ConstraintMode;
+import jakarta.persistence.ForeignKey;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToOne;
+
 public class Inmueble {
+	
+	@Id
+	@GeneratedValue(strategy= GenerationType.IDENTITY)
+	@Column(name="idInmueble")
+	int id;
+	@ManyToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name="idPropietario", nullable = false, referencedColumnName="idPropietario", 
+				foreignKey=@ForeignKey(name="FK_Inmueble_Propietario", value=ConstraintMode.CONSTRAINT))
+	Propietario propietario;
+	@Column(name="fechaCreacion", nullable=false)
+	Date fechaCreacion;
+	@Column(name="estado", nullable=false)
+	boolean estado; //¿diponible - vendido?
+	@Enumerated(EnumType.STRING)
+	@Column(name="provincia", nullable=false)
+	Provincia provincia;
+	@Enumerated(EnumType.STRING)
+	@Column(name="localidad", nullable=false)
+	Localidad localidad;
+	@Column(name="calle", nullable=false)
+	String calle;
+	@Column(name="numeroCalle", nullable=false)
+	int numero;
+	@Column(name="pisoDpto", nullable=true)
+	String pisodpto;
+	@Column(name="barrio", nullable=false)
+	String barrio;
+	@Enumerated(EnumType.STRING)
+	@Column(name="tipoInmueble", nullable=false)
+	TipoInmueble tipoInmueble;
+	@Column(name="precioVenta", nullable=false)
+	double precioVenta;
+	@Column(name="orientacion", nullable=true)
+	String orientacion;
+	@Column(name="frente",  nullable=false)
+	float frente;
+	@Column(name="fondo",  nullable=false)
+	float fondo;
+	@Column(name="antiguedad",  nullable=false)
+	int antiguedad;
+	@Column(name="dormitorios",  nullable=false)
+	int dormitorios;
+	@Column(name="banios",  nullable=false)
+	int banios;
+	@Column(name="patio",  nullable=false)
+	boolean patio;
+	@Column(name="piscina",  nullable=false)
+	boolean piscina;
+	@Column(name="aguaCorriente",  nullable=false)
+	boolean aguaCorriente;
+	@Column(name="cloacas",  nullable=false)
+	boolean cloacas;
+	@Column(name="gasNatural",  nullable=false)
+	boolean gasNatural;
+	@Column(name="aguaCaliente",  nullable=false)
+	boolean aguaCaliente;
+	@Column(name="lavadero",  nullable=false)
+	boolean lavadero;
+	@Column(name="pavimento",  nullable=false)
+	boolean pavimento;
+	@Column(name="telefono",  nullable=false)
+	int telefono;
+	@Column(name="observaciones",  nullable=true)
+	String observaciones;
+	
+	//foto?
+	public Integer getId() {
+		return id;
+	}
+	
 	public Inmueble() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	public Inmueble(String id, Propietario propietario, Date fechaCreacion, boolean estado, Provincia provincia,
+	public Inmueble(Propietario propietario, Date fechaCreacion, boolean estado, Provincia provincia,
 			Localidad localidad, String calle, int numero, String pisodpto, String barrio, TipoInmueble tipoInmueble,
 			double precioVenta, String orientacion, float frente, float fondo, int antiguedad, int dormitorios,
 			int banios, boolean patio, boolean piscina, boolean aguaCorriente, boolean cloacas, boolean gasNatural,
 			boolean aguaCaliente, boolean lavadero, boolean pavimento, int telefono, String observaciones) {
 		super();
-		this.id = id;
+		
 		this.propietario = propietario;
 		this.fechaCreacion = fechaCreacion;
 		this.estado = estado;
@@ -42,42 +126,7 @@ public class Inmueble {
 		this.telefono = telefono;
 		this.observaciones = observaciones;
 	}
-	String id;
-	Propietario propietario;
-	Date fechaCreacion;
-	boolean estado; //¿diponible - vendido?
-	Provincia provincia;
-	Localidad localidad;
-	String calle;
-	int numero;
-	String pisodpto;
-	String barrio;
-	TipoInmueble tipoInmueble;
-	double precioVenta;
-	String orientacion;
-	float frente;
-	float fondo;
-	int antiguedad;
-	int dormitorios;
-	int banios;
-	boolean patio;
-	boolean piscina;
-	boolean aguaCorriente;
-	boolean cloacas;
-	boolean gasNatural;
-	boolean aguaCaliente;
-	boolean lavadero;
-	boolean pavimento;
-	
-	int telefono;
-	String observaciones;
-	//foto?
-	public String getId() {
-		return id;
-	}
-	public void setId(String id) {
-		this.id = id;
-	}
+
 	public Propietario getPropietario() {
 		return propietario;
 	}

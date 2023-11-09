@@ -1,14 +1,49 @@
 package application.clases;
 
+import javax.persistence.Column;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+
 public class Propietario {
+	
+	@Id
+	@GeneratedValue(strategy= GenerationType.IDENTITY)
+	@Column(name="idPropietario")
+	int id;
+	@Column(name="nombre", nullable=false)
+	String nombre;
+	@Column(name="apellido", nullable=false)
+	String apellido;
+	@Enumerated(EnumType.STRING)
+	@Column(name="tipoDNI", nullable=false)
+	TipoDNI tipodni;
+	@Column(name="dni", nullable=false, unique=true)
+	String dni;
+	@Column(name="calle", nullable=false)
+	String calle;
+	@Column(name="numero", nullable=false)
+	int numero;
+	@Enumerated(EnumType.STRING)
+	@Column(name="localidad", nullable=false)
+	Localidad localidad;
+	@Enumerated(EnumType.STRING)
+	@Column(name="provincia", nullable=false)
+	Provincia provincia;
+	@Column(name="telefono", nullable=false)
+	int telefono;
+	@Column(name="email", nullable=false)
+	String email;
+	
 	public Propietario() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	public Propietario(String id, String nombre, String apellido, TipoDNI tipodni, String dni, String calle, int numero,
+	public Propietario(String nombre, String apellido, TipoDNI tipodni, String dni, String calle, int numero,
 			Localidad localidad, Provincia provincia, int telefono, String email) {
 		super();
-		this.id = id;
 		this.nombre = nombre;
 		this.apellido = apellido;
 		this.tipodni = tipodni;
@@ -20,23 +55,11 @@ public class Propietario {
 		this.telefono = telefono;
 		this.email = email;
 	}
-	String id;
-	String nombre;
-	String apellido;
-	TipoDNI tipodni;
-	String dni;
-	String calle;
-	int numero;
-	Localidad localidad;
-	Provincia provincia;
-	int telefono;
-	String email;
-	public String getId() {
+	
+	public Integer getId() {
 		return id;
 	}
-	public void setId(String id) {
-		this.id = id;
-	}
+
 	public String getNombre() {
 		return nombre;
 	}

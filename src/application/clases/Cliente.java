@@ -9,7 +9,7 @@ public class Cliente {
 	@Id
 	@GeneratedValue(strategy= GenerationType.IDENTITY)
 	@Column(name="idCliente")
-	String id;
+	int id;
 	@Column(name="nombreCliente", nullable = false)
 	String nombre;
 	@Column(name="apellidoCliente", nullable = false)
@@ -19,8 +19,10 @@ public class Cliente {
 	@Column(name="montoDisponible")
 	double montoDisponible;
 	@Column(name="tipoInmuebleBuscado")
+	@Enumerated(EnumType.STRING)
 	TipoInmueble tipoInmuebleBuscado;
 	@Column(name="localidadBuscada")
+	@Enumerated(EnumType.STRING)
 	Localidad localidadBuscada;
 	@Column(name="Barrio")
 	String barrios;
@@ -32,11 +34,10 @@ public class Cliente {
 		// TODO Auto-generated constructor stub
 	}
 	
-	public Cliente(String id, String nombre, String apellido, int telefono, double montoDisponible,
+	public Cliente( String nombre, String apellido, int telefono, double montoDisponible,
 			TipoInmueble tipoInmuebleBuscado, Localidad localidadBuscada, String barrios,
 			String caracteristicasDeseadas) {
 		super();
-		this.id = id;
 		this.nombre = nombre;
 		this.apellido = apellido;
 		this.telefono = telefono;
@@ -47,10 +48,10 @@ public class Cliente {
 		this.caracteristicasDeseadas = caracteristicasDeseadas;
 	}
 	
-	public String getId() {
+	public Integer getId() {
 		return id;
 	}
-	public void setId(String id) {
+	public void setId(int id) {
 		this.id = id;
 	}
 	public String getNombre() {

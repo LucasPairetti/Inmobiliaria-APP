@@ -3,6 +3,8 @@ package application.clases;
 import java.sql.Date;
 
 import javax.persistence.Column;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -11,45 +13,49 @@ public class Vendedor {
 	@Id
 	@GeneratedValue(strategy= GenerationType.IDENTITY)
 	@Column(name="idVendedor")
-	String id;
+	private int id;
 	@Column(name="nombre", nullable=false)
-	String nombre;
+	private String nombre;
 	@Column(name="apellido", nullable=false)
-	String apellido;
+	private String apellido;
+	@Enumerated(EnumType.STRING)
 	@Column(name="tipoDNI", nullable=false)
-	TipoDNI tipodni;
+	private TipoDNI tipodni;
+	@Column(name="DNI", nullable=false, unique=true)
+	private int dni;
 	@Column(name="calle", nullable=false)
 	String calle;
-	// Esto es dni?
-	@Column(name="dni", nullable=false)
-	int numero;
+	@Column(name="numeroCalle", nullable=false)
+	private int numero;
+	@Enumerated(EnumType.STRING)
 	@Column(name="localidad", nullable=false)
-	Localidad localidad;
+	private Localidad localidad;
+	@Enumerated(EnumType.STRING)
 	@Column(name="provincia", nullable=false)
-	Provincia provincia;
+	private Provincia provincia;
 	@Column(name="telefono", nullable=false)
-	int telefono;
+	private int telefono;
 	@Column(name="email", nullable=false)
 	String email;
 	@Column(name="fechaNacimiento", nullable=false)
-	Date fechaNacimiento;
+	private Date fechaNacimiento;
 	@Column(name="sueldo", nullable=false)
-	double sueldo;
+	private double sueldo;
 	@Column(name="clave", nullable=false)
-	String clave;
+	private String clave;
 	
 	public Vendedor() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	public Vendedor(String id, String nombre, String apellido, TipoDNI tipodni, String calle, int numero,
+	public Vendedor(String nombre, String apellido, TipoDNI tipodni, int dni, String calle, int numero,
 			Localidad localidad, Provincia provincia, int telefono, String email, Date fechaNacimiento, double sueldo,
 			String clave) {
 		super();
-		this.id = id;
 		this.nombre = nombre;
 		this.apellido = apellido;
 		this.tipodni = tipodni;
+		this.dni = dni;
 		this.calle = calle;
 		this.numero = numero;
 		this.localidad = localidad;
@@ -61,12 +67,7 @@ public class Vendedor {
 		this.clave = clave;
 	}
 	
-	public String getId() {
-		return id;
-	}
-	public void setId(String id) {
-		this.id = id;
-	}
+
 	public String getNombre() {
 		return nombre;
 	}
@@ -146,5 +147,9 @@ public class Vendedor {
 	public boolean equals(Vendedor v) {
 		if(v.getId().equals(id)) {return true;}
 		else {return false;}
+	}
+	public Integer getId() {
+		// TODO Auto-generated method stub
+		return this.dni;
 	}
 }

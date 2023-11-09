@@ -24,15 +24,15 @@ public class Venta {
 	@Column(name="idVenta")
 	int id;
 	@OneToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name="idPropiedad", nullable = false, referencedColumnName="idPropiedad", 
+	@JoinColumn(name="propiedad_id", nullable = false, referencedColumnName="idPropiedad", 
 				foreignKey=@ForeignKey(name="FK_Venta_Propiedad", value=ConstraintMode.CONSTRAINT))
 	Inmueble propiedad;
 	@OneToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name="idCliente", nullable = false, referencedColumnName="idCliente", 
+	@JoinColumn(name="cliente_id", nullable = false, referencedColumnName="idCliente", 
 				foreignKey=@ForeignKey(name="FK_Venta_Cliente", value=ConstraintMode.CONSTRAINT))
 	Cliente cliente;
 	@OneToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name="idVendedor", nullable = false, referencedColumnName="idVendedor", 
+	@JoinColumn(name="vendedor_id", nullable = false, referencedColumnName="idVendedor", 
 				foreignKey=@ForeignKey(name="FK_Venta_Vendedor", value=ConstraintMode.CONSTRAINT))
 	Vendedor vendedor;
 	@Column(name="importeVenta", nullable=false)
@@ -44,10 +44,9 @@ public class Venta {
 	
 	// Creo que los constructores no deberian tener el id, pero despues lo vemos
 	
-	public Venta(int id, Inmueble propiedad, Cliente cliente, Vendedor vendedor, double importeVenta,
+	public Venta(Inmueble propiedad, Cliente cliente, Vendedor vendedor, double importeVenta,
 			float tiempoVigencia, Date fecha) {
 		super();
-		this.id = id;
 		this.propiedad = propiedad;
 		this.cliente = cliente;
 		this.vendedor = vendedor;
@@ -56,12 +55,8 @@ public class Venta {
 		this.fecha = fecha;
 	}
 
-	public int getId() {
+	public Integer getId() {
 		return id;
-	}
-
-	public void setId(int id) {
-		this.id = id;
 	}
 
 	public Inmueble getPropiedad() {
