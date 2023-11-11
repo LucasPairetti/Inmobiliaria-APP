@@ -1,10 +1,20 @@
 package Controllers;
+import application.clases.*;
+
 
 import java.io.IOException;
+import java.net.URL;
+import java.text.DecimalFormat;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.ResourceBundle;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -17,13 +27,13 @@ import javafx.scene.control.TableView;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
-public class ConsultaInmueblesController {
+public class ConsultaInmueblesController implements Initializable {
 
     @FXML
-    private TableColumn<?, ?> BarrioColumn;
+    private TableColumn<Inmueble, String> BarrioColumn;
 
     @FXML
-    private ComboBox<?> BarrioMenu;
+    private ComboBox<String> BarrioMenu;
 
     @FXML
     private Button BuscarButton;
@@ -41,13 +51,13 @@ public class ConsultaInmueblesController {
     private Slider DormitorioSlider;
 
     @FXML
-    private TableColumn<?, ?> DormitoriosColumn;
+    private TableColumn<Inmueble, Integer> DormitoriosColumn;
 
     @FXML
     private CheckBox GalponCheckBox;
 
     @FXML
-    private TableView<?> InmuebleTable;
+    private TableView<Inmueble> InmuebleTable;
 
     @FXML
     private Button LimpiarButton;
@@ -56,10 +66,10 @@ public class ConsultaInmueblesController {
     private CheckBox LocalCheckBox;
 
     @FXML
-    private TableColumn<?, ?> LocalidadColumn;
+    private TableColumn<Inmueble, Localidad> LocalidadColumn;
 
     @FXML
-    private ComboBox<?> LocalidadMenu;
+    private ComboBox<String> LocalidadMenu;
 
     @FXML
     private Label MaxPriceLabel;
@@ -77,13 +87,13 @@ public class ConsultaInmueblesController {
     private CheckBox OficinaCheckBox;
 
     @FXML
-    private TableColumn<?, ?> PrecioColumn;
+    private TableColumn<Inmueble, Double> PrecioColumn;
 
     @FXML
-    private TableColumn<?, ?> ProvinciaColumn;
+    private TableColumn<Inmueble, Provincia> ProvinciaColumn;
 
     @FXML
-    private ComboBox<?> ProvinciaMenu;
+    private ComboBox<String> ProvinciaMenu;
 
     @FXML
     private CheckBox QuintaCheckBox;
@@ -92,14 +102,47 @@ public class ConsultaInmueblesController {
     private CheckBox TerrenoCheckBox;
 
     @FXML
-    private TableColumn<?, ?> TipoColumn;
+    private TableColumn<Inmueble, TipoInmueble> TipoColumn;
 
     @FXML
     private Button VolverButton;
 
+    ObservableList<Inmueble> listaDeInmuebles= FXCollections.observableArrayList(); 
+    //para redondeos
+    DecimalFormat df = new DecimalFormat("###.##");
+    
+    @Override
+	public void initialize(URL arg0, ResourceBundle arg1) {
+		// Este metodo inicializa los datos en pantalla, en caso de los inmuebles carga la lista de inmuebles
+    	
+    	
+    	//inicializar todos los combobox
+    	
+    	//inicializar los minimos y maximos de los sliders
+    		//necesito obtener todos los inmuebles y buscar el min y maximo de dormitorios y precios
+    	
+    	
+    	//necesito metodos para sacar esto en la capa de logica
+    	//MinPriceSlider.setMin(minPrecio);
+    	//MinPriceSlider.setMax(maxPrecio);
+    	//dormitorioSlider.setMin(minDormitorio);
+    	//dormitorioSlider.setMax(maxDormitorio);
+    	
+    	MinPriceLabel.setText(String.valueOf(df.format(MinPriceSlider.getValue())));
+    	MaxPriceLabel.setText(String.valueOf(df.format(MaxPriceSlider.getValue())));
+    	DormitorioLabel.setText(String.valueOf(df.format(DormitorioSlider.getValue())));
+    	
+    	
+    	// actualizar lista de inmuebles
+    	//listaDeInmuebles.addall(gestor.getInmuebles());
+    	InmuebleTable.setItems(listaDeInmuebles);
+		
+	}
+    
+    
     @FXML
-    void DormitorioDrag(MouseEvent event) {
-
+    void DormitorioDrag(MouseEvent  event) {
+    	DormitorioLabel.setText(String.valueOf((int)(DormitorioSlider.getValue())));
     }
 
     @FXML
@@ -108,13 +151,19 @@ public class ConsultaInmueblesController {
     }
 
     @FXML
-    void MaxDrag(MouseEvent event) {
+    void MaxDrag(MouseEvent  event) {
+    	
+    	
+    	MaxPriceLabel.setText(String.valueOf(df.format(MaxPriceSlider.getValue())));
+    	
 
     }
 
     @FXML
-    void MinDrag(MouseEvent event) {
+    void MinDrag(MouseEvent  event) {
 
+    	MinPriceLabel.setText(String.valueOf(df.format(MinPriceSlider.getValue())));
+    	
     }
 
     @FXML
@@ -137,5 +186,7 @@ public class ConsultaInmueblesController {
     	}
 
     }
+
+	
 
 }

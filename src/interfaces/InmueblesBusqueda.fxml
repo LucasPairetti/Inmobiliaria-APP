@@ -53,7 +53,7 @@
       <CheckBox fx:id="QuintaCheckBox" layoutX="408.0" layoutY="346.0" mnemonicParsing="false" text="Quinta" />
       <CheckBox fx:id="GalponCheckBox" layoutX="408.0" layoutY="384.0" mnemonicParsing="false" text="Galpon" />
       <Slider fx:id="MaxPriceSlider" layoutX="126.0" layoutY="513.0" onDragDetected="#MaxDrag" showTickLabels="true" showTickMarks="true" />
-      <Slider fx:id="MinPriceSlider" layoutX="126.0" layoutY="471.0" onDragDetected="#MinDrag" showTickLabels="true" showTickMarks="true" />
+      <Slider fx:id="MinPriceSlider" layoutX="126.0" layoutY="471.0" onDragDone="#MinDrag" showTickLabels="true" showTickMarks="true" />
       <Label layoutX="86.0" layoutY="436.0" text="Precio:" />
       <Label layoutX="71.0" layoutY="481.0" text="Min:" />
       <Label layoutX="71.0" layoutY="529.0" text="Max" />
