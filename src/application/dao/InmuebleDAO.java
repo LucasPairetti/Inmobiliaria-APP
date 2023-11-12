@@ -21,7 +21,7 @@ import jakarta.persistence.criteria.Root;
 
 public class InmuebleDAO {
 
-	public class VentaDAO {
+	//public class VentaDAO {
 		
 		//Singleton
 		private static InmuebleDAO instance;
@@ -149,6 +149,6 @@ public class InmuebleDAO {
 			}
 				
 			
-		}
+	//	}
 	
 }

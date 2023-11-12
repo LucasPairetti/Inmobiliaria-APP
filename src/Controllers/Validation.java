@@ -3,7 +3,19 @@ package Controllers;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import application.dao.InmuebleDAO;
+
 public class Validation {
+	
+	private static Validation instance;
+	
+	public static Validation getInstance() {
+		if(instance == null) {
+			instance = new Validation();
+		}
+		return instance;
+	}
+	
 	
 	public int esUnNumero(String entrada) {
 		
