@@ -1,11 +1,15 @@
 package services;
 
 import java.util.List;
+<<<<<<< HEAD
 import java.util.stream.Collectors;
+=======
+>>>>>>> a3b347a (service inmueble empezado)
 
 import Controllers.Validation;
 import application.clases.Inmueble;
 import application.clases.Localidad;
+<<<<<<< HEAD
 import application.clases.Propietario;
 import application.clases.Provincia;
 import application.clases.TipoInmueble;
@@ -76,10 +80,51 @@ public class InmuebleServices {
 			return new InmuebleDTO(i.getPropietario(), i);
 		}
 		else {
+=======
+import application.clases.Provincia;
+import application.dao.InmuebleDAO;
+
+public class InmuebleServices {
+	InmuebleDAO inmuebledao;
+	Validation validation;
+	
+	public InmuebleServices() {
+		super();
+		inmuebledao = InmuebleDAO.getVentaDAO(); 
+		validation = Validation.getInstance();
+	}
+	
+	public void createInmuelbe(Inmueble inmueble) {
+		inmuebledao.createInmueble(inmueble);
+	}
+	
+	public void deleteInmueble(Inmueble inmueble) {
+		inmuebledao.deleteInmueble(inmueble);
+	}
+	
+	public void updateInmueble(Inmueble inmueble) {
+		Inmueble og = inmuebledao.getInmuebleById(inmueble.getId());
+		chequearModificaciones(og,inmueble); //si se modifico algo que no se debia se vuelve al original
+		inmuebledao.updateInmueble(inmueble);
+	}
+	
+	public List<Inmueble> listInmuebles() {
+		return inmuebledao.getAllInmuebles();
+	}
+	
+	public Inmueble getById(int id) {
+		Inmueble i = inmuebledao.getInmuebleById(id);
+		if(i!= null) {
+			return i;
+		}
+		else {
+			System.out.print("no existe inmueble con id: "+id);
+>>>>>>> a3b347a (service inmueble empezado)
 			return null;
 		}
 	}
 	
+<<<<<<< HEAD
 	public List<InmuebleDTO> getInmueble(String p, String l, String b, List<String> tipos, int cantdorm,
 			double min, double max){
 		ArrayList<Object> criterios = new ArrayList<Object>();
@@ -93,6 +138,15 @@ public class InmuebleServices {
 		return inmuebledao.getInmueble(criterios).stream()
 	            .map(inmueble -> new InmuebleDTO(inmueble.getPropietario(), inmueble))
 	            .collect(Collectors.toList());
+=======
+	public List<Inmueble> resultadoBusqueda(String p, String l, String b, List<String> tipos, int cantdorm,
+			double min, double max){
+		return null;
+	}
+	
+	public Inmueble setInmueble() {
+		return null;
+>>>>>>> a3b347a (service inmueble empezado)
 	}
 
 	
@@ -106,6 +160,7 @@ public class InmuebleServices {
 		i.setPisodpto(og.getPisodpto());
 		i.setBarrio(og.getBarrio());
 	}
+<<<<<<< HEAD
 	private boolean chequearDuplicado( Provincia provincia, Localidad localidad,String calle, int numero,
 			String pisodpto, TipoInmueble tipoInmueble) {
 		ArrayList<Object> criterios= new ArrayList<Object>();
@@ -137,3 +192,6 @@ public class InmuebleServices {
 	
 }
 
+=======
+}
+>>>>>>> a3b347a (service inmueble empezado)
