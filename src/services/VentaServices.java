@@ -11,17 +11,24 @@ import application.dao.VendedorDAO;
 import application.dao.VentaDAO;
 
 public class VentaServices {
-	VentaDAO ventadao;
-	InmuebleDAO inmuebledao;
-	VendedorDAO vendedordao;
-	ClienteDAO clientedao;
-	Validation validation;
-	public VentaServices() {
-		super();
-		ventadao = VentaDAO.getVentaDAO();
-		inmuebledao = InmuebleDAO.getVentaDAO();
-		validation = Validation.getInstance();
+	private static VentaServices instance;
+	
+	private static VentaDAO ventadao;
+	private static InmuebleDAO inmuebledao;
+	private static VendedorDAO vendedordao;
+	private static ClienteDAO clientedao;
+	private static Validation validation;
+	
+	public static VentaServices getInstance() {
+		if(instance==null) {
+			instance = new VentaServices();
+			ventadao = VentaDAO.getVentaDAO();
+			inmuebledao = InmuebleDAO.getVentaDAO();
+			validation = Validation.getInstance();
+		}
+		return instance;
 	}
+	
 	public void createVenta(Venta venta) {
 		//check todos existen
 		if(inmuebledao.getInmuebleById(venta.getPropiedad().getId())!=null 

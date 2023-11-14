@@ -8,10 +8,16 @@ import application.clases.TipoDNI;
 import application.dao.PropietarioDAO;
 
 public class PropietarioServices {
-	PropietarioDAO propietariodao;
-	public PropietarioServices() {
-		super();
-		propietariodao = PropietarioDAO.getPropietarioDAO();
+	private static PropietarioServices instance;
+	
+	private static PropietarioDAO propietariodao;
+	
+	public static PropietarioServices getInstance() {
+		if(instance==null) {
+			instance= new PropietarioServices();
+			propietariodao = PropietarioDAO.getPropietarioDAO();
+		}
+		return instance;
 	}
 	
 	public void createPropietario(Propietario propietario) {

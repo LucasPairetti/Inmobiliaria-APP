@@ -7,10 +7,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ClienteServices {
-	ClienteDAO clientedao;
-	public ClienteServices() {
-		super();
-		clientedao = ClienteDAO.getClienteDAO(); 
+	private static ClienteServices instance;
+	private static ClienteDAO clientedao;
+	
+	public static ClienteServices getInstance() {
+		if(instance==null) {
+			instance = new ClienteServices();
+			clientedao = ClienteDAO.getClienteDAO(); 
+		}
+		return instance;
 	}
 	public void createCliente(Cliente cliente) {
 		 clientedao.createCliente(cliente);

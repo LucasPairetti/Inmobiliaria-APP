@@ -8,16 +8,23 @@ import application.clases.Localidad;
 import application.clases.Propietario;
 import application.clases.Provincia;
 import application.dao.InmuebleDAO;
+import application.dao.PropietarioDAO;
+
 import java.util.ArrayList;
 public class InmuebleServices {
-	InmuebleDAO inmuebledao;
-	Validation validation;
+	private static InmuebleServices instance;
+	private static InmuebleDAO inmuebledao;
+	private static Validation validation;
+	private static PropietarioDAO propietariodao;
 	
-	public InmuebleServices() {
-		super();
-		inmuebledao = InmuebleDAO.getVentaDAO(); 
-		propietariodao = PropietarioDAO.getPropietarioDAO();
-		validation = Validation.getInstance();
+	public static InmuebleServices getInstance() {
+		if(instance==null) {
+			instance= new InmuebleServices();
+			inmuebledao = InmuebleDAO.getVentaDAO(); 
+			propietariodao = PropietarioDAO.getPropietarioDAO();
+			validation = Validation.getInstance();
+		}
+		return instance;
 	}
 	
 	public void createInmuelbe(Inmueble inmueble) {
