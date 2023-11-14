@@ -1,9 +1,10 @@
 package services;
 
 import java.util.List;
-
+import java.util.ArrayList;
 import Controllers.Validation;
 import application.clases.Propietario;
+import application.clases.TipoDNI;
 import application.dao.PropietarioDAO;
 
 public class PropietarioServices {
@@ -25,7 +26,7 @@ public class PropietarioServices {
 	}
 	
 	public Propietario getPropietarioById(int id) {
-		Propietario i = propietariodao.getPropietarioById();
+		Propietario i = propietariodao.getPropietarioById(id);
 		if(i!= null) {
 			return i;
 		}
@@ -39,4 +40,12 @@ public class PropietarioServices {
 		return propietariodao.listPropietarios();
 	}
 	
+	public List<Propietario> getPropietario(String n, String a, String dni, TipoDNI tipodni){
+		ArrayList<Object> criterios = new ArrayList<Object>();
+		criterios.add(n);
+		criterios.add(a);
+		criterios.add(dni);
+		criterios.add(tipodni);
+		propietariodao.getPropietario(criterios);
+	}
 }

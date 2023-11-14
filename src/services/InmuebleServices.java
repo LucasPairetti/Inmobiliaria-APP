@@ -8,7 +8,7 @@ import application.clases.Localidad;
 import application.clases.Propietario;
 import application.clases.Provincia;
 import application.dao.InmuebleDAO;
-
+import java.util.ArrayList;
 public class InmuebleServices {
 	InmuebleDAO inmuebledao;
 	Validation validation;
@@ -55,9 +55,17 @@ public class InmuebleServices {
 		}
 	}
 	
-	public List<Inmueble> resultadoBusqueda(String p, String l, String b, List<String> tipos, int cantdorm,
+	public List<Inmueble> getInmueble(String p, String l, String b, List<String> tipos, int cantdorm,
 			double min, double max){
-		return null;
+		ArrayList<Object> criterios = new ArrayList<Object>();
+		criterios.add(p);
+		criterios.add(l);
+		criterios.add(b);
+		criterios.add(tipos);
+		criterios.add(cantdorm);
+		criterios.add(min);
+		criterios.add(max);
+		return inmuebledao.getInmueble(criterios);
 	}
 
 	
