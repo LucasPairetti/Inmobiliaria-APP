@@ -5,6 +5,7 @@ import java.util.List;
 import Controllers.Validation;
 import application.clases.Inmueble;
 import application.clases.Localidad;
+import application.clases.Propietario;
 import application.clases.Provincia;
 import application.dao.InmuebleDAO;
 
@@ -15,11 +16,18 @@ public class InmuebleServices {
 	public InmuebleServices() {
 		super();
 		inmuebledao = InmuebleDAO.getVentaDAO(); 
+		propietariodao = PropietarioDAO.getPropietarioDAO();
 		validation = Validation.getInstance();
 	}
 	
 	public void createInmuelbe(Inmueble inmueble) {
+		Propietario p = propietariodao.getPropietarioById(inmueble.getPropietario().getId());
+		if(p != null) {
 		inmuebledao.createInmueble(inmueble);
+		}
+		else {
+			System.out.print("error al crear, el propietario no existe");
+		}
 	}
 	
 	public void deleteInmueble(Inmueble inmueble) {
@@ -49,10 +57,6 @@ public class InmuebleServices {
 	
 	public List<Inmueble> resultadoBusqueda(String p, String l, String b, List<String> tipos, int cantdorm,
 			double min, double max){
-		return null;
-	}
-	
-	public Inmueble setInmueble() {
 		return null;
 	}
 
