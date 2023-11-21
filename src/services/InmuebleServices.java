@@ -7,9 +7,11 @@ import application.clases.Inmueble;
 import application.clases.Localidad;
 import application.clases.Propietario;
 import application.clases.Provincia;
+import application.clases.TipoInmueble;
 import application.dao.InmuebleDAO;
 import application.dao.PropietarioDAO;
 
+import java.sql.Date;
 import java.util.ArrayList;
 public class InmuebleServices {
 	private static InmuebleServices instance;
@@ -27,24 +29,43 @@ public class InmuebleServices {
 		return instance;
 	}
 	
-	public void createInmuelbe(Inmueble inmueble) {
-		Propietario p = propietariodao.getPropietarioById(inmueble.getPropietario().getId());
-		if(p != null) {
+	public int createInmueble(Propietario propietario, Date fechaCreacion, boolean estado, Provincia provincia,
+			Localidad localidad, String calle, int numero, String pisodpto, String barrio, TipoInmueble tipoInmueble,
+			double precioVenta, String orientacion, float frente, float fondo, int antiguedad, int dormitorios,
+			int banios, boolean patio, boolean piscina, boolean aguaCorriente, boolean cloacas, boolean gasNatural,
+			boolean aguaCaliente, boolean lavadero, boolean pavimento, int telefono, String observaciones) {
+		
+		Propietario p = propietariodao.getPropietarioById(propietario.getId());
+		if(p == null) {
+			return -2;
+		}
+		if(chequearDuplicado( provincia, localidad, calle, numero, pisodpto, tipoInmueble)) {
+			return -3;
+		}
+		Inmueble inmueble=  new Inmueble(propietario, fechaCreacion, estado, provincia,
+				localidad, calle, numero, pisodpto, barrio, tipoInmueble,
+				precioVenta, orientacion, frente,  fondo,  antiguedad,  dormitorios,
+				banios, patio, piscina, aguaCorriente, cloacas, gasNatural,
+				aguaCaliente, lavadero,pavimento, telefono, observaciones);
 		inmuebledao.createInmueble(inmueble);
-		}
-		else {
-			System.out.print("error al crear, el propietario no existe");
-		}
+		return 1;
 	}
 	
-	public void deleteInmueble(Inmueble inmueble) {
+	public int deleteInmueble(int i) {
+		Inmueble inmueble = getById(i);
+		if(inmueble!=null) {
 		inmuebledao.deleteInmueble(inmueble);
+		return 1;
+		}else {return -1;}
 	}
 	
-	public void updateInmueble(Inmueble inmueble) {
+	public int updateInmueble(Inmueble inmueble) {
+		
 		Inmueble og = inmuebledao.getInmuebleById(inmueble.getId());
+		if(og!=null) {
 		chequearModificaciones(og,inmueble); //si se modifico algo que no se debia se vuelve al original
 		inmuebledao.updateInmueble(inmueble);
+		return 1;}else {return -1;}
 	}
 	
 	public List<Inmueble> listInmuebles() {
@@ -86,4 +107,19 @@ public class InmuebleServices {
 		i.setPisodpto(og.getPisodpto());
 		i.setBarrio(og.getBarrio());
 	}
+	private boolean chequearDuplicado( Provincia provincia, Localidad localidad,String calle, int numero,
+			String pisodpto, TipoInmueble tipoInmueble) {
+		ArrayList<Object> criterios= new ArrayList<Object>;
+		criterios.add(provincia);
+		criterios.add(localidad);
+		criterios.add(calle);
+		criterios.add(numero);
+		List<Inmueble> lista=inmuebledao.getInmueble(criterios);
+		if(lista==null||
+			lista.stream().filter(i -> TipoInmueble.D.equals(i.getTipoInmueble())).noneMatch(i->pisodpto.equals(i.getPisodpto())))
+		{return false;}
+		else { return true;}
+		}
+	
 }
+
