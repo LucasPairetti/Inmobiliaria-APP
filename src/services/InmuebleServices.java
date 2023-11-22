@@ -1,6 +1,7 @@
 package services;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import Controllers.Validation;
 import application.clases.Inmueble;
@@ -10,13 +11,13 @@ import application.clases.Provincia;
 import application.clases.TipoInmueble;
 import application.dao.InmuebleDAO;
 import application.dao.PropietarioDAO;
+import dto.InmuebleDTO;
 
 import java.sql.Date;
 import java.util.ArrayList;
 public class InmuebleServices {
 	private static InmuebleServices instance;
 	private static InmuebleDAO inmuebledao;
-	private static Validation validation;
 	private static PropietarioDAO propietariodao;
 	
 	public static InmuebleServices getInstance() {
@@ -24,29 +25,22 @@ public class InmuebleServices {
 			instance= new InmuebleServices();
 			inmuebledao = InmuebleDAO.getVentaDAO(); 
 			propietariodao = PropietarioDAO.getPropietarioDAO();
-			validation = Validation.getInstance();
 		}
 		return instance;
 	}
 	
-	public int createInmueble(Propietario propietario, Date fechaCreacion, boolean estado, Provincia provincia,
-			Localidad localidad, String calle, int numero, String pisodpto, String barrio, TipoInmueble tipoInmueble,
-			double precioVenta, String orientacion, float frente, float fondo, int antiguedad, int dormitorios,
-			int banios, boolean patio, boolean piscina, boolean aguaCorriente, boolean cloacas, boolean gasNatural,
-			boolean aguaCaliente, boolean lavadero, boolean pavimento, int telefono, String observaciones) {
+	public int createInmueble(InmuebleDTO entrada) {
 		
-		Propietario p = propietariodao.getPropietarioById(propietario.getId());
+		Propietario p = propietariodao.getPropietarioById(entrada.getIdPropietario());
 		if(p == null) {
 			return -2;
 		}
-		if(chequearDuplicado( provincia, localidad, calle, numero, pisodpto, tipoInmueble)) {
+		Inmueble inmueble= toInmueble(p, entrada);
+		if(chequearDuplicado(inmueble.getProvincia(), inmueble.getLocalidad(), inmueble.getCalle(), inmueble.getNumero(),
+				inmueble.getPisodpto(), inmueble.getTipoInmueble())) {
 			return -3;
 		}
-		Inmueble inmueble=  new Inmueble(propietario, fechaCreacion, estado, provincia,
-				localidad, calle, numero, pisodpto, barrio, tipoInmueble,
-				precioVenta, orientacion, frente,  fondo,  antiguedad,  dormitorios,
-				banios, patio, piscina, aguaCorriente, cloacas, gasNatural,
-				aguaCaliente, lavadero,pavimento, telefono, observaciones);
+		
 		inmuebledao.createInmueble(inmueble);
 		return 1;
 	}
@@ -59,31 +53,34 @@ public class InmuebleServices {
 		}else {return -1;}
 	}
 	
-	public int updateInmueble(Inmueble inmueble) {
+	public int updateInmueble(InmuebleDTO entrada) {
 		
-		Inmueble og = inmuebledao.getInmuebleById(inmueble.getId());
-		if(og!=null) {
+		Inmueble og = inmuebledao.getInmuebleById(entrada.getId());
+		if(og != null) {
+		Inmueble inmueble = toInmueble(og.getPropietario(),entrada);
 		chequearModificaciones(og,inmueble); //si se modifico algo que no se debia se vuelve al original
 		inmuebledao.updateInmueble(inmueble);
-		return 1;}else {return -1;}
+		return 1;}
+		else {return -1;}
 	}
 	
-	public List<Inmueble> listInmuebles() {
-		return inmuebledao.getAllInmuebles();
-	}
+	public List<InmuebleDTO> listInmuebles() {
+		return inmuebledao.getAllInmuebles().stream()
+	            .map(inmueble -> new InmuebleDTO(inmueble.getPropietario(), inmueble))
+	            .collect(Collectors.toList());
+	} 
 	
-	public Inmueble getById(int id) {
+	public InmuebleDTO getById(int id) {
 		Inmueble i = inmuebledao.getInmuebleById(id);
 		if(i!= null) {
-			return i;
+			return new InmuebleDTO(i.getPropietario(), i);
 		}
 		else {
-			System.out.print("no existe inmueble con id: "+id);
 			return null;
 		}
 	}
 	
-	public List<Inmueble> getInmueble(String p, String l, String b, List<String> tipos, int cantdorm,
+	public List<InmuebleDTO> getInmueble(String p, String l, String b, List<String> tipos, int cantdorm,
 			double min, double max){
 		ArrayList<Object> criterios = new ArrayList<Object>();
 		criterios.add(p);
@@ -93,7 +90,9 @@ public class InmuebleServices {
 		criterios.add(cantdorm);
 		criterios.add(min);
 		criterios.add(max);
-		return inmuebledao.getInmueble(criterios);
+		return inmuebledao.getInmueble(criterios).stream()
+	            .map(inmueble -> new InmuebleDTO(inmueble.getPropietario(), inmueble))
+	            .collect(Collectors.toList());
 	}
 
 	
@@ -120,6 +119,21 @@ public class InmuebleServices {
 		{return false;}
 		else { return true;}
 		}
+	private Inmueble toInmueble(Propietario propietario, InmuebleDTO entrada) {// cubrir Excepciones puede hacerse desde la UI
+		
+		Provincia provincia = Provincia.valueOf(entrada.getProvincia());
+		Localidad localidad = Localidad.valueOf(entrada.getLocalidad());
+		TipoInmueble tipoInmueble = TipoInmueble.valueOf(entrada.getTipoInmueble());
+		Inmueble inmueble = new Inmueble(propietario, entrada.getFechaCreacion(),  entrada.isEstado(), provincia, localidad,
+				 entrada.getCalle(),  entrada.getNumero(),entrada.getPisodpto(),  entrada.getBarrio(), tipoInmueble,
+				 entrada.getPrecioVenta(),   entrada.getOrientacion(),entrada.getFrente(),  entrada.getFondo(),
+				 entrada.getAntiguedad(),  entrada.getDormitorios(), entrada.getBanios(),  entrada.isPatio(),
+				 entrada.isPiscina(), entrada.isAguaCorriente(), entrada.isCloacas(),entrada.isGasNatural(),
+				 entrada.isAguaCaliente(),  entrada.isLavadero(),  entrada.isPavimento(),   entrada.getTelefono(),
+				 entrada.getObservaciones());
+		return inmueble;
+		
+	}
 	
 }
 
