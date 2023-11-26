@@ -46,7 +46,7 @@ public class InmuebleServices {
 	}
 	
 	public int deleteInmueble(int i) {
-		Inmueble inmueble = getById(i);
+		Inmueble inmueble = inmuebledao.getInmuebleById(i);
 		if(inmueble!=null) {
 		inmuebledao.deleteInmueble(inmueble);
 		return 1;
@@ -108,7 +108,7 @@ public class InmuebleServices {
 	}
 	private boolean chequearDuplicado( Provincia provincia, Localidad localidad,String calle, int numero,
 			String pisodpto, TipoInmueble tipoInmueble) {
-		ArrayList<Object> criterios= new ArrayList<Object>;
+		ArrayList<Object> criterios= new ArrayList<Object>();
 		criterios.add(provincia);
 		criterios.add(localidad);
 		criterios.add(calle);
