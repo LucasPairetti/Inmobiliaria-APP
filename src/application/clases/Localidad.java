@@ -1,5 +1,5 @@
 package application.clases;
 
 public enum Localidad {
-	SantaFe,SantoTome,SauceViejo,Rincon,ColastineNorte,ColastineSur
+	Santa_Fe,Santo_Tome,Sauce_Viejo,Rincon,Colastine_Norte,Colastine_Sur
 }

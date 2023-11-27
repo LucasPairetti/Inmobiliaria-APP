@@ -135,7 +135,7 @@ public class InmuebleDTO {
 		this.fechaCreacion = inmueble.getFechaCreacion();
 		this.estado = inmueble.isEstado();
 		this.provincia = inmueble.getProvincia().toString().replace(" ", "_");
-		this.localidad = inmueble.getLocalidad().toString();
+		this.localidad = inmueble.getLocalidad();
 		this.calle = inmueble.getCalle();
 		this.numero = inmueble.getNumero();
 		this.pisodpto = inmueble.getPisodpto();

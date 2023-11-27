@@ -15,6 +15,8 @@ import dto.InmuebleDTO;
 
 import java.sql.Date;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.EnumSet;
 public class InmuebleServices {
 	
 	private static InmuebleServices instance;
@@ -84,14 +86,25 @@ public class InmuebleServices {
 	public List<InmuebleDTO> getInmueble(String p, String l, String b, String t, int cantdorm,
 			float min, float max){
 		Provincia provincia = Provincia.valueOf(p.replace(" ", "_"));
-		Localidad localidad = Localidad.valueOf(l);
 		TipoInmueble tipoInmueble = TipoInmueble.valueOf(t);
-		return inmuebledao.getInmueble(provincia,localidad,b,tipoInmueble,cantdorm,min,max).stream()
+		return inmuebledao.getInmueble(provincia,l,b,tipoInmueble,cantdorm,min,max).stream()
 	            .map(inmueble -> new InmuebleDTO(inmueble.getPropietario(), inmueble))
 	            .collect(Collectors.toList());
 	}
 
-	
+	public List<String> getLocalidad(){
+		 List<Inmueble> inmuebles = inmuebledao.getAllInmuebles();
+		 List<String> localidades = inmuebles.stream()
+	                .map(Inmueble::getLocalidad)
+	                .distinct()
+	                .collect(Collectors.toList());
+	        EnumSet<Localidad> conjuntoDeLocalidades = Arrays.stream(Localidad.values())
+	                .filter(localidad -> !localidades.contains(localidad.name().replace("_", " ")))
+	                .collect(Collectors.toCollection(() -> EnumSet.noneOf(Localidad.class)));
+
+	        conjuntoDeLocalidades.forEach(localidad -> localidades.add(localidad.name().replace("_"," ")));
+	        return localidades;
+	}
 	private void chequearModificaciones(Inmueble og, Inmueble i) {
 		i.setPropietario(og.getPropietario());
 		i.setFechaCreacion(og.getFechaCreacion());
@@ -102,7 +115,7 @@ public class InmuebleServices {
 		i.setPisodpto(og.getPisodpto());
 		i.setBarrio(og.getBarrio());
 	}
-	private boolean chequearDuplicado( Provincia provincia, Localidad localidad,String calle, int numero,
+	private boolean chequearDuplicado( Provincia provincia, String localidad,String calle, int numero,
 			String pisodpto, TipoInmueble tipoInmueble) {
 		List<Inmueble> lista=inmuebledao.getInmueble(provincia,localidad,calle,numero,pisodpto,tipoInmueble);
 		if(lista==null||
@@ -113,9 +126,8 @@ public class InmuebleServices {
 	private Inmueble toInmueble(Propietario propietario, InmuebleDTO entrada) {// cubrir Excepciones puede hacerse desde la UI
 		
 		Provincia provincia = Provincia.valueOf(entrada.getProvincia().replace(" ", "_"));
-		Localidad localidad = Localidad.valueOf(entrada.getLocalidad());
 		TipoInmueble tipoInmueble = TipoInmueble.valueOf(entrada.getTipoInmueble());
-		Inmueble inmueble = new Inmueble(propietario, entrada.getFechaCreacion(),  entrada.isEstado(), provincia, localidad,
+		Inmueble inmueble = new Inmueble(propietario, entrada.getFechaCreacion(),  entrada.isEstado(), provincia, entrada.getLocalidad(),
 				 entrada.getCalle(),  entrada.getNumero(),entrada.getPisodpto(),  entrada.getBarrio(), tipoInmueble,
 				 entrada.getPrecioVenta(),   entrada.getOrientacion(),entrada.getFrente(),  entrada.getFondo(),
 				 entrada.getAntiguedad(),  entrada.getDormitorios(), entrada.getBanios(),  entrada.isPatio(),

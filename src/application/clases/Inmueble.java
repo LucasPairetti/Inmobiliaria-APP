@@ -35,7 +35,7 @@ public class Inmueble {
 	Provincia provincia;
 	@Enumerated(EnumType.STRING)
 	@Column(name="localidad", nullable=false)
-	Localidad localidad;
+	String localidad;
 	@Column(name="calle", nullable=false)
 	String calle;
 	@Column(name="numeroCalle", nullable=false)
@@ -92,7 +92,7 @@ public class Inmueble {
 		// TODO Auto-generated constructor stub
 	}
 	public Inmueble(Propietario propietario, Date fechaCreacion, boolean estado, Provincia provincia,
-			Localidad localidad, String calle, int numero, String pisodpto, String barrio, TipoInmueble tipoInmueble,
+			String localidad, String calle, int numero, String pisodpto, String barrio, TipoInmueble tipoInmueble,
 			double precioVenta, String orientacion, float frente, float fondo, int antiguedad, int dormitorios,
 			int banios, boolean patio, boolean piscina, boolean aguaCorriente, boolean cloacas, boolean gasNatural,
 			boolean aguaCaliente, boolean lavadero, boolean pavimento, int telefono, String observaciones) {
@@ -151,10 +151,10 @@ public class Inmueble {
 	public void setProvincia(Provincia provincia) {
 		this.provincia = provincia;
 	}
-	public Localidad getLocalidad() {
+	public String getLocalidad() {
 		return localidad;
 	}
-	public void setLocalidad(Localidad localidad) {
+	public void setLocalidad(String localidad) {
 		this.localidad = localidad;
 	}
 	public String getCalle() {

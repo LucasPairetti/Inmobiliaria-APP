@@ -133,7 +133,7 @@ public class InmuebleDAO {
 		}
 
 		
-			public List<Inmueble> getInmueble(Provincia provincia, Localidad localidad, String barrio, TipoInmueble tipo, int dormitorios, 
+			public List<Inmueble> getInmueble(Provincia provincia, String localidad, String barrio, TipoInmueble tipo, int dormitorios, 
 					float precioMin, float precioMax) {
 				// TODO Auto-generated method stub
 				
@@ -174,7 +174,7 @@ public class InmuebleDAO {
 				
 				
 			}
-			public List<Inmueble> getInmueble(Provincia provincia, Localidad localidad,String calle, int numero,
+			public List<Inmueble> getInmueble(Provincia provincia, String localidad,String calle, int numero,
 					String pisodpto, TipoInmueble tipoInmueble) {
 				
 				Session session = HibernateUtil.getSessionFactory().getCurrentSession();
