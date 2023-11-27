@@ -1,11 +1,14 @@
 package application.dao;
 
 import java.sql.Date;
+import java.sql.PreparedStatement;
 import java.util.ArrayList;
 import java.util.List;
 
 import org.hibernate.PersistentObjectException;
 import org.hibernate.Session;
+import org.hibernate.query.Query;
+
 import application.clases.Inmueble;
 import application.clases.Localidad;
 import application.clases.Propietario;
@@ -21,12 +24,13 @@ import jakarta.persistence.criteria.Root;
 
 public class InmuebleDAO {
 
-	public class VentaDAO {
-		
+
+	//public class VentaDAO {
+
 		//Singleton
 		private static InmuebleDAO instance;
 		
-		public static InmuebleDAO getVentaDAO() {
+		public static InmuebleDAO getInmuebleDAO() {
 			if(instance == null) {
 				instance = new InmuebleDAO();
 			}
@@ -65,29 +69,43 @@ public class InmuebleDAO {
 		public void deleteInmueble(Inmueble inmueble) {
 			// TODO Auto-generated method stub
 			Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+			
+			try {
 			session.beginTransaction();
-			
 			session.remove(inmueble);
-			
 			session.getTransaction().commit();
 			session.close();
+			}catch(final NoResultException nre) {
+				session.getTransaction().commit();
+				session.close();
+				System.out.println("Ha ocurrido un error");
+		    }
 			
 		}
 
 		
 		public List<Inmueble> getAllInmuebles() {
 			// TODO Auto-generated method stub
+			
 			Session session = HibernateUtil.getSessionFactory().getCurrentSession();
-			session.beginTransaction();
 			
-			List<Inmueble> inmuebles = session
-					.createQuery("SELECT a FROM Inmueble", Inmueble.class)
-					.getResultList();
+			try {
+				session.beginTransaction();
+				List<Inmueble> inmuebles = session
+						.createQuery("SELECT a FROM Inmueble", Inmueble.class)
+						.getResultList();
+				session.getTransaction().commit();
+				session.close();
+				
+				return inmuebles;
+				
+			}catch(final NoResultException nre) {
+				session.getTransaction().commit();
+				session.close();
+				System.out.println("Ha ocurrido un error");
+				return null;
+		    }
 			
-			session.getTransaction().commit();
-			session.close();
-			
-			return inmuebles;
 			
 		}
 
@@ -113,10 +131,10 @@ public class InmuebleDAO {
 			    }
 
 		}
+
 		
-		//Noimplementado
-		
-			public List<Inmueble> getInmueble(ArrayList<Object> argumentos) {
+			public List<Inmueble> getInmueble(Provincia provincia, String localidad, String barrio, TipoInmueble tipo, int dormitorios, 
+					float precioMin, float precioMax) {
 				// TODO Auto-generated method stub
 				
 				Session session = HibernateUtil.getSessionFactory().getCurrentSession();
@@ -124,14 +142,23 @@ public class InmuebleDAO {
 				
 				try {
 				
-				CriteriaBuilder builder = session.getCriteriaBuilder();
-			    CriteriaQuery<Inmueble> criteria = builder.createQuery(Inmueble.class);
-			    Root<Inmueble> from = criteria.from(Inmueble.class);
-			    criteria.select(from);
-			    criteria.where(builder.equal(from.get("propietario"), ""));
-			    TypedQuery<Inmueble> typed = session.createQuery(criteria);
+				Query<Inmueble> query = session.createQuery("SELECT * FROM INMUEBLE WHERE"
+						+ "(PROVINCIA = ?1 OR ?1 IS NULL) AND"
+						+ "(LOCALIDAD = ?2 OR ?2 IS NULL) AND"
+						+ "(BARRIO = ?3 OR ?3 IS NULL) AND"
+						+ "(TIPO = ?4 OR ?4 IS NULL) AND"
+						+ "(DORMITORIOS = ?5 OR ?5 IS NULL) AND"
+						+ "(PRECIO>=?6 OR ?6 IS NULL) AND"
+						+ "(PRECIO<=?7 OR ?7 IS NULL);", Inmueble.class);
+				query.setParameter(1, provincia);
+				query.setParameter(2, localidad);
+				query.setParameter(3, barrio);
+				query.setParameter(4, tipo);
+				query.setParameter(5, dormitorios);
+				query.setParameter(6, precioMin);
+				query.setParameter(7, precioMax);
 				
-			    ArrayList<Inmueble> inmuebles = (ArrayList<Inmueble>) typed.getResultList();
+			    ArrayList<Inmueble> inmuebles = (ArrayList<Inmueble>) query.getResultList();
 			    
 				session.getTransaction().commit();
 				session.close();
@@ -147,8 +174,46 @@ public class InmuebleDAO {
 				
 				
 			}
+			public List<Inmueble> getInmueble(Provincia provincia, String localidad,String calle, int numero,
+					String pisodpto, TipoInmueble tipoInmueble) {
 				
-			
-		}
+				Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+				session.beginTransaction();
+				
+				try {
+				
+				Query<Inmueble> query = session.createQuery("SELECT * FROM INMUEBLE WHERE"
+						+ "(PROVINCIA = ?1 OR ?1 IS NULL) AND"
+						+ "(LOCALIDAD = ?2 OR ?2 IS NULL) AND"
+						+ "(CALLE = ?3 OR ?3 IS NULL) AND"
+						+ "(NUMERO = ?4 OR ?4 IS NULL) AND"
+						+ "(PISODPTO = ?5 OR ?5 IS NULL) AND"
+						+ "(TIPO = ?6 OR ?6 IS NULL)", Inmueble.class);
+				query.setParameter(1, provincia);
+				query.setParameter(2, localidad);
+				query.setParameter(3, calle);
+				query.setParameter(4, numero);
+				query.setParameter(5, pisodpto);
+				query.setParameter(6, tipoInmueble);
+				
+			    ArrayList<Inmueble> inmuebles = (ArrayList<Inmueble>) query.getResultList();
+			    
+				session.getTransaction().commit();
+				session.close();
+				
+				return inmuebles;
+				
+				 } catch (final NoResultException nre) {
+					 	session.getTransaction().commit();
+						session.close();
+						
+				        return null;
+				    }
+				
+				
+			}	
+
+	//	}
 	
+
 }
