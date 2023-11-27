@@ -16,6 +16,7 @@ import dto.InmuebleDTO;
 import java.sql.Date;
 import java.util.ArrayList;
 public class InmuebleServices {
+	
 	private static InmuebleServices instance;
 	private static InmuebleDAO inmuebledao;
 	private static PropietarioDAO propietariodao;
@@ -82,7 +83,7 @@ public class InmuebleServices {
 	
 	public List<InmuebleDTO> getInmueble(String p, String l, String b, String t, int cantdorm,
 			float min, float max){
-		Provincia provincia = Provincia.valueOf(b);
+		Provincia provincia = Provincia.valueOf(p.replace(" ", "_"));
 		Localidad localidad = Localidad.valueOf(l);
 		TipoInmueble tipoInmueble = TipoInmueble.valueOf(t);
 		return inmuebledao.getInmueble(provincia,localidad,b,tipoInmueble,cantdorm,min,max).stream()
@@ -103,12 +104,7 @@ public class InmuebleServices {
 	}
 	private boolean chequearDuplicado( Provincia provincia, Localidad localidad,String calle, int numero,
 			String pisodpto, TipoInmueble tipoInmueble) {
-		ArrayList<Object> criterios= new ArrayList<Object>();
-		criterios.add(provincia);
-		criterios.add(localidad);
-		criterios.add(calle);
-		criterios.add(numero);
-		List<Inmueble> lista=inmuebledao.getInmueble(criterios);
+		List<Inmueble> lista=inmuebledao.getInmueble(provincia,localidad,calle,numero,pisodpto,tipoInmueble);
 		if(lista==null||
 			lista.stream().filter(i -> TipoInmueble.D.equals(i.getTipoInmueble())).noneMatch(i->pisodpto.equals(i.getPisodpto())))
 		{return false;}
@@ -116,7 +112,7 @@ public class InmuebleServices {
 		}
 	private Inmueble toInmueble(Propietario propietario, InmuebleDTO entrada) {// cubrir Excepciones puede hacerse desde la UI
 		
-		Provincia provincia = Provincia.valueOf(entrada.getProvincia());
+		Provincia provincia = Provincia.valueOf(entrada.getProvincia().replace(" ", "_"));
 		Localidad localidad = Localidad.valueOf(entrada.getLocalidad());
 		TipoInmueble tipoInmueble = TipoInmueble.valueOf(entrada.getTipoInmueble());
 		Inmueble inmueble = new Inmueble(propietario, entrada.getFechaCreacion(),  entrada.isEstado(), provincia, localidad,

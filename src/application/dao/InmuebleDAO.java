@@ -143,7 +143,7 @@ public class InmuebleDAO {
 				try {
 				
 				Query<Inmueble> query = session.createQuery("SELECT * FROM INMUEBLE WHERE"
-						+ "(PROVINICIA = ?1 OR ?1 IS NULL) AND"
+						+ "(PROVINCIA = ?1 OR ?1 IS NULL) AND"
 						+ "(LOCALIDAD = ?2 OR ?2 IS NULL) AND"
 						+ "(BARRIO = ?3 OR ?3 IS NULL) AND"
 						+ "(TIPO = ?4 OR ?4 IS NULL) AND"
@@ -174,7 +174,44 @@ public class InmuebleDAO {
 				
 				
 			}
+			public List<Inmueble> getInmueble(Provincia provincia, Localidad localidad,String calle, int numero,
+					String pisodpto, TipoInmueble tipoInmueble) {
 				
+				Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+				session.beginTransaction();
+				
+				try {
+				
+				Query<Inmueble> query = session.createQuery("SELECT * FROM INMUEBLE WHERE"
+						+ "(PROVINCIA = ?1 OR ?1 IS NULL) AND"
+						+ "(LOCALIDAD = ?2 OR ?2 IS NULL) AND"
+						+ "(CALLE = ?3 OR ?3 IS NULL) AND"
+						+ "(NUMERO = ?4 OR ?4 IS NULL) AND"
+						+ "(PISODPTO = ?5 OR ?5 IS NULL) AND"
+						+ "(TIPO = ?6 OR ?6 IS NULL)", Inmueble.class);
+				query.setParameter(1, provincia);
+				query.setParameter(2, localidad);
+				query.setParameter(3, calle);
+				query.setParameter(4, numero);
+				query.setParameter(5, pisodpto);
+				query.setParameter(6, tipoInmueble);
+				
+			    ArrayList<Inmueble> inmuebles = (ArrayList<Inmueble>) query.getResultList();
+			    
+				session.getTransaction().commit();
+				session.close();
+				
+				return inmuebles;
+				
+				 } catch (final NoResultException nre) {
+					 	session.getTransaction().commit();
+						session.close();
+						
+				        return null;
+				    }
+				
+				
+			}	
 
 	//	}
 	
