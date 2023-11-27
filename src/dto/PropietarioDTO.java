@@ -1,65 +1,70 @@
-package application.clases;
+package dto;
 
 import javax.persistence.Column;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 
-public class Propietario {
-	
-	@Id
-	@GeneratedValue(strategy= GenerationType.IDENTITY)
-	@Column(name="idPropietario")
+import application.clases.Localidad;
+import application.clases.Propietario;
+import application.clases.Provincia;
+import application.clases.TipoDNI;
+
+public class PropietarioDTO {
 	int id;
-	@Column(name="nombre", nullable=false)
+	
 	String nombre;
-	@Column(name="apellido", nullable=false)
+
 	String apellido;
-	@Enumerated(EnumType.STRING)
-	@Column(name="tipoDNI", nullable=false)
-	TipoDNI tipodni;
-	@Column(name="dni", nullable=false, unique=true)
+	
+	String tipodni;
+
 	String dni;
-	@Column(name="calle", nullable=false)
+
 	String calle;
-	@Column(name="numero", nullable=false)
+
 	int numero;
-	@Enumerated(EnumType.STRING)
-	@Column(name="localidad", nullable=false)
+	
 	String localidad;
-	@Enumerated(EnumType.STRING)
-	@Column(name="provincia", nullable=false)
-	Provincia provincia;
-	@Column(name="telefono", nullable=false)
+	
+	String provincia;
+	
 	int telefono;
-	@Column(name="email", nullable=false)
+	
 	String email;
 	
-	public Propietario() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
-	public Propietario(String nombre, String apellido, TipoDNI tipodni, String dni, String calle, int numero,
-			String localidad, Provincia provincia, int telefono, String email) {
+	public PropietarioDTO(String nombre, String apellido, String tipodni, String dni, String calle, int numero,
+			String localidad, String provincia, int telefono, String email) {
 		super();
 		this.nombre = nombre;
 		this.apellido = apellido;
-		this.tipodni = tipodni;
+		this.tipodni = tipodni.replace(" ", "_");
 		this.dni = dni;
 		this.calle = calle;
 		this.numero = numero;
 		this.localidad = localidad;
-		this.provincia = provincia;
+		this.provincia = provincia.replace(" ", "_");
 		this.telefono = telefono;
 		this.email = email;
 	}
-	
-	public Integer getId() {
+	public PropietarioDTO(Propietario propietario) {
+		super();
+		this.nombre = propietario.getNombre();
+		this.apellido = propietario.getApellido();
+		this.tipodni = propietario.getTipodni().toString().replace("_"," ");
+		this.dni = propietario.getDni();
+		this.calle = propietario.getCalle();
+		this.numero = propietario.getNumero();
+		this.localidad = propietario.getLocalidad();
+		this.provincia = propietario.getProvincia().toString().replace("_", " ");
+		this.telefono = propietario.getTelefono();
+		this.email = propietario.getEmail();
+	}
+	public int getId() {
 		return id;
 	}
-
+	public void setId(int id) {
+		this.id = id;
+	}
 	public String getNombre() {
 		return nombre;
 	}
@@ -72,10 +77,10 @@ public class Propietario {
 	public void setApellido(String apellido) {
 		this.apellido = apellido;
 	}
-	public TipoDNI getTipodni() {
+	public String getTipodni() {
 		return tipodni;
 	}
-	public void setTipodni(TipoDNI tipodni) {
+	public void setTipodni(String tipodni) {
 		this.tipodni = tipodni;
 	}
 	public String getDni() {
@@ -102,10 +107,10 @@ public class Propietario {
 	public void setLocalidad(String localidad) {
 		this.localidad = localidad;
 	}
-	public Provincia getProvincia() {
+	public String getProvincia() {
 		return provincia;
 	}
-	public void setProvincia(Provincia provincia) {
+	public void setProvincia(String provincia) {
 		this.provincia = provincia;
 	}
 	public int getTelefono() {
@@ -119,13 +124,5 @@ public class Propietario {
 	}
 	public void setEmail(String email) {
 		this.email = email;
-	}
-	@Override
-	public String toString() {
-		return nombre + " " + apellido;
-	}
-	public boolean equals(Propietario p) {
-		if(p.getId().equals(id)) {return true;}
-		else {return false;}
 	}
 }

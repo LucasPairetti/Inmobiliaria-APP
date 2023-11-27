@@ -125,7 +125,7 @@ public class InmuebleServices {
 		}
 	private Inmueble toInmueble(Propietario propietario, InmuebleDTO entrada) {// cubrir Excepciones puede hacerse desde la UI
 		
-		Provincia provincia = Provincia.valueOf(entrada.getProvincia().replace(" ", "_"));
+		Provincia provincia = Provincia.valueOf(entrada.getProvincia());
 		TipoInmueble tipoInmueble = TipoInmueble.valueOf(entrada.getTipoInmueble());
 		Inmueble inmueble = new Inmueble(propietario, entrada.getFechaCreacion(),  entrada.isEstado(), provincia, entrada.getLocalidad(),
 				 entrada.getCalle(),  entrada.getNumero(),entrada.getPisodpto(),  entrada.getBarrio(), tipoInmueble,

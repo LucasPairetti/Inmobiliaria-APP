@@ -99,7 +99,7 @@ public class InmuebleDTO {
 		this.dniPropietario= dniPropietario;
 		this.fechaCreacion = fechaCreacion;
 		this.estado = estado;
-		this.provincia = provincia;
+		this.provincia = provincia.replace(" ", "_");
 		this.localidad = localidad;
 		this.calle = calle;
 		this.numero = numero;
@@ -134,7 +134,7 @@ public class InmuebleDTO {
 		this.dniPropietario= inmueble.getPropietario().getDni();
 		this.fechaCreacion = inmueble.getFechaCreacion();
 		this.estado = inmueble.isEstado();
-		this.provincia = inmueble.getProvincia().toString().replace(" ", "_");
+		this.provincia = inmueble.getProvincia().toString().replace("_", " ");
 		this.localidad = inmueble.getLocalidad();
 		this.calle = inmueble.getCalle();
 		this.numero = inmueble.getNumero();
