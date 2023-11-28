@@ -29,7 +29,7 @@ public class Vendedor {
 	private int numero;
 	@Enumerated(EnumType.STRING)
 	@Column(name="localidad", nullable=false)
-	private Localidad localidad;
+	private String localidad;
 	@Enumerated(EnumType.STRING)
 	@Column(name="provincia", nullable=false)
 	private Provincia provincia;
@@ -49,7 +49,7 @@ public class Vendedor {
 		// TODO Auto-generated constructor stub
 	}
 	public Vendedor(String nombre, String apellido, TipoDNI tipodni, int dni, String calle, int numero,
-			Localidad localidad, Provincia provincia, int telefono, String email, Date fechaNacimiento, double sueldo,
+			String localidad, Provincia provincia, int telefono, String email, Date fechaNacimiento, double sueldo,
 			String clave) {
 		super();
 		this.nombre = nombre;
@@ -98,10 +98,10 @@ public class Vendedor {
 	public void setNumero(int numero) {
 		this.numero = numero;
 	}
-	public Localidad getLocalidad() {
+	public String getLocalidad() {
 		return localidad;
 	}
-	public void setLocalidad(Localidad localidad) {
+	public void setLocalidad(String localidad) {
 		this.localidad = localidad;
 	}
 	public Provincia getProvincia() {

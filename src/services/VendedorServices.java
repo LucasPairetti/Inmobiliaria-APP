@@ -1,41 +1,38 @@
 package services;
 
-import Controllers.Validation;
-import application.clases.Cliente;
-import application.clases.Propietario;
-import application.clases.TipoDNI;
-import application.clases.TipoInmueble;
-import application.dao.ClienteDAO;
-import dto.ClienteDTO;
-import dto.PropietarioDTO;
-
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class ClienteServices {
-	private static ClienteServices instance;
-	private static ClienteDAO clientedao;
+
+import application.clases.TipoDNI;
+import application.clases.TipoInmueble;
+import application.clases.Vendedor;
+import application.dao.VendedorDAO;
+
+
+public class VendedorServices {
+	private static VendedorServices instance;
+	private static VendedorDAO vendedordao;
 	
-	public static ClienteServices getInstance() {
+	public static VendedorServices getInstance() {
 		if(instance==null) {
-			instance = new ClienteServices();
-			clientedao = ClienteDAO.getClienteDAO(); 
+			instance = new VendedorServices();
+			vendedordao = VendedorDAO.getVendedorDAO(); 
 		}
 		return instance;
 	}
-	public int createCliente(ClienteDTO entrada) {
+	public int createVendedor(VendedorDTO entrada) {
 		if(chequearDuplicado( entrada.getTipodni(),entrada.getDni())) {return -1;}//si existe un duplicado retorna -1
 		else {
-			Cliente cliente = toCliente(entrada);
-			 clientedao.createCliente(cliente);
+			Vendedor vendedor = toVendedor(entrada);
+			vendedordao.createVendedor(vendedor);
 			return 1;}
 		
 	};
-	public int deleteCliente(int id) {
-		Cliente cliente = clientedao.getClienteById(id);
-		if(cliente !=null) {
-			clientedao.deleteCliente(cliente);
+	public int deleteVendedor(int id) {
+		Vendedor vendedor = vendedordao.getVendedorById(id);
+		if(vendedor !=null) {
+			vendedordao.deleteVendedor(vendedor);
 			return 1;
 		}else {return -1;}
 	};

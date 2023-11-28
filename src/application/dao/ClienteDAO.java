@@ -67,7 +67,7 @@ public class ClienteDAO {
 	}
 
 		
-	public void DeleteCliente(Cliente cliente) {
+	public void deleteCliente(Cliente cliente) {
 		// TODO Auto-generated method stub
 		
 		Session session = HibernateUtil.getSessionFactory().getCurrentSession();

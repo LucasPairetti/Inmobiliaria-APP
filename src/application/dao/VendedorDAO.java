@@ -64,7 +64,7 @@ public class VendedorDAO {
 		}
 
 			
-		public void DeleteVendedor(Vendedor vendedor) {
+		public void deleteVendedor(Vendedor vendedor) {
 			// TODO Auto-generated method stub
 			
 			Session session = HibernateUtil.getSessionFactory().getCurrentSession();

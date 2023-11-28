@@ -37,12 +37,15 @@ public class PropietarioServices {
 		return 1;
 		}else {return -1;}
 	}
-	public int updatePropietario(Propietario entrada) {
-		Propietario propietario = propietariodao.getPropietarioById(entrada.getId());
-		if(propietario != null) {
-		propietariodao.updatePropietario(propietario);
-		return 1;}
-		else {return-1;}
+	public int updatePropietario(PropietarioDTO entrada) {
+		Propietario og = propietariodao.getPropietarioById(entrada.getId());
+		if(og != null) {//si existe el propierario reestablece los datos que no se modifican y guarda los nuevos.
+			Propietario propietario = toPropietario(entrada);
+			propietario.setDni(og.getDni());
+			propietario.setTipodni(og.getTipodni());
+			propietariodao.updatePropietario(propietario);
+			return 1;}
+		else {return -1;}
 	}
 	
 	public PropietarioDTO getPropietarioById(int id) {
