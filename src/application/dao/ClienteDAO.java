@@ -11,6 +11,7 @@ import application.clases.Cliente;
 import application.clases.Inmueble;
 import application.clases.Localidad;
 import application.clases.Provincia;
+import application.clases.TipoDNI;
 import application.clases.TipoInmueble;
 import jakarta.persistence.NoResultException;
 
@@ -135,7 +136,7 @@ public class ClienteDAO {
 	}
 
 	
-		public List<Cliente> getCliente(String nombre, String apellido) {
+		public List<Cliente> getCliente(String dni,TipoDNI tipo,String nombre, String apellido) {
 			// TODO Auto-generated method stub
 			
 			Session session = HibernateUtil.getSessionFactory().getCurrentSession();
@@ -144,12 +145,14 @@ public class ClienteDAO {
 			try {
 			
 			Query<Cliente> query = session.createQuery("SELECT * FROM CLIENTE WHERE"
-					//+ "(DNI = ?1 OR ?1 IS NULL) AND"
-					+ "(NOMBRE = ?2 OR ?2 IS NULL) AND"
-					+ "(APELLIDO = ?3 OR ?3 IS NULL)", Cliente.class);
-			//query.setParameter(1, dni);
-			query.setParameter(2, nombre);
-			query.setParameter(3, apellido);
+					+ "(DNI = ?1 OR ?1 IS NULL) AND"
+					+ "(TIPODNI = ?2 OR ?2 IS NULL) AND"
+					+ "(NOMBRE = ?3 OR ?3 IS NULL) AND"
+					+ "(APELLIDO = ?4 OR ?4 IS NULL)", Cliente.class);
+			query.setParameter(1, dni);
+			query.setParameter(2, tipo);
+			query.setParameter(3, nombre);
+			query.setParameter(4, apellido);
 			
 		    ArrayList<Cliente> clientes = (ArrayList<Cliente>) query.getResultList();
 		    

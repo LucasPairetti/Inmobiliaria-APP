@@ -25,7 +25,7 @@ public class ClienteServices {
 		return instance;
 	}
 	public int createCliente(ClienteDTO entrada) {
-		TipoDNI tipoDNI= TipoDNI.valueOf(entrada.getTipoDni());
+		TipoDNI tipoDNI= TipoDNI.valueOf(entrada.getTipoDNI());
 		if(chequearDuplicado( tipoDNI,entrada.getDni())) {return -1;}//si existe un duplicado retorna -1
 		else {
 			Cliente cliente = toCliente(entrada);
@@ -59,7 +59,7 @@ public class ClienteServices {
 	public List<ClienteDTO> getClientes(String tipoDNI,String dni,String nombre, String apellido) {
 		TipoDNI tipo= TipoDNI.valueOf(tipoDNI.replace(" ", "_"));
 
-		return clientedao.getCliente(tipo,dni,nombre,apellido).stream()
+		return clientedao.getCliente(dni,tipo,nombre,apellido).stream()
 	            .map(cliente -> new ClienteDTO(cliente))
 	            .collect(Collectors.toList());
 	}
@@ -68,12 +68,12 @@ public class ClienteServices {
 	}
 	private Cliente toCliente( ClienteDTO entrada) {
 		TipoInmueble tipoInmueble= TipoInmueble.valueOf(entrada.getTipoInmuebleBuscado());
-		TipoDNI tipoDNI= TipoDNI.valueOf(entrada.getTipoDni());
-		return new Cliente( entrada.getNombre(), entrada.getApellido(), entrada.getDni(),tipoDNI,entrada.getTelefono(),
+		TipoDNI tipoDNI= TipoDNI.valueOf(entrada.getTipoDNI());
+		return new Cliente( entrada.getNombre(), entrada.getApellido(), entrada.getDni(),tipoDNI,entrada.getTelefono(),entrada.getEmail(),
 				entrada.getMontoDisponible(),tipoInmueble, entrada.getLocalidadBuscada(), entrada.getBarrios(),entrada.getCaracteristicasDeseadas());
 	}
 	private boolean chequearDuplicado( TipoDNI tipo,String dni) {
-		List<Cliente> lista=clientedao.getCliente(tipo,dni,null,null);
+		List<Cliente> lista=clientedao.getCliente(dni,tipo,null,null);
 		if(lista==null){return false;}
 		else { return true;}
 		}

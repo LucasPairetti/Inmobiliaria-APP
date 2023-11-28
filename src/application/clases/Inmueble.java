@@ -48,8 +48,9 @@ public class Inmueble {
 	TipoInmueble tipoInmueble;
 	@Column(name="precioVenta", nullable=false)
 	double precioVenta;
+	@Enumerated(EnumType.STRING)
 	@Column(name="orientacion", nullable=true)
-	String orientacion;
+	Orientacion orientacion;
 	@Column(name="frente",  nullable=false)
 	float frente;
 	@Column(name="fondo",  nullable=false)
@@ -92,7 +93,7 @@ public class Inmueble {
 	}
 	public Inmueble(Propietario propietario, Date fechaCreacion, boolean estado, Provincia provincia,
 			String localidad, String calle, int numero, String pisodpto, String barrio, TipoInmueble tipoInmueble,
-			double precioVenta, String orientacion, float frente, float fondo, int antiguedad, int dormitorios,
+			double precioVenta, Orientacion orientacion, float frente, float fondo, int antiguedad, int dormitorios,
 			int banios, boolean patio, boolean piscina, boolean aguaCorriente, boolean cloacas, boolean gasNatural,
 			boolean aguaCaliente, boolean lavadero, boolean pavimento, int telefono, String observaciones) {
 		super();
@@ -192,10 +193,10 @@ public class Inmueble {
 	public void setPrecioVenta(double precioVenta) {
 		this.precioVenta = precioVenta;
 	}
-	public String getOrientacion() {
+	public Orientacion getOrientacion() {
 		return orientacion;
 	}
-	public void setOrientacion(String orientacion) {
+	public void setOrientacion(Orientacion orientacion) {
 		this.orientacion = orientacion;
 	}
 	public float getFrente() {

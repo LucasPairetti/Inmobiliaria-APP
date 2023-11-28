@@ -105,9 +105,9 @@ public class InmuebleDTO {
 		this.numero = numero;
 		this.pisodpto = pisodpto;
 		this.barrio = barrio;
-		this.tipoInmueble = tipoInmueble;
+		this.tipoInmueble = tipoInmueble.replace(" ", "_");
 		this.precioVenta = precioVenta;
-		this.orientacion = orientacion;
+		this.orientacion = orientacion.replace(" ", "_");
 		this.frente = frente;
 		this.fondo = fondo;
 		this.antiguedad = antiguedad;
@@ -140,9 +140,9 @@ public class InmuebleDTO {
 		this.numero = inmueble.getNumero();
 		this.pisodpto = inmueble.getPisodpto();
 		this.barrio = inmueble.getBarrio();
-		this.tipoInmueble = inmueble.getTipoInmueble().toString();
+		this.tipoInmueble = inmueble.getTipoInmueble().toString().replace("_"," ");
 		this.precioVenta = inmueble.getPrecioVenta();
-		this.orientacion = inmueble.getOrientacion();
+		this.orientacion = inmueble.getOrientacion().toString().replace("_", " ");
 		this.frente = inmueble.getFrente();
 		this.fondo = inmueble.getFondo();
 		this.antiguedad = inmueble.getAntiguedad();

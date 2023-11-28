@@ -10,12 +10,19 @@ public class Cliente {
 	@GeneratedValue(strategy= GenerationType.IDENTITY)
 	@Column(name="idCliente")
 	int id;
+	@Enumerated(EnumType.STRING)
+	@Column(name="tipoDNI", nullable=false)
+	TipoDNI tipodni;
+	@Column(name="dni", nullable=false, unique=true)
+	String dni;
 	@Column(name="nombreCliente", nullable = false)
 	String nombre;
 	@Column(name="apellidoCliente", nullable = false)
 	String apellido;
 	@Column(name="telefonoCliente", nullable = false)
 	int telefono;
+	@Column(name="email", nullable=false)
+	String email;
 	@Column(name="montoDisponible")
 	double montoDisponible;
 	@Column(name="tipoInmuebleBuscado")
@@ -33,12 +40,14 @@ public class Cliente {
 		// TODO Auto-generated constructor stub
 	}
 	
-	public Cliente( String nombre, String apellido, int telefono, double montoDisponible,
+	public Cliente( String nombre, String apellido,String dni,TipoDNI tipoDni, int telefono,String email, double montoDisponible,
 			TipoInmueble tipoInmuebleBuscado, String localidadBuscada, String barrios,
 			String caracteristicasDeseadas) {
 		super();
 		this.nombre = nombre;
 		this.apellido = apellido;
+		this.dni=dni;
+		this.tipodni=tipoDni;
 		this.telefono = telefono;
 		this.montoDisponible = montoDisponible;
 		this.tipoInmuebleBuscado = tipoInmuebleBuscado;
@@ -47,6 +56,30 @@ public class Cliente {
 		this.caracteristicasDeseadas = caracteristicasDeseadas;
 	}
 	
+	public TipoDNI getTipodni() {
+		return tipodni;
+	}
+
+	public void setTipodni(TipoDNI tipodni) {
+		this.tipodni = tipodni;
+	}
+
+	public String getDni() {
+		return dni;
+	}
+
+	public void setDni(String dni) {
+		this.dni = dni;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
 	public Integer getId() {
 		return id;
 	}

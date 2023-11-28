@@ -19,6 +19,8 @@ public class ClienteDTO {
 	String apellido;
 	
 	int telefono;
+	
+	String email;
 
 	double montoDisponible;
 	
@@ -32,14 +34,15 @@ public class ClienteDTO {
 	
 
 	
-	public ClienteDTO( String nombre, String apellido,String dni,String tipoDNI, int telefono, double montoDisponible,
+	public ClienteDTO( String nombre, String apellido,String dni,String tipoDNI, int telefono,String email, double montoDisponible,
 			String tipoInmuebleBuscado, String localidadBuscada, String barrios,
 			String caracteristicasDeseadas) {
 		super();
 		this.nombre = nombre;
 		this.apellido = apellido;
 		this.dni=dni;
-		this.tipoDNI=tipoDNI.replace(" ", "_");;
+		this.tipoDNI=tipoDNI.replace(" ", "_");
+		this.email=email;
 		this.telefono = telefono;
 		this.montoDisponible = montoDisponible;
 		this.tipoInmuebleBuscado = tipoInmuebleBuscado.replace(" ", "_");
@@ -52,12 +55,31 @@ public class ClienteDTO {
 		this.apellido = cliente.getApellido();
 		this.dni=cliente.getDni();
 		this.tipoDNI=cliente.getTipodni().toString().replace("_", " ");
+		this.email=cliente.getEmail();
 		this.telefono = cliente.getTelefono();
 		this.montoDisponible = cliente.getMontoDisponible();
 		this.tipoInmuebleBuscado = cliente.getTipoInmuebleBuscado().toString().replace("_", " ");
 		this.localidadBuscada = cliente.getLocalidadBuscada();
 		this.barrios = cliente.getBarrios();
 		this.caracteristicasDeseadas = cliente.getCaracteristicasDeseadas();
+	}
+	public String getDni() {
+		return dni;
+	}
+	public void setDni(String dni) {
+		this.dni = dni;
+	}
+	public String getTipoDNI() {
+		return tipoDNI;
+	}
+	public void setTipoDNI(String tipoDNI) {
+		this.tipoDNI = tipoDNI;
+	}
+	public String getEmail() {
+		return email;
+	}
+	public void setEmail(String email) {
+		this.email = email;
 	}
 	public int getId() {
 		return id;
