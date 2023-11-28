@@ -1,77 +1,65 @@
-package application.clases;
+package dto;
 
 import java.sql.Date;
 
 import javax.persistence.Column;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 
-public class Vendedor {
-	@Id
-	@GeneratedValue(strategy= GenerationType.IDENTITY)
-	@Column(name="idVendedor")
+import application.clases.Provincia;
+import application.clases.TipoDNI;
+import application.clases.Vendedor;
+
+public class VendedorDTO {
+	
+	
 	private int id;
-	@Column(name="nombre", nullable=false)
+	
 	private String nombre;
-	@Column(name="apellido", nullable=false)
+	
 	private String apellido;
-	@Enumerated(EnumType.STRING)
-	@Column(name="tipoDNI", nullable=false)
-	private TipoDNI tipodni;
-	@Column(name="DNI", nullable=false, unique=true)
+	
+	private String tipodni;
+	
 	private String dni;
-	@Column(name="calle", nullable=false)
-	String calle;
-	@Column(name="numeroCalle", nullable=false)
+	
+	private String calle;
+	
 	private int numero;
-	@Column(name="localidad", nullable=false)
+	
 	private String localidad;
-	@Enumerated(EnumType.STRING)
-	@Column(name="provincia", nullable=false)
-	private Provincia provincia;
-	@Column(name="telefono", nullable=false)
+
+	private String provincia;
+	
 	private int telefono;
-	@Column(name="email", nullable=false)
-	String email;
-	@Column(name="fechaNacimiento", nullable=false)
+	
+	private String email;
+	
 	private Date fechaNacimiento;
-	@Column(name="sueldo", nullable=false)
+	
 	private double sueldo;
-	@Column(name="clave", nullable=false)
+	
 	private String clave;
 	
-	public Vendedor() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
-	public Vendedor(String nombre, String apellido, TipoDNI tipodni, String dni, String calle, int numero,
-			String localidad, Provincia provincia, int telefono, String email, Date fechaNacimiento, double sueldo,
+	public VendedorDTO(String nombre, String apellido, String tipodni, String dni, String calle, int numero,
+			String localidad, String provincia, int telefono, String email, Date fechaNacimiento, double sueldo,
 			String clave) {
-		super();
 		this.nombre = nombre;
 		this.apellido = apellido;
-		this.tipodni = tipodni;
+		this.tipodni = tipodni.replace(" ", "_");
 		this.dni = dni;
 		this.calle = calle;
 		this.numero = numero;
 		this.localidad = localidad;
-		this.provincia = provincia;
+		this.provincia = provincia.replace(" ", "_");
 		this.telefono = telefono;
 		this.email = email;
 		this.fechaNacimiento = fechaNacimiento;
 		this.sueldo = sueldo;
 		this.clave = clave;
 	}
-	
-
-	public String getDni() {
-		return dni;
-	}
-	public void setDni(String dni) {
-		this.dni = dni;
+	public int getId() {
+		return id;
 	}
 	public void setId(int id) {
 		this.id = id;
@@ -88,11 +76,17 @@ public class Vendedor {
 	public void setApellido(String apellido) {
 		this.apellido = apellido;
 	}
-	public TipoDNI getTipodni() {
+	public String getTipodni() {
 		return tipodni;
 	}
-	public void setTipodni(TipoDNI tipodni) {
+	public void setTipodni(String tipodni) {
 		this.tipodni = tipodni;
+	}
+	public String getDni() {
+		return dni;
+	}
+	public void setDni(String dni) {
+		this.dni = dni;
 	}
 	public String getCalle() {
 		return calle;
@@ -112,10 +106,10 @@ public class Vendedor {
 	public void setLocalidad(String localidad) {
 		this.localidad = localidad;
 	}
-	public Provincia getProvincia() {
+	public String getProvincia() {
 		return provincia;
 	}
-	public void setProvincia(Provincia provincia) {
+	public void setProvincia(String provincia) {
 		this.provincia = provincia;
 	}
 	public int getTelefono() {
@@ -148,16 +142,20 @@ public class Vendedor {
 	public void setClave(String clave) {
 		this.clave = clave;
 	}
-	@Override
-	public String toString() {
-		return nombre + " " + apellido;
+	public VendedorDTO(Vendedor vendedor) {
+		this.nombre = vendedor.getNombre();
+		this.apellido = vendedor.getApellido();
+		this.tipodni = vendedor.getTipodni().toString().replace("_"," ");
+		this.dni = vendedor.getDni();
+		this.calle = vendedor.getCalle();
+		this.numero = vendedor.getNumero();
+		this.localidad = vendedor.getLocalidad();
+		this.provincia = vendedor.getProvincia().toString().replace("_"," ");
+		this.telefono = vendedor.getTelefono();
+		this.email = vendedor.getEmail();
+		this.fechaNacimiento = vendedor.getFechaNacimiento();
+		this.sueldo = vendedor.getSueldo();
+		this.clave = vendedor.getClave();
 	}
-	public boolean equals(Vendedor v) {
-		if(v.getId().equals(id)) {return true;}
-		else {return false;}
-	}
-	public String getId() {
-		// TODO Auto-generated method stub
-		return this.dni;
-	}
+
 }

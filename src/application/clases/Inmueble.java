@@ -33,7 +33,6 @@ public class Inmueble {
 	@Enumerated(EnumType.STRING)
 	@Column(name="provincia", nullable=false)
 	Provincia provincia;
-	@Enumerated(EnumType.STRING)
 	@Column(name="localidad", nullable=false)
 	String localidad;
 	@Column(name="calle", nullable=false)

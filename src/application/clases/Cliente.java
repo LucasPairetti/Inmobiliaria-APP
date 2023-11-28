@@ -22,7 +22,6 @@ public class Cliente {
 	@Enumerated(EnumType.STRING)
 	TipoInmueble tipoInmuebleBuscado;
 	@Column(name="localidadBuscada")
-	@Enumerated(EnumType.STRING)
 	String localidadBuscada;
 	@Column(name="Barrio")
 	String barrios;

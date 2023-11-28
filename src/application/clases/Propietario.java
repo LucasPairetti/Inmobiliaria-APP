@@ -26,7 +26,6 @@ public class Propietario {
 	String calle;
 	@Column(name="numero", nullable=false)
 	int numero;
-	@Enumerated(EnumType.STRING)
 	@Column(name="localidad", nullable=false)
 	String localidad;
 	@Enumerated(EnumType.STRING)

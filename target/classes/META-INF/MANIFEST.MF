@@ -1,10 +1,5 @@
 Manifest-Version: 1.0
-<<<<<<< HEAD
-Built-By: tomid
-Build-Jdk: 17.0.3
-=======
-Built-By: sofia
-Build-Jdk: 17.0.6
->>>>>>> 955f6a1 (service inmueble empezado)
+Built-By: USUARIO
+Build-Jdk: 17.0.9
 Created-By: Maven Integration for Eclipse
 

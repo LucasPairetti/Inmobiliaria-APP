@@ -1,13 +1,14 @@
 package services;
 
+import java.sql.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
-
+import application.clases.Provincia;
 import application.clases.TipoDNI;
-import application.clases.TipoInmueble;
 import application.clases.Vendedor;
 import application.dao.VendedorDAO;
+import dto.VendedorDTO;
 
 
 public class VendedorServices {
@@ -22,7 +23,8 @@ public class VendedorServices {
 		return instance;
 	}
 	public int createVendedor(VendedorDTO entrada) {
-		if(chequearDuplicado( entrada.getTipodni(),entrada.getDni())) {return -1;}//si existe un duplicado retorna -1
+		TipoDNI tipoDNI= TipoDNI.valueOf(entrada.getTipodni());
+		if(chequearDuplicado( tipoDNI,entrada.getDni())) {return -1;}//si existe un duplicado retorna -1
 		else {
 			Vendedor vendedor = toVendedor(entrada);
 			vendedordao.createVendedor(vendedor);
@@ -36,39 +38,39 @@ public class VendedorServices {
 			return 1;
 		}else {return -1;}
 	};
-	public int updateCliente(ClienteDTO entrada) {
-		Cliente og = clientedao.getClienteById(entrada.getId());
+	public int updateVendedor(VendedorDTO entrada) {
+		Vendedor og= vendedordao.getVendedorById(entrada.getId());
 		if(og !=null) {
-			Cliente cliente = toCliente(entrada);
-			cliente.setDni(og.getDni());
-			cliente.setTipodni(og.getTipodni());
-			clientedao.updateCliente(cliente);
+			Vendedor vendedor = toVendedor(entrada);
+			vendedor.setDni(og.getDni());
+			vendedor.setTipodni(og.getTipodni());
+			vendedordao.updateVendedor(vendedor);
+			return 1;
 		}else {return -1;}
 		
 	};
-	public List<ClienteDTO> listClientes(){
-		return clientedao.getAllClientes().stream()
-	            .map(cliente -> new ClienteDTO(cliente))
+	public List<VendedorDTO> listVendedores(){
+		return vendedordao.getAllVendedor().stream()
+	            .map(vendedor -> new VendedorDTO(vendedor))
 	            .collect(Collectors.toList());
 	}
-	public List<ClienteDTO> getClientes(String tipoDNI,String dni,String nombre, String apellido) {
-		TipoDNI tipo= TipoDNI.valueOf(tipoDNI.replace(" ", "_"));
-
-		return clientedao.getCliente(tipo,dni,nombre,apellido).stream()
-	            .map(cliente -> new ClienteDTO(cliente))
-	            .collect(Collectors.toList());
+	public VendedorDTO validarVendedor(String dni,String nombre, String apellido,String clave) {
+		
+		return new VendedorDTO(vendedordao.validarVendedor(dni,nombre,apellido,clave));
 	}
-	public ClienteDTO getClienteById(int id) {
-		return new ClienteDTO(clientedao.getClienteById(id));
+	public VendedorDTO getVendedorById(int id) {
+		return new VendedorDTO(vendedordao.getVendedorById(id));
 	}
-	private Cliente toCliente( ClienteDTO entrada) {
-		TipoInmueble tipoInmueble= TipoInmueble.valueOf(entrada.getTipoInmuebleBuscado());
-		return new Cliente( entrada.getNombre(), entrada.getApellido(), entrada.getDni(),entrada.getTipoDNI(),entrada.getTelefono(),
-				entrada.getMontoDisponible(),tipoInmueble, entrada.getLocalidadBuscada(), entrada.getBarrios(),entrada.getCaracteristicasDeseadas());
+	private Vendedor toVendedor( VendedorDTO entrada) {
+		TipoDNI tipoDni= TipoDNI.valueOf(entrada.getTipodni());
+		Provincia provincia= Provincia.valueOf(entrada.getProvincia());
+		return new Vendedor( entrada.getNombre(), entrada.getApellido(),tipoDni, entrada.getDni(),entrada.getCalle(),entrada.getNumero(),
+				entrada.getLocalidad(), provincia,entrada.getTelefono(),entrada.getEmail(),entrada.getFechaNacimiento(),entrada.getSueldo(),entrada.getClave());
+		
 	}
 	private boolean chequearDuplicado( TipoDNI tipo,String dni) {
-		List<Cliente> lista=clientedao.getCliente(tipo,dni,null,null);
-		if(lista==null){return false;}
+		Vendedor vendedor=vendedordao.getVendedor(tipo,dni);
+		if(vendedor==null){return false;}
 		else { return true;}
 		}
 }
