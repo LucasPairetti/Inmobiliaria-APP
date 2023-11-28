@@ -1,14 +1,12 @@
 package services;
 
 import java.util.List;
-import java.util.ArrayList;
-import Controllers.Validation;
-import application.clases.Inmueble;
+import java.util.stream.Collectors;
 import application.clases.Propietario;
 import application.clases.Provincia;
 import application.clases.TipoDNI;
-import application.clases.TipoInmueble;
 import application.dao.PropietarioDAO;
+
 import dto.PropietarioDTO;
 
 public class PropietarioServices {
@@ -47,28 +45,31 @@ public class PropietarioServices {
 		else {return-1;}
 	}
 	
-	public Propietario getPropietarioById(int id) {
+	public PropietarioDTO getPropietarioById(int id) {
 		Propietario i = propietariodao.getPropietarioById(id);
 		if(i!= null) {
-			return i;
+			return new PropietarioDTO(i);
 		}
 		else {
-			System.out.print("no existe propietario con id: "+id);
 			return null;
 		}
 	}
 	
-	public List<Propietario> listPropietarios(){
-		return propietariodao.listPropietarios();
+	public List<PropietarioDTO> listPropietarios(){
+		
+		return propietariodao.getAllPropietario().stream()
+	            .map(propietario -> new PropietarioDTO(propietario))
+	            .collect(Collectors.toList());
 	}
 	
-	public List<Propietario> getPropietario(String n, String a, String dni, TipoDNI tipodni){
-		ArrayList<Object> criterios = new ArrayList<Object>();
-		criterios.add(n);
-		criterios.add(a);
-		criterios.add(dni);
-		criterios.add(tipodni);
-		propietariodao.getPropietario(criterios);
+	public List<PropietarioDTO> getPropietario(String n, String a, String dni, String tipodni){
+		
+		TipoDNI tipo= TipoDNI.valueOf(tipodni.replace(" ", "_"));
+		
+		return propietariodao.getCliente(tipo,dni,n,a).stream()
+	            .map(propietario -> new PropietarioDTO(propietario))
+	            .collect(Collectors.toList());
+		
 	}
 	private Propietario toPropietario(PropietarioDTO entrada) {
 		Provincia provincia = Provincia.valueOf(entrada.getProvincia());
