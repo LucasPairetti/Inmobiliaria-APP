@@ -6,6 +6,7 @@ import java.util.stream.Collectors;
 import Controllers.Validation;
 import application.clases.Inmueble;
 import application.clases.Localidad;
+import application.clases.Orientacion;
 import application.clases.Propietario;
 import application.clases.Provincia;
 import application.clases.TipoInmueble;
@@ -92,19 +93,7 @@ public class InmuebleServices {
 	            .collect(Collectors.toList());
 	}
 
-	public List<String> getLocalidad(){
-		 List<Inmueble> inmuebles = inmuebledao.getAllInmuebles();
-		 List<String> localidades = inmuebles.stream()
-	                .map(Inmueble::getLocalidad)
-	                .distinct()
-	                .collect(Collectors.toList());
-	        EnumSet<Localidad> conjuntoDeLocalidades = Arrays.stream(Localidad.values())
-	                .filter(localidad -> !localidades.contains(localidad.name().replace("_", " ")))
-	                .collect(Collectors.toCollection(() -> EnumSet.noneOf(Localidad.class)));
-
-	        conjuntoDeLocalidades.forEach(localidad -> localidades.add(localidad.name().replace("_"," ")));
-	        return localidades;
-	}
+	
 	private void chequearModificaciones(Inmueble og, Inmueble i) {
 		i.setPropietario(og.getPropietario());
 		i.setFechaCreacion(og.getFechaCreacion());
@@ -125,11 +114,12 @@ public class InmuebleServices {
 		}
 	private Inmueble toInmueble(Propietario propietario, InmuebleDTO entrada) {// cubrir Excepciones puede hacerse desde la UI
 		
-		Provincia provincia = Provincia.valueOf(entrada.getProvincia().replace(" ", "_"));
+		Provincia provincia = Provincia.valueOf(entrada.getProvincia());
 		TipoInmueble tipoInmueble = TipoInmueble.valueOf(entrada.getTipoInmueble());
+		Orientacion orientacion = Orientacion.valueOf(entrada.getOrientacion());
 		Inmueble inmueble = new Inmueble(propietario, entrada.getFechaCreacion(),  entrada.isEstado(), provincia, entrada.getLocalidad(),
 				 entrada.getCalle(),  entrada.getNumero(),entrada.getPisodpto(),  entrada.getBarrio(), tipoInmueble,
-				 entrada.getPrecioVenta(),   entrada.getOrientacion(),entrada.getFrente(),  entrada.getFondo(),
+				 entrada.getPrecioVenta(),   orientacion,entrada.getFrente(),  entrada.getFondo(),
 				 entrada.getAntiguedad(),  entrada.getDormitorios(), entrada.getBanios(),  entrada.isPatio(),
 				 entrada.isPiscina(), entrada.isAguaCorriente(), entrada.isCloacas(),entrada.isGasNatural(),
 				 entrada.isAguaCaliente(),  entrada.isLavadero(),  entrada.isPavimento(),   entrada.getTelefono(),

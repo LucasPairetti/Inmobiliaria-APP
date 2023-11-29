@@ -65,7 +65,7 @@ public class PropietarioDAO {
 		}
 
 			
-		public void DeletePropietario(Propietario propietario) {
+		public void deletePropietario(Propietario propietario) {
 			// TODO Auto-generated method stub
 			
 			Session session = HibernateUtil.getSessionFactory().getCurrentSession();
@@ -133,7 +133,7 @@ public class PropietarioDAO {
 		}
 
 		
-			public List<Propietario> getCliente(TipoDNI tipo, int dni, String nombre, String apellido) {
+			public List<Propietario> getCliente(TipoDNI tipo, String dni, String nombre, String apellido) {
 				// TODO Auto-generated method stub
 				
 				Session session = HibernateUtil.getSessionFactory().getCurrentSession();

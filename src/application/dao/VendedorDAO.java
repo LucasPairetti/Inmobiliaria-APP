@@ -8,6 +8,7 @@ import org.hibernate.Session;
 import org.hibernate.query.Query;
 
 import application.clases.Cliente;
+import application.clases.TipoDNI;
 import application.clases.Vendedor;
 import jakarta.persistence.NoResultException;
 
@@ -64,7 +65,7 @@ public class VendedorDAO {
 		}
 
 			
-		public void DeleteVendedor(Vendedor vendedor) {
+		public void deleteVendedor(Vendedor vendedor) {
 			// TODO Auto-generated method stub
 			
 			Session session = HibernateUtil.getSessionFactory().getCurrentSession();
@@ -130,9 +131,38 @@ public class VendedorDAO {
 			    }
 
 		}
-
+		public Vendedor getVendedor(TipoDNI tipodni,String dni) {
+			// TODO Auto-generated method stub
+			
+			Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+			session.beginTransaction();
+			
+			try {
+			
+			Query<Vendedor> query = session.createQuery("SELECT * FROM CLIENTE WHERE"
+					+ "(DNI = ?1) AND"
+					+ "(TIPODNI =?2)", Vendedor.class);
+			query.setParameter(1, dni);
+			query.setParameter(2, tipodni);
+			
+		    Vendedor vendedor = query.getSingleResult();
+		    
+			session.getTransaction().commit();
+			session.close();
+			
+			return vendedor;
+			
+			 } catch (final NoResultException nre) {
+				 	session.getTransaction().commit();
+					session.close();
+					
+			        return null;
+			    }
+			
+			
+		}
 		
-			public Vendedor ValidarVendedor(int dni, String nombre, String apellido, String clave) {
+			public Vendedor validarVendedor(String dni, String nombre, String apellido, String clave) {
 				// TODO Auto-generated method stub
 				
 				Session session = HibernateUtil.getSessionFactory().getCurrentSession();

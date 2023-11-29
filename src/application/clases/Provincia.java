@@ -14,6 +14,6 @@ public enum Provincia {
 	                .map(s -> s.replace("_", " "))
 	                .collect(Collectors.toList());
 	 }
-	public boolean
+	
 }
  

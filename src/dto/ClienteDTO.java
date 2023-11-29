@@ -1,86 +1,87 @@
-package application.clases;
+package dto;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 
-@Entity
-@Table(name="Cliente")
-public class Cliente {
-	
-	@Id
-	@GeneratedValue(strategy= GenerationType.IDENTITY)
-	@Column(name="idCliente")
+import application.clases.Cliente;
+import application.clases.TipoInmueble;
+
+public class ClienteDTO {
 	int id;
-	@Enumerated(EnumType.STRING)
-	@Column(name="tipoDNI", nullable=false)
-	TipoDNI tipodni;
-	@Column(name="dni", nullable=false, unique=true)
-	String dni;
-	@Column(name="nombreCliente", nullable = false)
+	
 	String nombre;
-	@Column(name="apellidoCliente", nullable = false)
+	
+	String dni;
+	
+	String tipoDNI;
+	
 	String apellido;
-	@Column(name="telefonoCliente", nullable = false)
+	
 	int telefono;
-	@Column(name="email", nullable=false)
+	
 	String email;
-	@Column(name="montoDisponible")
+
 	double montoDisponible;
-	@Column(name="tipoInmuebleBuscado")
-	@Enumerated(EnumType.STRING)
-	TipoInmueble tipoInmuebleBuscado;
-	@Column(name="localidadBuscada")
+	
+	String tipoInmuebleBuscado;
+	
 	String localidadBuscada;
-	@Column(name="Barrio")
+	
 	String barrios;
-	@Column(name="caracteristicasDeseadas")
+	
 	String caracteristicasDeseadas;
 	
-	public Cliente() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
+
 	
-	public Cliente( String nombre, String apellido,String dni,TipoDNI tipoDni, int telefono,String email, double montoDisponible,
-			TipoInmueble tipoInmuebleBuscado, String localidadBuscada, String barrios,
+	public ClienteDTO( String nombre, String apellido,String dni,String tipoDNI, int telefono,String email, double montoDisponible,
+			String tipoInmuebleBuscado, String localidadBuscada, String barrios,
 			String caracteristicasDeseadas) {
 		super();
 		this.nombre = nombre;
 		this.apellido = apellido;
 		this.dni=dni;
-		this.tipodni=tipoDni;
+		this.tipoDNI=tipoDNI.replace(" ", "_");
+		this.email=email;
 		this.telefono = telefono;
 		this.montoDisponible = montoDisponible;
-		this.tipoInmuebleBuscado = tipoInmuebleBuscado;
+		this.tipoInmuebleBuscado = tipoInmuebleBuscado.replace(" ", "_");
 		this.localidadBuscada = localidadBuscada;
 		this.barrios = barrios;
 		this.caracteristicasDeseadas = caracteristicasDeseadas;
 	}
-	
-	public TipoDNI getTipodni() {
-		return tipodni;
+	public ClienteDTO(Cliente cliente) {
+		this.nombre = cliente.getNombre();
+		this.apellido = cliente.getApellido();
+		this.dni=cliente.getDni();
+		this.tipoDNI=cliente.getTipodni().toString().replace("_", " ");
+		this.email=cliente.getEmail();
+		this.telefono = cliente.getTelefono();
+		this.montoDisponible = cliente.getMontoDisponible();
+		this.tipoInmuebleBuscado = cliente.getTipoInmuebleBuscado().toString().replace("_", " ");
+		this.localidadBuscada = cliente.getLocalidadBuscada();
+		this.barrios = cliente.getBarrios();
+		this.caracteristicasDeseadas = cliente.getCaracteristicasDeseadas();
 	}
-
-	public void setTipodni(TipoDNI tipodni) {
-		this.tipodni = tipodni;
-	}
-
 	public String getDni() {
 		return dni;
 	}
-
 	public void setDni(String dni) {
 		this.dni = dni;
 	}
-
+	public String getTipoDNI() {
+		return tipoDNI;
+	}
+	public void setTipoDNI(String tipoDNI) {
+		this.tipoDNI = tipoDNI;
+	}
 	public String getEmail() {
 		return email;
 	}
-
 	public void setEmail(String email) {
 		this.email = email;
 	}
-
-	public Integer getId() {
+	public int getId() {
 		return id;
 	}
 	public void setId(int id) {
@@ -110,10 +111,10 @@ public class Cliente {
 	public void setMontoDisponible(double montoDisponible) {
 		this.montoDisponible = montoDisponible;
 	}
-	public TipoInmueble getTipoInmuebleBuscado() {
+	public String getTipoInmuebleBuscado() {
 		return tipoInmuebleBuscado;
 	}
-	public void setTipoInmuebleBuscado(TipoInmueble tipoInmuebleBuscado) {
+	public void setTipoInmuebleBuscado(String tipoInmuebleBuscado) {
 		this.tipoInmuebleBuscado = tipoInmuebleBuscado;
 	}
 	public String getLocalidadBuscada() {
@@ -133,13 +134,5 @@ public class Cliente {
 	}
 	public void setCaracteristicasDeseadas(String caracteristicasDeseadas) {
 		this.caracteristicasDeseadas = caracteristicasDeseadas;
-	}
-	@Override
-	public String toString() {
-		return "Cliente: " + nombre + " " + apellido;
-	}
-	public boolean equals(Cliente c) {
-		if(c.getId().equals(id)) {return true;}
-		else {return false;}
 	}
 }
