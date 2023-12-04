@@ -59,7 +59,7 @@ public class ClienteServices {
 	public List<ClienteDTO> getClientes(String tipoDNI,String dni,String nombre, String apellido) {
 		TipoDNI tipo= TipoDNI.valueOf(tipoDNI.replace(" ", "_"));
 
-		return clientedao.getCliente(dni,tipo,nombre,apellido).stream()
+		return clientedao.getCliente(dni,tipo,null,null).stream()
 	            .map(cliente -> new ClienteDTO(cliente))
 	            .collect(Collectors.toList());
 	}
