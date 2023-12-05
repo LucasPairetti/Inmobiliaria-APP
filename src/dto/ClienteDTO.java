@@ -52,8 +52,8 @@ public class ClienteDTO {
 	}
 	public ClienteDTO(Cliente cliente) {
 		this.nombre = cliente.getNombre();
-		this.apellido = cliente.getApellido();
 		this.dni=cliente.getDni();
+		this.apellido = cliente.getApellido();
 		this.tipoDNI=cliente.getTipodni().toString().replace("_", " ");
 		this.email=cliente.getEmail();
 		this.telefono = cliente.getTelefono();
