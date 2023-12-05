@@ -58,8 +58,9 @@ public class ClienteServices {
 	}
 	public List<ClienteDTO> getClientes(String tipoDNI,String dni,String nombre, String apellido) {
 		TipoDNI tipo= TipoDNI.valueOf(tipoDNI.replace(" ", "_"));
-
-		return clientedao.getCliente(dni,tipo,nombre,apellido).stream()
+		 
+		return clientedao.getCliente(dni, tipo, nombre, apellido)
+				.stream()
 	            .map(cliente -> new ClienteDTO(cliente))
 	            .collect(Collectors.toList());
 	}
@@ -73,7 +74,7 @@ public class ClienteServices {
 				entrada.getMontoDisponible(),tipoInmueble, entrada.getLocalidadBuscada(), entrada.getBarrios(),entrada.getCaracteristicasDeseadas());
 	}
 	private boolean chequearDuplicado( TipoDNI tipo,String dni) {
-		List<Cliente> lista=clientedao.getCliente(dni,tipo,null,null);
+		List<Cliente> lista=clientedao.getCliente(dni, tipo, null, null);
 		if(lista==null){return false;}
 		else { return true;}
 		}

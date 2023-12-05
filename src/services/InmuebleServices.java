@@ -17,6 +17,7 @@ import dto.InmuebleDTO;
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.EnumSet;
 public class InmuebleServices {
 	
@@ -92,7 +93,31 @@ public class InmuebleServices {
 	            .map(inmueble -> new InmuebleDTO(inmueble.getPropietario(), inmueble))
 	            .collect(Collectors.toList());
 	}
+	public String getNombrePropietario(int id) {
+		Inmueble i = inmuebledao.getInmuebleById(id);
+		if(i!= null) {
+			return i.getPropietario().getNombre();
+		}
+		else {
+			return null;
+		}
+	}
+	public double getMaxPrecio() {
+		return inmuebledao.getAllInmuebles().stream().max(Comparator.comparingDouble(Inmueble::getPrecioVenta))
+         .map(Inmueble::getPrecioVenta)
+         .orElse(0.0);
 
+	}
+	public double getMinPrecio() {
+		return inmuebledao.getAllInmuebles().stream().min(Comparator.comparingDouble(Inmueble::getPrecioVenta))
+		         .map(Inmueble::getPrecioVenta)
+		         .orElse(0.0);
+	}
+	public int getMaxDormitorios() {
+		return inmuebledao.getAllInmuebles().stream().max(Comparator.comparingInt(Inmueble::getDormitorios))
+		         .map(Inmueble::getDormitorios)
+		         .orElse(0);
+	}
 	
 	private void chequearModificaciones(Inmueble og, Inmueble i) {
 		i.setPropietario(og.getPropietario());
