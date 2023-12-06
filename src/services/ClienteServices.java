@@ -1,6 +1,6 @@
 package services;
 
-import Controllers.Validation;
+import Controllers.Validacion;
 import application.clases.Cliente;
 import application.clases.Propietario;
 import application.clases.TipoDNI;

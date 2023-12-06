@@ -7,6 +7,7 @@
 <?import javafx.scene.control.Slider?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -35,14 +36,13 @@
             <TableColumn fx:id="DormitoriosColumn" prefWidth="83.0" text="Dormitorios" />
         </columns>
       </TableView>
-      <Button fx:id="LimpiarButton" layoutX="69.0" layoutY="590.0" mnemonicParsing="false" onAction="#EliminarPressed" prefHeight="53.0" prefWidth="114.0" text="Limpiar" />
-      <Button fx:id="BuscarButton" layoutX="980.0" layoutY="721.0" mnemonicParsing="false" onAction="#ModificarPressed" prefHeight="53.0" prefWidth="114.0" text="Buscar" />
+      <Button fx:id="LimpiarButton" layoutX="69.0" layoutY="590.0" mnemonicParsing="false" onAction="#LimpiarPressed" prefHeight="53.0" prefWidth="114.0" text="Limpiar" />
+      <Button fx:id="BuscarButton" layoutX="980.0" layoutY="721.0" mnemonicParsing="false" onAction="#BuscarPressed" prefHeight="53.0" prefWidth="114.0" text="Buscar" />
       <Button fx:id="VolverButton" layoutX="24.0" layoutY="721.0" mnemonicParsing="false" onAction="#VolverPressed" prefHeight="53.0" prefWidth="114.0" text="Volver" />
       <ComboBox fx:id="ProvinciaMenu" layoutX="71.0" layoutY="194.0" prefHeight="44.0" prefWidth="255.0" promptText="Provincia" />
       <Label layoutX="71.0" layoutY="160.0" text="Provincia" />
       <ComboBox fx:id="LocalidadMenu" layoutX="71.0" layoutY="285.0" prefHeight="44.0" prefWidth="255.0" promptText="Localidad" />
       <Label layoutX="71.0" layoutY="251.0" text="Localidad:" />
-      <ComboBox fx:id="BarrioMenu" layoutX="71.0" layoutY="375.0" prefHeight="44.0" prefWidth="255.0" promptText="Barrio" />
       <Label layoutX="71.0" layoutY="341.0" text="Barrio:" />
       <Label layoutX="414.0" layoutY="129.0" text="Tipo:" />
       <CheckBox fx:id="LocalCheckBox" layoutX="408.0" layoutY="170.0" mnemonicParsing="false" text="Local" />
@@ -62,5 +62,6 @@
       <Label layoutX="390.0" layoutY="474.0" text="Cantidad de dormitorios" />
       <Slider fx:id="DormitorioSlider" blockIncrement="1.0" layoutX="390.0" layoutY="504.0" majorTickUnit="1.0" max="10.0" min="1.0" minorTickCount="1" onDragDetected="#DormitorioDrag" showTickLabels="true" showTickMarks="true" snapToTicks="true" value="1.0" />
       <Label fx:id="DormitorioLabel" layoutX="535.0" layoutY="514.0" text="1" />
+      <TextField fx:id="BarrioTextField" layoutX="71.0" layoutY="367.0" prefHeight="44.0" prefWidth="255.0" />
    </children>
 </AnchorPane>

@@ -10,8 +10,8 @@ import application.dao.InmuebleDAO;
 public enum Localidad {
 	Santa_Fe,Santo_Tome,Sauce_Viejo,Rincon,Colastine_Norte,Colastine_Sur;
 	
-	public List<String> getLocalidad(){
-		 InmuebleDAO inmuebledao = InmuebleDAO.getInmuebleDAO()
+	public static List<String> getLocalidad(){
+		 InmuebleDAO inmuebledao = InmuebleDAO.getInmuebleDAO();
 		 List<Inmueble> inmuebles = inmuebledao.getAllInmuebles();
 		 List<String> localidades = inmuebles.stream()
 	                .map(Inmueble::getLocalidad)

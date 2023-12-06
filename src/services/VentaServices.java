@@ -2,7 +2,7 @@ package services;
 
 import java.util.List;
 
-import Controllers.Validation;
+import Controllers.Validacion;
 import application.clases.Vendedor;
 import application.clases.Venta;
 import application.dao.ClienteDAO;
@@ -17,14 +17,14 @@ public class VentaServices {
 	private static InmuebleDAO inmuebledao;
 	private static VendedorDAO vendedordao;
 	private static ClienteDAO clientedao;
-	private static Validation validation;
+	private static Validacion validation;
 	
 	public static VentaServices getInstance() {
 		if(instance==null) {
 			instance = new VentaServices();
 			ventadao = VentaDAO.getVentaDAO();
-			inmuebledao = InmuebleDAO.getVentaDAO();
-			validation = Validation.getInstance();
+			inmuebledao = InmuebleDAO.getInmuebleDAO();
+			validation = Validacion.getInstance();
 		}
 		return instance;
 	}

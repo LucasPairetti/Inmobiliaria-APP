@@ -5,6 +5,15 @@ import java.util.regex.Pattern;
 
 public class Validacion {
 	
+	private static Validacion instance;
+	
+	public static Validacion getInstance() {
+		if(instance == null) {
+			instance = new Validacion();
+		}
+		return instance;
+	}
+	
 	public int esUnNumero(String entrada) {
 		
 		if(entrada==null) { return -1;}

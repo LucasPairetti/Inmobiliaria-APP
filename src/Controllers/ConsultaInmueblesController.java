@@ -1,6 +1,8 @@
 package Controllers;
 import application.clases.*;
-
+import dto.InmuebleDTO;
+import javafx.scene.control.TextField;
+import javafx.scene.control.cell.PropertyValueFactory;
 
 import java.io.IOException;
 import java.net.URL;
@@ -17,6 +19,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
@@ -26,14 +29,17 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
+import services.InmuebleServices;
 
 public class ConsultaInmueblesController implements Initializable {
 
-    @FXML
-    private TableColumn<Inmueble, String> BarrioColumn;
 
     @FXML
-    private ComboBox<String> BarrioMenu;
+    private TableColumn<InmuebleDTO, String> BarrioColumn; //entidad, tipo de atributo a mostrar (usamos solo integer, floats, doubles o strings)
+
+    @FXML
+    private TextField BarrioTextField; 
+
 
     @FXML
     private Button BuscarButton;
@@ -51,13 +57,14 @@ public class ConsultaInmueblesController implements Initializable {
     private Slider DormitorioSlider;
 
     @FXML
-    private TableColumn<Inmueble, Integer> DormitoriosColumn;
+    private TableColumn<InmuebleDTO, Integer> DormitoriosColumn;
 
     @FXML
     private CheckBox GalponCheckBox;
+    
 
     @FXML
-    private TableView<Inmueble> InmuebleTable;
+    private TableView<InmuebleDTO> InmuebleTable;
 
     @FXML
     private Button LimpiarButton;
@@ -66,10 +73,10 @@ public class ConsultaInmueblesController implements Initializable {
     private CheckBox LocalCheckBox;
 
     @FXML
-    private TableColumn<Inmueble, Localidad> LocalidadColumn;
+    private TableColumn<InmuebleDTO, String> LocalidadColumn;
 
     @FXML
-    private ComboBox<String> LocalidadMenu;
+    private ComboBox<String> LocalidadMenu; //estos son las listas desplegables, las hacemos strings		
 
     @FXML
     private Label MaxPriceLabel;
@@ -87,10 +94,10 @@ public class ConsultaInmueblesController implements Initializable {
     private CheckBox OficinaCheckBox;
 
     @FXML
-    private TableColumn<Inmueble, Double> PrecioColumn;
+    private TableColumn<InmuebleDTO, Double> PrecioColumn;
 
     @FXML
-    private TableColumn<Inmueble, Provincia> ProvinciaColumn;
+    private TableColumn<InmuebleDTO, String> ProvinciaColumn;
 
     @FXML
     private ComboBox<String> ProvinciaMenu;
@@ -102,12 +109,15 @@ public class ConsultaInmueblesController implements Initializable {
     private CheckBox TerrenoCheckBox;
 
     @FXML
-    private TableColumn<Inmueble, TipoInmueble> TipoColumn;
+    private TableColumn<InmuebleDTO, TipoInmueble> TipoColumn;
 
     @FXML
     private Button VolverButton;
+    
+    
+    private InmuebleServices inmuebleService = InmuebleServices.getInstance();
 
-    ObservableList<Inmueble> listaDeInmuebles= FXCollections.observableArrayList(); 
+    ObservableList<InmuebleDTO> listaDeInmuebles= FXCollections.observableArrayList(); 
     //para redondeos
     DecimalFormat df = new DecimalFormat("###.##");
     
@@ -115,18 +125,27 @@ public class ConsultaInmueblesController implements Initializable {
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		// Este metodo inicializa los datos en pantalla, en caso de los inmuebles carga la lista de inmuebles
     	
+    	//primero indicar en cada columna-> el atributo que le corresponde en la entidad, usamos las clases DTO porque es mas facil mostrar todo como string o numero, no como objeto
+    	BarrioColumn.setCellValueFactory(new PropertyValueFactory<>("barrio"));
+    	DormitoriosColumn.setCellValueFactory(new PropertyValueFactory<>("dormitorios"));
+    	LocalidadColumn.setCellValueFactory(new PropertyValueFactory<>("localidad"));
+    	PrecioColumn.setCellValueFactory(new PropertyValueFactory<>("precioVenta"));
+    	ProvinciaColumn.setCellValueFactory(new PropertyValueFactory<>("provincia"));
+    	TipoColumn.setCellValueFactory(new PropertyValueFactory<>("tipoInmueble"));
+    	
     	
     	//inicializar todos los combobox
+     	LocalidadMenu.setItems((ObservableList<String>) Localidad.getLocalidad());
+    	ProvinciaMenu.setItems((ObservableList<String>) Provincia.getProvincias());
+    	
+    	
     	
     	//inicializar los minimos y maximos de los sliders
-    		//necesito obtener todos los inmuebles y buscar el min y maximo de dormitorios y precios
-    	
-    	
-    	//necesito metodos para sacar esto en la capa de logica
-    	//MinPriceSlider.setMin(minPrecio);
-    	//MinPriceSlider.setMax(maxPrecio);
-    	//dormitorioSlider.setMin(minDormitorio);
-    	//dormitorioSlider.setMax(maxDormitorio);
+    		
+    	MinPriceSlider.setMin(inmuebleService.getMinPrecio());
+    	MaxPriceSlider.setMax(inmuebleService.getMaxPrecio());
+    	DormitorioSlider.setMin(0);
+    	DormitorioSlider.setMax(inmuebleService.getMaxDormitorios());
     	
     	MinPriceLabel.setText(String.valueOf(df.format(MinPriceSlider.getValue())));
     	MaxPriceLabel.setText(String.valueOf(df.format(MaxPriceSlider.getValue())));
@@ -134,7 +153,7 @@ public class ConsultaInmueblesController implements Initializable {
     	
     	
     	// actualizar lista de inmuebles
-    	//listaDeInmuebles.addall(gestor.getInmuebles());
+    	listaDeInmuebles.addAll(inmuebleService.listInmuebles());
     	InmuebleTable.setItems(listaDeInmuebles);
 		
 	}
@@ -142,17 +161,35 @@ public class ConsultaInmueblesController implements Initializable {
     
     @FXML
     void DormitorioDrag(MouseEvent  event) {
+    	//esto hace que cuando soltas el drag, te dé el valor que selecciona
     	DormitorioLabel.setText(String.valueOf((int)(DormitorioSlider.getValue())));
     }
 
     @FXML
-    void EliminarPressed(ActionEvent event) {
-
+    void LimpiarPressed(ActionEvent event) {
+    	//limpiar checkboxes
+    	LocalCheckBox.setSelected(false);
+    	CasaCheckBox.setSelected(false);
+    	DepartamentoCheckBox.setSelected(false);
+    	TerrenoCheckBox.setSelected(false);
+    	QuintaCheckBox.setSelected(false);
+    	GalponCheckBox.setSelected(false);
+    	OficinaCheckBox.setSelected(false);
+    	//texto
+    	BarrioTextField.setText("");
+    	//sliders
+    	MinPriceSlider.setValue(inmuebleService.getMinPrecio());
+    	MaxPriceSlider.setValue(inmuebleService.getMaxPrecio());
+    	DormitorioSlider.setValue(0);
+    	
+    	//actualiza lista a todos los inmuebles sin filtro
+    	listaDeInmuebles = (ObservableList<InmuebleDTO>) inmuebleService.listInmuebles();
+    	InmuebleTable.setItems(listaDeInmuebles);
     }
 
     @FXML
     void MaxDrag(MouseEvent  event) {
-    	
+    	//esto hace que cuando soltas el drag, te dé el valor que selecciona
     	
     	MaxPriceLabel.setText(String.valueOf(df.format(MaxPriceSlider.getValue())));
     	
@@ -161,18 +198,65 @@ public class ConsultaInmueblesController implements Initializable {
 
     @FXML
     void MinDrag(MouseEvent  event) {
-
+    	//esto hace que cuando soltas el drag, te dé el valor que selecciona
     	MinPriceLabel.setText(String.valueOf(df.format(MinPriceSlider.getValue())));
     	
     }
 
     @FXML
-    void ModificarPressed(ActionEvent event) {
-
+    void BuscarPressed(ActionEvent event) {
+    	List<String>tipo= new ArrayList<String>();
+    	
+    	//esto permite saber el tipo de inmueble que habra, el .isSelected() te indica si el checkbox está activada y devuelve true o false
+    	
+    	if (LocalCheckBox.isSelected()) {
+    	    tipo.add("L");
+    	}
+    	if (CasaCheckBox.isSelected()) {
+    	    tipo.add("C");
+    	}
+    	if (DepartamentoCheckBox.isSelected()) {
+    	    tipo.add("D");
+    	}
+    	if (TerrenoCheckBox.isSelected()) {
+    	    tipo.add("T");
+    	}
+    	if (QuintaCheckBox.isSelected()) {
+    	    tipo.add("Q");
+    	}
+    	if (GalponCheckBox.isSelected()) {
+    	    tipo.add("G");
+    	}
+    	if (OficinaCheckBox.isSelected()) {
+    	    tipo.add("O");
+    	}
+    	
+    	if(tipo.isEmpty()){
+    		Alert alertaTipo = new Alert(Alert.AlertType.ERROR); //esto es un mensaje de alerta
+    		alertaTipo.setTitle("Faltan tipos de inmueble"); //titulo
+    		alertaTipo.setContentText("debe seleccionarse al menos un tipo de inmueble"); //informacion
+    		
+    		return;
+    		
+    	}
+    	
+    	
+    	//se solicitan todos los datos
+    	
+    	//si no hay provincia o localidad o barrio seleccionado, que busque todo. sino tengo que hacer mas alertas y queda feo
+    	
+    	listaDeInmuebles= (ObservableList<InmuebleDTO>) inmuebleService.getInmueble(ProvinciaMenu.getSelectionModel().getSelectedItem(), LocalidadMenu.getSelectionModel().getSelectedItem(), BarrioTextField.getText(), tipo, (int)DormitorioSlider.getValue(),(float)MinPriceSlider.getValue() ,(float)MaxPriceSlider.getValue());
+    	
+    	//se muestran los datos
+    	InmuebleTable.setItems(listaDeInmuebles);
+    	
+    	
     }
 
     @FXML
     void VolverPressed(ActionEvent event) {
+    	//esto es para volver a la anterior pagina
+    	
     	try {
     		Parent root;
     		root = FXMLLoader.load((getClass().getResource("/interfaces/PantallaPrincipal.fxml")));

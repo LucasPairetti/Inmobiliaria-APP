@@ -3,7 +3,7 @@ package services;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import Controllers.Validation;
+import Controllers.Validacion;
 import application.clases.Inmueble;
 import application.clases.Localidad;
 import application.clases.Orientacion;
@@ -85,10 +85,10 @@ public class InmuebleServices {
 		}
 	}
 	
-	public List<InmuebleDTO> getInmueble(String p, String l, String b, String t, int cantdorm,
+	public List<InmuebleDTO> getInmueble(String p, String l, String b, List<String> tipo, int cantdorm,
 			float min, float max){
 		Provincia provincia = Provincia.valueOf(p.replace(" ", "_"));
-		TipoInmueble tipoInmueble = TipoInmueble.valueOf(t);
+		TipoInmueble tipoInmueble = TipoInmueble.valueOf(tipo); //aca hay que arreglar
 		return inmuebledao.getInmueble(provincia,l,b,tipoInmueble,cantdorm,min,max).stream()
 	            .map(inmueble -> new InmuebleDTO(inmueble.getPropietario(), inmueble))
 	            .collect(Collectors.toList());

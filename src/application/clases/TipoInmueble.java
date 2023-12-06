@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public enum TipoInmueble {
-	L,C,D,T,Q,G;
+	L,C,D,T,Q,G,O;
 	public List<String> getTipoInmueble(){
 		 return  Arrays.stream(TipoInmueble.values())
 	                .map(Enum::toString)
