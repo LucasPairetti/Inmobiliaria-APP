@@ -13,6 +13,7 @@ import application.clases.TipoInmueble;
 import application.dao.InmuebleDAO;
 import application.dao.PropietarioDAO;
 import dto.InmuebleDTO;
+import dto.PropietarioDTO;
 
 import java.sql.Date;
 import java.util.ArrayList;
@@ -84,15 +85,32 @@ public class InmuebleServices {
 			return null;
 		}
 	}
+	public List<InmuebleDTO> getInmueblesByPropietario(int propietario){
+		Propietario p = propietariodao.getPropietarioById(propietario);
 	
-	public List<InmuebleDTO> getInmueble(String p, String l, String b, List<String> tipo, int cantdorm,
+		return inmuebledao.getInmueble(p).stream()
+				          .map(inmueble -> new InmuebleDTO(inmueble.getPropietario(), inmueble))
+				          .collect(Collectors.toList());
+	}
+	
+	public List<InmuebleDTO> getInmueble(String p, String l, String b, List<String> tipos, int cantdorm,
 			float min, float max){
 		Provincia provincia = Provincia.valueOf(p.replace(" ", "_"));
-		TipoInmueble tipoInmueble = TipoInmueble.valueOf(tipo); //aca hay que arreglar
-		return inmuebledao.getInmueble(provincia,l,b,tipoInmueble,cantdorm,min,max).stream()
-	            .map(inmueble -> new InmuebleDTO(inmueble.getPropietario(), inmueble))
-	            .collect(Collectors.toList());
+		
+		List<InmuebleDTO> resultadoFinal = new ArrayList<>();
+
+	    for (String tipo : tipos) {
+	        TipoInmueble tipoInmueble = TipoInmueble.valueOf(tipo);
+	        List<InmuebleDTO> resultadosTipo = inmuebledao.getInmueble(provincia, l, b, tipoInmueble, cantdorm, min, max).stream()
+	                .map(inmueble -> new InmuebleDTO(inmueble.getPropietario(), inmueble))
+	                .collect(Collectors.toList());
+
+	        resultadoFinal.addAll(resultadosTipo);
+	    }
+
+	    return resultadoFinal;
 	}
+	
 	public String getNombrePropietario(int id) {
 		Inmueble i = inmuebledao.getInmuebleById(id);
 		if(i!= null) {
@@ -137,17 +155,17 @@ public class InmuebleServices {
 		{return false;}
 		else { return true;}
 		}
-	private Inmueble toInmueble(Propietario propietario, InmuebleDTO entrada) {// cubrir Excepciones puede hacerse desde la UI
+	private Inmueble toInmueble(Propietario propietario, InmuebleDTO entrada) {
 		
 		Provincia provincia = Provincia.valueOf(entrada.getProvincia());
 		TipoInmueble tipoInmueble = TipoInmueble.valueOf(entrada.getTipoInmueble());
 		Orientacion orientacion = Orientacion.valueOf(entrada.getOrientacion());
 		Inmueble inmueble = new Inmueble(propietario, entrada.getFechaCreacion(),  entrada.isEstado(), provincia, entrada.getLocalidad(),
 				 entrada.getCalle(),  entrada.getNumero(),entrada.getPisodpto(),  entrada.getBarrio(), tipoInmueble,
-				 entrada.getPrecioVenta(),   orientacion,entrada.getFrente(),  entrada.getFondo(),
-				 entrada.getAntiguedad(),  entrada.getDormitorios(), entrada.getBanios(),  entrada.isPatio(),
+				 entrada.getPrecioVenta(),   orientacion,entrada.getSuperficie(),entrada.getFrente(),  entrada.getFondo(),
+				 entrada.getAntiguedad(),  entrada.getDormitorios(), entrada.getBanios(),entrada.isGaraje(),entrada.ispHorizontal(),  entrada.isPatio(),
 				 entrada.isPiscina(), entrada.isAguaCorriente(), entrada.isCloacas(),entrada.isGasNatural(),
-				 entrada.isAguaCaliente(),  entrada.isLavadero(),  entrada.isPavimento(),   entrada.getTelefono(),
+				 entrada.isAguaCaliente(),  entrada.isLavadero(),  entrada.isPavimento(),   entrada.isTelefono(),
 				 entrada.getObservaciones());
 		return inmueble;
 		

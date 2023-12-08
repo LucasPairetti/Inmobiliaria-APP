@@ -212,7 +212,35 @@ public class InmuebleDAO {
 				
 				
 			}	
-
+			public List<Inmueble> getInmueble(Propietario propietario) {
+				// TODO Auto-generated method stub
+				
+				Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+				session.beginTransaction();
+				
+				try {
+				
+				Query<Inmueble> query = session.createQuery("SELECT * FROM INMUEBLE WHERE"
+						+ "(PROPIETARIO == ?1);", Inmueble.class);
+				query.setParameter(1, propietario);
+				
+				
+			    ArrayList<Inmueble> inmuebles = (ArrayList<Inmueble>) query.getResultList();
+			    
+				session.getTransaction().commit();
+				session.close();
+				
+				return inmuebles;
+				
+				 } catch (final NoResultException nre) {
+					 	session.getTransaction().commit();
+						session.close();
+						
+				        return null;
+				    }
+				
+				
+			}
 	//	}
 	
 

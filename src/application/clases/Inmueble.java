@@ -61,6 +61,12 @@ public class Inmueble {
 	int dormitorios;
 	@Column(name="banios",  nullable=false)
 	int banios;
+	@Column(name="superfice",  nullable=false)
+	float superficie;
+	@Column(name="garaje",  nullable=false)
+	boolean garaje;
+	@Column(name="pHorizontal",  nullable=false)
+	boolean pHorizontal;
 	@Column(name="patio",  nullable=false)
 	boolean patio;
 	@Column(name="piscina",  nullable=false)
@@ -78,7 +84,7 @@ public class Inmueble {
 	@Column(name="pavimento",  nullable=false)
 	boolean pavimento;
 	@Column(name="telefono",  nullable=false)
-	int telefono;
+	boolean telefono;
 	@Column(name="observaciones",  nullable=true)
 	String observaciones;
 	
@@ -93,9 +99,9 @@ public class Inmueble {
 	}
 	public Inmueble(Propietario propietario, Date fechaCreacion, boolean estado, Provincia provincia,
 			String localidad, String calle, int numero, String pisodpto, String barrio, TipoInmueble tipoInmueble,
-			double precioVenta, Orientacion orientacion, float frente, float fondo, int antiguedad, int dormitorios,
-			int banios, boolean patio, boolean piscina, boolean aguaCorriente, boolean cloacas, boolean gasNatural,
-			boolean aguaCaliente, boolean lavadero, boolean pavimento, int telefono, String observaciones) {
+			double precioVenta, Orientacion orientacion,float superficie, float frente, float fondo, int antiguedad, int dormitorios,
+			int banios,boolean garaje,boolean pHorizontal, boolean patio, boolean piscina, boolean aguaCorriente, boolean cloacas, boolean gasNatural,
+			boolean aguaCaliente, boolean lavadero, boolean pavimento, boolean telefono, String observaciones) {
 		super();
 		
 		this.propietario = propietario;
@@ -124,6 +130,9 @@ public class Inmueble {
 		this.lavadero = lavadero;
 		this.pavimento = pavimento;
 		this.telefono = telefono;
+		this.superficie= superficie;
+		this.garaje=garaje;
+		this.pHorizontal=pHorizontal;
 		this.observaciones = observaciones;
 	}
 
@@ -136,6 +145,38 @@ public class Inmueble {
 	public Date getFechaCreacion() {
 		return fechaCreacion;
 	}
+	public float getSuperficie() {
+		return superficie;
+	}
+
+	public void setSuperficie(float superficie) {
+		this.superficie = superficie;
+	}
+
+	public boolean isGaraje() {
+		return garaje;
+	}
+
+	public void setGaraje(boolean garaje) {
+		this.garaje = garaje;
+	}
+
+	public boolean ispHorizontal() {
+		return pHorizontal;
+	}
+
+	public void setpHorizontal(boolean pHorizontal) {
+		this.pHorizontal = pHorizontal;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public void setTelefono(boolean telefono) {
+		this.telefono = telefono;
+	}
+
 	public void setFechaCreacion(Date fechaCreacion) {
 		this.fechaCreacion = fechaCreacion;
 	}
@@ -277,12 +318,11 @@ public class Inmueble {
 	public void setPavimento(boolean pavimento) {
 		this.pavimento = pavimento;
 	}
-	public int getTelefono() {
+	
+	public boolean isTelefono() {
 		return telefono;
 	}
-	public void setTelefono(int telefono) {
-		this.telefono = telefono;
-	}
+
 	public String getObservaciones() {
 		return observaciones;
 	}
