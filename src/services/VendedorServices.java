@@ -53,9 +53,12 @@ public class VendedorServices {
 	            .map(vendedor -> new VendedorDTO(vendedor))
 	            .collect(Collectors.toList());
 	}
-	public VendedorDTO validarVendedor(String dni,String nombre, String apellido,String clave) {
-		
-		return new VendedorDTO(vendedordao.validarVendedor(dni,nombre,apellido,clave));
+	public VendedorDTO validarVendedor(String dni,String nombre, String apellido,String clave) {//si es null no esta validado, por ende no debe iniciar
+		Vendedor vendedor = vendedordao.validarVendedor(dni,nombre,apellido,clave);
+		if(vendedor==null) {return null;}
+		else {
+		return new VendedorDTO(vendedor);
+		}
 	}
 	public VendedorDTO getVendedorById(int id) {
 		return new VendedorDTO(vendedordao.getVendedorById(id));
