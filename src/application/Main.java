@@ -51,6 +51,21 @@ Parent root = FXMLLoader.load((getClass().getResource("/interfaces/PantallaPrinc
 		inmuebleDAO.createInmueble(inmueble);
 		*/
 		
+		Cliente cliente = new Cliente("Tomas", "Auday","44444444",TipoDNI.DNI, 111111111,"tomitoauday@gmail.com",40000000,
+				TipoInmueble.C, "Santa Fe", "Fomento/7 Jefes/Guadalupe",
+				"Varios banios, varios dormitorios, patio");
+		
+		System.out.println(cliente.getEmail());
+		
+		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+		
+		session.beginTransaction();
+		session.persist(cliente);
+		session.getTransaction().commit();
+		session.close();
+		System.out.println(cliente);
+		
+		
 		launch(args);	
 		
 		
