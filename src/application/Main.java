@@ -43,37 +43,11 @@ Parent root = FXMLLoader.load((getClass().getResource("/interfaces/PantallaPrinc
 	}
 	
 	public static void main(String[] args) {
-	/*	
+		//launch(args);
 		InmuebleDAO inmuebleDAO = InmuebleDAO.getInmuebleDAO();
 		Propietario p = new Propietario("Lucas", "Pairetti", TipoDNI.DNI,"42870675", "asd", 1111, "Santa Fe", Provincia.Santa_Fe,1111111,"pairet@gmail.com");
 		Inmueble inmueble = new Inmueble(p, Date.valueOf("2000-11-03"),true,Provincia.Santa_Fe,"Santa Fe","asd",2476,"","Fomento",
 				TipoInmueble.C,20000000, Orientacion.Norte,256,1,1,50,3,3,true,true,true,true,true,true,true,true,true,true,true,"Fachera");
 		inmuebleDAO.createInmueble(inmueble);
-		
-		
-		Cliente cliente = new Cliente("Tomas", "Auday","44444444",TipoDNI.DNI, 111111111,"tomitoauday@gmail.com",40000000,
-				TipoInmueble.C, "Santa Fe", "Fomento/7 Jefes/Guadalupe",
-				"Varios banios, varios dormitorios, patio");
-		
-		System.out.println(cliente.getEmail());
-		
-		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
-		
-		session.beginTransaction();
-		session.persist(cliente);
-		session.getTransaction().commit();
-		session.close();
-		System.out.println(cliente);
-		
-		InmuebleDAO i = InmuebleDAO.getInmuebleDAO();
-		
-		System.out.println(i.getInmueble(null,null, null, null, null, null));
-				*/
-		
-		launch(args);	
-		
-		
-		
-		
 	}
 }
