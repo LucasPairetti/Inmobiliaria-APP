@@ -27,7 +27,7 @@
       <TextField fx:id="ApellidoField" layoutX="513.0" layoutY="45.0" prefHeight="44.0" prefWidth="245.0" promptText="Apellido" />
       <Label layoutX="245.0" layoutY="21.0" text="nombre:" />
       <Label layoutX="511.0" layoutY="21.0" text="Apellido:" />
-      <TableView fx:id="ClientesTable" layoutX="69.0" layoutY="135.0" prefHeight="460.0" prefWidth="374.0">
+      <TableView fx:id="propietariosTable" layoutX="69.0" layoutY="135.0" onMouseClicked="#PropietarioSeleccionado" prefHeight="460.0" prefWidth="374.0">
         <columns>
           <TableColumn fx:id="NombreColumn" prefWidth="180.0" text="Nombre" />
           <TableColumn fx:id="ApellidoColumn" prefWidth="193.0" text="Apellido" />

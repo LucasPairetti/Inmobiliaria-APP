@@ -8,7 +8,7 @@ public enum Orientacion {
 	
 	Norte, Sur, Este, Oeste, Noreste, Noroeste, Sureste, Suroeste;
 		
-		public List<String> geOrientacion(){
+		public static List<String> geOrientacion(){
 			 return  Arrays.stream(Orientacion.values())
 		                .map(Enum::toString)
 		                .map(s -> s.replace("_", " "))

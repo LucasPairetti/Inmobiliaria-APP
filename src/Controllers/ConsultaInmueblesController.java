@@ -135,10 +135,11 @@ public class ConsultaInmueblesController implements Initializable {
     	
     	
     	//inicializar todos los combobox
+    
      	LocalidadMenu.setItems((ObservableList<String>) Localidad.getLocalidad());
     	ProvinciaMenu.setItems((ObservableList<String>) Provincia.getProvincias());
     	
-    	
+    
     	
     	//inicializar los minimos y maximos de los sliders
     		

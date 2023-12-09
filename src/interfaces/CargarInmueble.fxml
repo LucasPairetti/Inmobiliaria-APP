@@ -25,13 +25,12 @@
             <Font name="Verdana" size="36.0" />
          </font>
       </Label>
-      <Button fx:id="GuardarButton" layoutX="1045.0" layoutY="741.0" mnemonicParsing="false" onAction="#ModificarPressed" prefHeight="44.0" prefWidth="138.0" text="Guardar" />
+      <Button fx:id="GuardarButton" layoutX="1045.0" layoutY="741.0" mnemonicParsing="false" onAction="#GuardarPressed" prefHeight="44.0" prefWidth="138.0" text="Guardar" />
       <Button fx:id="VolverButton" layoutX="22.0" layoutY="741.0" mnemonicParsing="false" onAction="#VolverPressed" prefHeight="44.0" prefWidth="138.0" text="Volver" />
       <ComboBox fx:id="ProvinciaMenu" layoutX="71.0" layoutY="194.0" onAction="#ProvinciaSelccionada" prefHeight="44.0" prefWidth="198.0" promptText="Santa Fe" />
       <Label layoutX="69.0" layoutY="152.0" text="Provincia" />
       <ComboBox fx:id="LocalidadMenu" layoutX="71.0" layoutY="285.0" onAction="#LocalidadSeleccionada" prefHeight="44.0" prefWidth="198.0" promptText="Localidad" />
       <Label layoutX="71.0" layoutY="251.0" text="Localidad:" />
-      <ComboBox fx:id="BarrioMenu" layoutX="71.0" layoutY="375.0" prefHeight="44.0" prefWidth="198.0" promptText="Barrio" />
       <Label layoutX="71.0" layoutY="341.0" text="Barrio:" />
       <CheckBox fx:id="AguaCheckBox" layoutX="661.0" layoutY="380.0" mnemonicParsing="false" text="Agua Corriente" />
       <CheckBox fx:id="CloacasCheckBox" layoutX="661.0" layoutY="418.0" mnemonicParsing="false" text="Cloacas" />
@@ -54,7 +53,7 @@
       <Label layoutX="795.0" layoutY="108.0" text="Datos del edificio" />
       <TextField fx:id="SuperficieField" layoutX="515.0" layoutY="208.0" prefHeight="34.0" prefWidth="176.0" text="Metros cuadrados" />
       <Label layoutX="524.0" layoutY="176.0" text="Superficie:" />
-      <CheckBox fx:id="PropiedadHorizontalCheckBox" layoutX="947.0" layoutY="418.0" mnemonicParsing="false" text="Propiedad horizontal" />
+      <CheckBox fx:id="PropiedadHorizontalCheckBox" layoutX="950.0" layoutY="396.0" mnemonicParsing="false" text="Propiedad horizontal" />
       <TextField fx:id="AntiguedadField" layoutX="719.0" layoutY="211.0" prefHeight="34.0" prefWidth="176.0" text="Años" />
       <Label layoutX="719.0" layoutY="176.0" text="antiguedad:" />
       <TextField fx:id="FrenteField" layoutX="524.0" layoutY="309.0" prefHeight="34.0" prefWidth="176.0" text="Metros" />
@@ -78,11 +77,9 @@
       <Line endX="-111.0" endY="617.0" layoutX="623.0" layoutY="114.0" startX="-111.0" startY="31.0" stroke="WHITE" />
       <Line endX="569.0" layoutX="613.0" layoutY="731.0" startX="-100.0" stroke="WHITE" />
       <Line endX="-111.0" endY="617.0" layoutX="1293.0" layoutY="114.0" startX="-111.5" startY="29.5" stroke="WHITE" />
-      <TextField fx:id="IdField" editable="false" layoutX="412.0" layoutY="69.0" prefHeight="34.0" prefWidth="126.0" promptText="ID" />
-      <TextField fx:id="FechaField" editable="false" layoutX="602.0" layoutY="69.0" prefHeight="34.0" prefWidth="176.0" promptText="Fecha" />
-      <Label layoutX="381.0" layoutY="77.0" text="ID:" />
-      <Label layoutX="546.0" layoutY="77.0" text="Fecha:" />
-      <TextField fx:id="EstadoField" editable="false" layoutX="965.0" layoutY="78.0" prefHeight="34.0" prefWidth="176.0" promptText="Estado" />
-      <Label layoutX="909.0" layoutY="86.0" text="Estado:" />
+      <TextField fx:id="FechaField" editable="false" layoutX="974.0" layoutY="69.0" prefHeight="34.0" prefWidth="176.0" promptText="Fecha" />
+      <Label layoutX="918.0" layoutY="77.0" text="Fecha:" />
+      <TextField fx:id="BarrioTextField" layoutX="69.0" layoutY="375.0" prefHeight="34.0" prefWidth="176.0" />
+      <CheckBox fx:id="AguaCalienteCheckBox" layoutX="949.0" layoutY="443.0" mnemonicParsing="false" text="Agua Caliente" />
    </children>
 </AnchorPane>
