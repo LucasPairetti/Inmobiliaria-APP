@@ -72,7 +72,7 @@ public class VentaDAO {
 		session.beginTransaction();
 		
 		List<Venta> ventas = session
-				.createQuery("SELECT a FROM venta", Venta.class)
+				.createQuery("SELECT a FROM venta a", Venta.class)
 				.getResultList();
 		
 		session.getTransaction().commit();

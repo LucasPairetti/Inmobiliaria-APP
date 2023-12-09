@@ -93,7 +93,7 @@ public class PropietarioDAO {
 			
 				session.beginTransaction();
 			List<Propietario> propietarios = session
-					.createQuery("SELECT a FROM cliente", Propietario.class)
+					.createQuery("SELECT a FROM propietario a", Propietario.class)
 					.getResultList();
 			session.getTransaction().commit();
 			session.close();
