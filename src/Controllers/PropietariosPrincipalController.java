@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import application.clases.TipoDNI;
 import dto.InmuebleDTO;
 import javafx.scene.input.MouseEvent;
 import dto.PropietarioDTO;
@@ -108,6 +109,10 @@ public class PropietariosPrincipalController implements Initializable {
     @Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		// TODO Auto-generated method stub
+    	
+    	ObservableList<String> dnis= FXCollections.observableArrayList();
+    			dnis.addAll(TipoDNI.getTiposDNI());
+    	TipoDocMenu.setItems(dnis);
     	
     	NombreColumn.setCellValueFactory(new PropertyValueFactory<>("Nombre"));
     	ApellidoColumn.setCellValueFactory(new PropertyValueFactory<>("Apellido"));

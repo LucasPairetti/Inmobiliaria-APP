@@ -142,7 +142,7 @@ public class ModificarPropietarioController implements Initializable {
     		
     		try {
     			
-    			PropietarioDTO nuevoPropietario= new PropietarioDTO(NombreField.getText(), ApellidoField.getText(), TipoDocMenu.getValue(), DNIField.getText(), CalleField.getText(), Integer.parseInt(numeroField.getText()),
+    			PropietarioDTO nuevoPropietario= new PropietarioDTO(propietarioID,NombreField.getText(), ApellidoField.getText(), TipoDocMenu.getValue(), DNIField.getText(), CalleField.getText(), Integer.parseInt(numeroField.getText()),
             			LocalidadMenu.getValue(), ProvinciaMenu.getValue(), Integer.parseInt(TelefonoField.getText()), emailField.getText());
     			propietarioService.updatePropietario(nuevoPropietario);
     			
