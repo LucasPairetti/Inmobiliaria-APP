@@ -32,6 +32,15 @@ public class ReservaDTO {
 		this.fecha=fecha;
 		
 	}
+	public ReservaDTO(int inmueble,int cliente,int vendedor,double importe, float tiempoVigencia, Date fecha) {
+		this.inmueble=inmueble;
+		this.cliente=cliente;
+		this.vendedor=vendedor;
+		this.importeReserva=importe;
+		this.tiempoVigencia=tiempoVigencia;
+		this.fecha=fecha;
+		
+	}
 	public ReservaDTO(Reserva reserva) {
 		this.id=reserva.getId();
 		this.inmueble=reserva.getInmueble().getId();

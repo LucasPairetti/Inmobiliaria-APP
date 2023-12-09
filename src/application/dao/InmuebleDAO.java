@@ -13,6 +13,7 @@ import application.clases.Inmueble;
 import application.clases.Localidad;
 import application.clases.Propietario;
 import application.clases.Provincia;
+import application.clases.Reserva;
 import application.clases.TipoInmueble;
 import application.clases.Vendedor;
 import application.clases.Venta;
@@ -220,17 +221,19 @@ public class InmuebleDAO {
 				
 				try {
 				
-				Query<Inmueble> query = session.createQuery("SELECT * FROM INMUEBLE WHERE"
-						+ "(PROPIETARIO == ?1);", Inmueble.class);
-				query.setParameter(1, propietario);
-				
-				
-			    ArrayList<Inmueble> inmuebles = (ArrayList<Inmueble>) query.getResultList();
+				CriteriaBuilder builder = session.getCriteriaBuilder();
+			    CriteriaQuery<Inmueble> criteria = builder.createQuery(Inmueble.class);
+			    Root<Inmueble> from = criteria.from(Inmueble.class);
+			    criteria.select(from);
+			    criteria.where(builder.equal(from.get("idPropietario"), propietario.getId()));
+			    TypedQuery<Inmueble> typed = session.createQuery(criteria);
+			    
+			    ArrayList<Inmueble> reservas = (ArrayList<Inmueble>) typed.getResultList();
 			    
 				session.getTransaction().commit();
 				session.close();
 				
-				return inmuebles;
+				return reservas;
 				
 				 } catch (final NoResultException nre) {
 					 	session.getTransaction().commit();

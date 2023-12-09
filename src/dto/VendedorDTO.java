@@ -58,6 +58,24 @@ public class VendedorDTO {
 		this.sueldo = sueldo;
 		this.clave = clave;
 	}
+	public VendedorDTO(int id,String nombre, String apellido, String tipodni, String dni, String calle, int numero,
+			String localidad, String provincia, int telefono, String email, Date fechaNacimiento, double sueldo,
+			String clave) {
+		this.id= id;
+		this.nombre = nombre;
+		this.apellido = apellido;
+		this.tipodni = tipodni.replace(" ", "_");
+		this.dni = dni;
+		this.calle = calle;
+		this.numero = numero;
+		this.localidad = localidad;
+		this.provincia = provincia.replace(" ", "_");
+		this.telefono = telefono;
+		this.email = email;
+		this.fechaNacimiento = fechaNacimiento;
+		this.sueldo = sueldo;
+		this.clave = clave;
+	}
 	public int getId() {
 		return id;
 	}

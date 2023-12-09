@@ -1,9 +1,12 @@
 package services;
 
+import java.sql.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import Controllers.Validacion;
 import application.clases.Cliente;
+import application.clases.Estado;
 import application.clases.Inmueble;
 import application.clases.Reserva;
 import application.clases.Vendedor;
@@ -22,7 +25,6 @@ private static ReservaServices instance;
 	private static InmuebleDAO inmuebledao;
 	private static VendedorDAO vendedordao;
 	private static ClienteDAO clientedao;
-	private static Validacion validation;
 	
 	public static ReservaServices getInstance() {
 		if(instance==null) {
@@ -32,47 +34,48 @@ private static ReservaServices instance;
 			validation = Validacion.getInstance();
 		}
 		return instance;
-	}int id;
-	
-	int inmueble;
-	
-	int cliente;
-	
-	int vendedor;
+	}
 	
 	public int createReserva(ReservaDTO reserva) {
 		
 		Inmueble inmueble= inmuebledao.getInmuebleById(reserva.getInmueble());
 		if(inmueble==null) {return -2;}//no existe inmueble
+		
 		Cliente cliente = clientedao.getClienteById(reserva.getCliente());
 		if(cliente==null) {return -3;}//no existe cliente
+		
 		Vendedor vendedor= vendedordao.getVendedorById(reserva.getVendedor());
 		if(vendedor==null) {return -4;}//no existe el vendedor
+		
 		List<Reserva> reservasInmueble = reservadao.getReservasByInmueble(inmueble);
 		if(reservasInmueble !=null) {
-			
+			List<Reserva> reservasValidas = reservasInmueble.stream().filter(Reserva::esReservaValida).collect(Collectors.toList());
+			if(reservasValidas != null) {
+				return reservasValidas.get(0).getCliente().getId(); // existe otra reserva vigente en este momento y te digo de que cliente es
+			}
 		}
+		reservadao.createReserva(toReserva(reserva,inmueble,cliente,vendedor));
+		inmueble.setEstado(Estado.Reservado);
+		inmuebledao.updateInmueble(inmueble);
+		return 0;
+		//AGREGAR METODO MAIL.
 		
-		}
-		else {
-			//no existe el vendedor o el cliente o el inmueble
-		}
-	}
-	public void updateVenta(Venta v) { 
-		ventadao.updateVenta(v);
-	}
-	public void deleteVenta(Venta venta) {
-		ventadao.deleteVenta(venta);
-	}
-	public Venta getVentaById(int id) {
-		return ventadao.getVentaById(id);
 	}
 	
-	public List<Venta> getAllVentas(){
-		return ventadao.getAllVentas();
+	
+	public List<Reserva> getAllReservas(){
+		return reservadao.getAllReservas();
 	}
-	public List<Venta> getVentasByVendedor(Vendedor v){
-		return ventadao.getVentasByVendedor(v);
+	public List<Reserva> getReservaByCliente(Cliente c){
+		return reservadao.getReservasByCliente(c);
 	}
+	public List<Reserva> getReservaByInmueble(Inmueble i){
+		return reservadao.getReservasByInmueble(i);
+	}
+	private Reserva toReserva(ReservaDTO entrada,Inmueble inmueble,Cliente cliente, Vendedor vendedor ) {
+		return new Reserva(inmueble,cliente,vendedor,entrada.getImporteReserva(),entrada.getTiempoVigencia(),entrada.getFecha());
+	}
+		
+	
 	
 }
