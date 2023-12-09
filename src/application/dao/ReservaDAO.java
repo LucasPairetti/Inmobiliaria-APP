@@ -99,7 +99,7 @@ public class ReservaDAO {
 		
 			session.beginTransaction();
 		List<Reserva> reservas = session
-				.createQuery("SELECT a FROM cliente", Reserva.class)
+				.createQuery("SELECT a FROM reserva a", Reserva.class)
 				.getResultList();
 		session.getTransaction().commit();
 		session.close();
