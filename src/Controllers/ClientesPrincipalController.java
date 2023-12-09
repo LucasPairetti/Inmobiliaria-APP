@@ -4,7 +4,12 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import application.clases.TipoDNI;
+import dto.ClienteDTO;
 import dto.InmuebleDTO;
+import dto.PropietarioDTO;
+import javafx.scene.control.ComboBox;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -12,12 +17,14 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
+import services.ClienteServices;
 
 public class ClientesPrincipalController implements Initializable {
 
@@ -25,16 +32,22 @@ public class ClientesPrincipalController implements Initializable {
     private Button AgregarButton;
 
     @FXML
-    private TableColumn<?, ?> ApellidoColumn;
+    private TableColumn<ClienteDTO, String> ApellidoColumn;
 
     @FXML
     private TextField ApellidoField;
+    
+    @FXML
+    private TextField DocumentoField;
 
+    @FXML
+    private ComboBox<String> TipoDocMenu;
+    
     @FXML
     private Button BuscarButton;
 
     @FXML
-    private TableView<?> ClientesTable;
+    private TableView<ClienteDTO> ClientesTable;
 
     @FXML
     private Button EliminarButton;
@@ -46,21 +59,29 @@ public class ClientesPrincipalController implements Initializable {
     private Button ModificarButton;
 
     @FXML
-    private TableColumn<?, ?> NombreColumn;
+    private TableColumn<ClienteDTO, String> NombreColumn;
 
     @FXML
     private TextField NombreField;
 
     @FXML
     private Button VolverButton;
-
+    
+    private Validacion validar;
+    private ObservableList<ClienteDTO> listaDeClientes= FXCollections.observableArrayList(); 
+    private ClienteServices clientesService= ClienteServices.getInstance();
     
     @Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		// TODO Auto-generated method stub
-		
+    	ObservableList<String> dnis= (ObservableList<String>)TipoDNI.getTiposDNI();
+    	TipoDocMenu.setItems(dnis);
+    	
     	NombreColumn.setCellValueFactory(new PropertyValueFactory<>("Nombre"));
     	ApellidoColumn.setCellValueFactory(new PropertyValueFactory<>("Apellido"));
+    	listaDeClientes.addAll(clientesService.listClientes());
+    	ClientesTable.setItems(listaDeClientes);
+    	
 	}
     
     
@@ -83,16 +104,43 @@ public class ClientesPrincipalController implements Initializable {
 
     @FXML
     void BuscarPressed(ActionEvent event) {
-
-    	//listaDeClientes= (ObservableList<ClienteDTO>) ClienteService.getCliente(NombreField.getText(), NombreField.getText());	
+    	//getClientes(String tipoDNI,String dni,String nombre, String apellido)
     	
+if(validar.esUnDNI(DocumentoField.getText())==1 ||DocumentoField.getText()=="" ) {
+	Alert alertaTipo = new Alert(Alert.AlertType.ERROR); //esto es un mensaje de alerta
+	alertaTipo.setTitle("DNI invalido"); //titulo
+	alertaTipo.setContentText("El DNI indicado es invalido para la busqueda"); //informacion
+}else if(validar.esString(NombreField.getText())==1 ||NombreField.getText()=="") {
+	Alert alertaTipo = new Alert(Alert.AlertType.ERROR); //esto es un mensaje de alerta
+	alertaTipo.setTitle("Nombre invalido"); //titulo
+	alertaTipo.setContentText("debe completar el campo 'nombre' para la busqueda"); //informacion
+}else if(validar.esString(ApellidoField.getText())==1 ||ApellidoField.getText()=="") {
+	Alert alertaTipo = new Alert(Alert.AlertType.ERROR); //esto es un mensaje de alerta
+	alertaTipo.setTitle("Apellido invalido"); //titulo
+	alertaTipo.setContentText("debe completar el campo 'Apellido' para la busqueda"); //informacion
+}
+else {
+    	listaDeClientes= (ObservableList<ClienteDTO>) clientesService.getClientes(NombreField.getText(), ApellidoField.getText(), TipoDocMenu.getValue(), DocumentoField.getText());
+    	ClientesTable.setItems(listaDeClientes);
+}
     	//ClientesTable.setItems(listaDeClientes);
     }
 
     @FXML
     void EliminarPressed(ActionEvent event) {
-
+    	ClienteDTO Cliente= ClientesTable.getSelectionModel().getSelectedItem();
+    	if(Cliente!=null) {
+    		clientesService.deleteCliente(Cliente.getId());
+    	
+    		listaDeClientes.remove(Cliente);
+    		ClientesTable.setItems(listaDeClientes);
+    	}else {
+    		Alert alertaTipo = new Alert(Alert.AlertType.ERROR); //esto es un mensaje de alerta
+    		alertaTipo.setTitle("Propietario"); //titulo
+    		alertaTipo.setContentText("Debe seleccionar un Propietario de la tabla antes de eliminarlo"); //informacion
+    	}
     }
+    
 
     @FXML
     void LimpiarPressed(ActionEvent event) {
@@ -100,10 +148,10 @@ public class ClientesPrincipalController implements Initializable {
     	//texto
     	NombreField.setText("");
     	ApellidoField.setText("");
+    	DocumentoField.setText("");
     	
-    	//actualiza lista a todos los inmuebles sin filtro
-    	//listaDeInmuebles = (ObservableList<InmuebleDTO>) inmuebleService.listInmuebles();
-    	//InmuebleTable.setItems(listaDeInmuebles);
+    	listaDeClientes.addAll(clientesService.listClientes());
+    	ClientesTable.setItems(listaDeClientes);
     }
 
     @FXML
