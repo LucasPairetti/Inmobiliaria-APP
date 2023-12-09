@@ -92,7 +92,7 @@ public class InmuebleDAO {
 			try {
 				session.beginTransaction();
 				List<Inmueble> inmuebles = session
-						.createQuery("SELECT a FROM Inmueble", Inmueble.class)
+						.createQuery("SELECT a FROM Inmueble a", Inmueble.class)
 						.getResultList();
 				session.getTransaction().commit();
 				session.close();

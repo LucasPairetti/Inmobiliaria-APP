@@ -136,8 +136,13 @@ public class ConsultaInmueblesController implements Initializable {
     	
     	//inicializar todos los combobox
     
-     	LocalidadMenu.setItems((ObservableList<String>) Localidad.getLocalidad());
-    	ProvinciaMenu.setItems((ObservableList<String>) Provincia.getProvincias());
+    	ObservableList<String> localidades=  FXCollections.observableArrayList();
+    	localidades.addAll(Localidad.getLocalidad());
+    	ObservableList<String> provincias=  FXCollections.observableArrayList();
+    	provincias.addAll(Provincia.getProvincias());
+    	
+     	LocalidadMenu.setItems( localidades );
+     	ProvinciaMenu.setItems( provincias );
     	
     
     	
