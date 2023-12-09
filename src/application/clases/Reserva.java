@@ -1,6 +1,9 @@
 package application.clases;
 
 import java.sql.Date;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -53,7 +56,15 @@ public class Reserva {
 		this.tiempoVigencia = tiempoVigencia;
 		this.fecha = fecha;
 	}
+   
 
+    public boolean esReservaValida() {
+      
+        LocalDateTime fechaActual = LocalDateTime.now();
+        LocalDateTime fechaCreacion = this.fecha.toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime();
+        LocalDateTime fechaVencimiento = fechaCreacion.plusDays((long) this.tiempoVigencia);
+        return fechaActual.isBefore(fechaVencimiento);
+    }
 
 
 	public Inmueble getInmueble() {

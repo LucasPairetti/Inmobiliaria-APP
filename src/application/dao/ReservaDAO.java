@@ -5,9 +5,13 @@ import java.util.List;
 
 import org.hibernate.PersistentObjectException;
 import org.hibernate.Session;
+import org.hibernate.query.Query;
+
 import application.clases.Cliente;
 import application.clases.Inmueble;
+import application.clases.Provincia;
 import application.clases.Reserva;
+import application.clases.TipoInmueble;
 import jakarta.persistence.NoResultException;
 import jakarta.persistence.TypedQuery;
 import jakarta.persistence.criteria.CriteriaBuilder;
@@ -133,7 +137,7 @@ public class ReservaDAO {
 		    }
 
 	}
-	public List<Reserva> getReservasByCliente(Inmueble inmueble) {
+	public List<Reserva> getReservasByInmueble(Inmueble inmueble) {
 		// TODO Auto-generated method stub
 		
 		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
@@ -145,7 +149,7 @@ public class ReservaDAO {
 	    CriteriaQuery<Reserva> criteria = builder.createQuery(Reserva.class);
 	    Root<Reserva> from = criteria.from(Reserva.class);
 	    criteria.select(from);
-	    criteria.where(builder.equal(from.get("cliente_id"), cliente.getId()));
+	    criteria.where(builder.equal(from.get("inmueble_id"), inmueble.getId()));
 	    TypedQuery<Reserva> typed = session.createQuery(criteria);
 	    
 	    ArrayList<Reserva> reservas = (ArrayList<Reserva>) typed.getResultList();
@@ -196,4 +200,5 @@ public class ReservaDAO {
 			
 			
 		}
+	
 }

@@ -5,6 +5,7 @@ import java.util.List;
 import Controllers.Validacion;
 import application.clases.Cliente;
 import application.clases.Inmueble;
+import application.clases.Reserva;
 import application.clases.Vendedor;
 import application.clases.Venta;
 import application.dao.ClienteDAO;
@@ -47,11 +48,11 @@ private static ReservaServices instance;
 		if(cliente==null) {return -3;}//no existe cliente
 		Vendedor vendedor= vendedordao.getVendedorById(reserva.getVendedor());
 		if(vendedor==null) {return -4;}//no existe el vendedor
+		List<Reserva> reservasInmueble = reservadao.getReservasByInmueble(inmueble);
+		if(reservasInmueble !=null) {
+			
+		}
 		
-		if(inmuebledao.getInmuebleById(venta.getPropiedad().getId())!=null 
-				/* && vendedordao.getVendedorById(venta.getVendedor().getId())!= null &&
-				clientedao.getClienteById(venta.getCliente().getId()!= null)*/) {
-			ventadao.createVenta(venta);
 		}
 		else {
 			//no existe el vendedor o el cliente o el inmueble
