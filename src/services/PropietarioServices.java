@@ -75,7 +75,7 @@ public class PropietarioServices {
 		
 		TipoDNI tipo= TipoDNI.valueOf(tipodni.replace(" ", "_"));
 		
-		return propietariodao.getCliente(tipo,dni,n,a).stream()
+		return propietariodao.getPropietario(tipo,dni,n,a).stream()
 	            .map(propietario -> new PropietarioDTO(propietario))
 	            .collect(Collectors.toList());
 		
@@ -89,7 +89,7 @@ public class PropietarioServices {
 		return propietario;
 	}
 	private boolean chequearDuplicado( TipoDNI tipo,String dni) {
-		List<Propietario> lista=propietariodao.getCliente(tipo,dni,null,null);
+		List<Propietario> lista=propietariodao.getPropietario(tipo,dni,null,null);
 		if(lista==null){return false;}
 		else { return true;}
 		}

@@ -133,7 +133,7 @@ public class PropietarioDAO {
 		}
 
 		
-			public List<Propietario> getCliente(TipoDNI tipo, String dni, String nombre, String apellido) {
+			public List<Propietario> getPropietario(TipoDNI tipo, String dni, String nombre, String apellido) {
 				// TODO Auto-generated method stub
 				
 				Session session = HibernateUtil.getSessionFactory().getCurrentSession();
