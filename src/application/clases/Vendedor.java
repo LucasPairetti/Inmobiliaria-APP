@@ -2,18 +2,13 @@ package application.clases;
 
 import java.sql.Date;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import javax.persistence.Column;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 
-
-@Entity
-@Table(name="Vendedor")
 public class Vendedor {
 	@Id
 	@GeneratedValue(strategy= GenerationType.IDENTITY)
@@ -81,6 +76,7 @@ public class Vendedor {
 	public void setId(int id) {
 		this.id = id;
 	}
+	
 	public String getNombre() {
 		return nombre;
 	}
@@ -158,11 +154,11 @@ public class Vendedor {
 		return nombre + " " + apellido;
 	}
 	public boolean equals(Vendedor v) {
-		if(v.getId().equals(id)) {return true;}
+		if(v.getDni().equals(id)) {return true;}
 		else {return false;}
 	}
-	public String getId() {
+	public int getId() {
 		// TODO Auto-generated method stub
-		return this.dni;
+		return this.id;
 	}
 }

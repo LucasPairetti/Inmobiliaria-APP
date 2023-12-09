@@ -26,7 +26,7 @@ public class InmuebleDTO {
 	
 	Date fechaCreacion;
 	
-	boolean estado; //¿diponible - vendido?
+	String estado;
 	
 	String provincia;
 
@@ -82,7 +82,7 @@ public class InmuebleDTO {
 	
 	String observaciones;
 	
-	public InmuebleDTO (int id,int idPropietario,Date fechaCreacion, boolean estado, String provincia, String localidad, String calle,
+	public InmuebleDTO (int id,int idPropietario,Date fechaCreacion, String estado, String provincia, String localidad, String calle,
 			int numero, String pisodpto, String barrio, String tipoInmueble,double precioVenta, String orientacion, float frente,float superficie,
 			float fondo, int antiguedad, int dormitorios, int banios,boolean garaje,boolean pHorizontal, boolean patio, boolean piscina, boolean aguaCorriente,
 			boolean cloacas, boolean gasNatural,boolean aguaCaliente, boolean lavadero, boolean pavimento, boolean telefono,
@@ -120,7 +120,7 @@ public class InmuebleDTO {
 		this.pHorizontal=pHorizontal;
 		this.observaciones = observaciones;
 	}
-	public InmuebleDTO (int idPropietario,Date fechaCreacion, boolean estado, String provincia, String localidad, String calle,
+	public InmuebleDTO (int idPropietario,Date fechaCreacion, String estado, String provincia, String localidad, String calle,
 			int numero, String pisodpto, String barrio, String tipoInmueble,double precioVenta, String orientacion, float frente,float superficie,
 			float fondo, int antiguedad, int dormitorios, int banios,boolean garaje,boolean pHorizontal, boolean patio, boolean piscina, boolean aguaCorriente,
 			boolean cloacas, boolean gasNatural,boolean aguaCaliente, boolean lavadero, boolean pavimento, boolean telefono,
@@ -162,7 +162,7 @@ public class InmuebleDTO {
 		this.id=inmueble.getId();
 		this.idPropietario=inmueble.getPropietario().getId();
 		this.fechaCreacion = inmueble.getFechaCreacion();
-		this.estado = inmueble.isEstado();
+		this.estado = inmueble.getEstado().toString().replace("_"," ");
 		this.provincia = inmueble.getProvincia().toString().replace("_", " ");
 		this.localidad = inmueble.getLocalidad();
 		this.calle = inmueble.getCalle();
@@ -238,11 +238,11 @@ public class InmuebleDTO {
 		this.fechaCreacion = fechaCreacion;
 	}
 
-	public boolean isEstado() {
+	public String getEstado() {
 		return estado;
 	}
 
-	public void setEstado(boolean estado) {
+	public void setEstado(String estado) {
 		this.estado = estado;
 	}
 

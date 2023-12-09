@@ -6,6 +6,7 @@ import java.util.List;
 import org.hibernate.PersistentObjectException;
 import org.hibernate.Session;
 import application.clases.Cliente;
+import application.clases.Inmueble;
 import application.clases.Reserva;
 import jakarta.persistence.NoResultException;
 import jakarta.persistence.TypedQuery;
@@ -94,7 +95,7 @@ public class ReservaDAO {
 		
 			session.beginTransaction();
 		List<Reserva> reservas = session
-				.createQuery("SELECT a FROM reserva a", Reserva.class)
+				.createQuery("SELECT a FROM cliente", Reserva.class)
 				.getResultList();
 		session.getTransaction().commit();
 		session.close();
@@ -132,7 +133,37 @@ public class ReservaDAO {
 		    }
 
 	}
-
+	public List<Reserva> getReservasByCliente(Inmueble inmueble) {
+		// TODO Auto-generated method stub
+		
+		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+		session.beginTransaction();
+		
+		try {
+		
+		CriteriaBuilder builder = session.getCriteriaBuilder();
+	    CriteriaQuery<Reserva> criteria = builder.createQuery(Reserva.class);
+	    Root<Reserva> from = criteria.from(Reserva.class);
+	    criteria.select(from);
+	    criteria.where(builder.equal(from.get("cliente_id"), cliente.getId()));
+	    TypedQuery<Reserva> typed = session.createQuery(criteria);
+	    
+	    ArrayList<Reserva> reservas = (ArrayList<Reserva>) typed.getResultList();
+	    
+		session.getTransaction().commit();
+		session.close();
+		
+		return reservas;
+		
+		 } catch (final NoResultException nre) {
+			 	session.getTransaction().commit();
+				session.close();
+				
+		        return null;
+		    }
+		
+		
+	}
 	
 		public List<Reserva> getReservasByCliente(Cliente cliente) {
 			// TODO Auto-generated method stub

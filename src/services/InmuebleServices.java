@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import Controllers.Validacion;
+import application.clases.Estado;
 import application.clases.Inmueble;
 import application.clases.Localidad;
 import application.clases.Orientacion;
@@ -39,12 +40,12 @@ public class InmuebleServices {
 		
 		Propietario p = propietariodao.getPropietarioById(entrada.getIdPropietario());
 		if(p == null) {
-			return -2;
+			return -2;//no existe el propietario
 		}
 		Inmueble inmueble= toInmueble(p, entrada);
 		if(chequearDuplicado(inmueble.getProvincia(), inmueble.getLocalidad(), inmueble.getCalle(), inmueble.getNumero(),
 				inmueble.getPisodpto(), inmueble.getTipoInmueble())) {
-			return -3;
+			return -3;//el inmueble ya existe
 		}
 		
 		inmuebledao.createInmueble(inmueble);
@@ -56,7 +57,7 @@ public class InmuebleServices {
 		if(inmueble!=null) {
 		inmuebledao.deleteInmueble(inmueble);
 		return 1;
-		}else {return -1;}
+		}else {return -1;}//no existia el inmueble con esa id
 	}
 	
 	public int updateInmueble(InmuebleDTO entrada) {
@@ -67,14 +68,21 @@ public class InmuebleServices {
 		chequearModificaciones(og,inmueble); //si se modifico algo que no se debia se vuelve al original
 		inmuebledao.updateInmueble(inmueble);
 		return 1;}
-		else {return -1;}
+		else {return -1;}//no existia el inmueble con esa id
 	}
 	
 	public List<InmuebleDTO> listInmuebles() {
 		return inmuebledao.getAllInmuebles().stream()
 	            .map(inmueble -> new InmuebleDTO(inmueble.getPropietario(), inmueble))
 	            .collect(Collectors.toList());
-	} 
+	}
+	public List<InmuebleDTO> listInmueblesFiltrados() {
+	    return inmuebledao.getAllInmuebles().stream()
+	            .filter(inmueble -> inmueble.getEstado() == Estado.Disponible || inmueble.getEstado() == Estado.Reservado)
+	            .map(inmueble -> new InmuebleDTO(inmueble.getPropietario(), inmueble))
+	            .collect(Collectors.toList());
+	}
+
 	
 	public InmuebleDTO getById(int id) {
 		Inmueble i = inmuebledao.getInmuebleById(id);
@@ -160,7 +168,8 @@ public class InmuebleServices {
 		Provincia provincia = Provincia.valueOf(entrada.getProvincia());
 		TipoInmueble tipoInmueble = TipoInmueble.valueOf(entrada.getTipoInmueble());
 		Orientacion orientacion = Orientacion.valueOf(entrada.getOrientacion());
-		Inmueble inmueble = new Inmueble(propietario, entrada.getFechaCreacion(),  entrada.isEstado(), provincia, entrada.getLocalidad(),
+		Estado estado = Estado.valueOf(entrada.getEstado());
+		Inmueble inmueble = new Inmueble(propietario, entrada.getFechaCreacion(),  estado, provincia, entrada.getLocalidad(),
 				 entrada.getCalle(),  entrada.getNumero(),entrada.getPisodpto(),  entrada.getBarrio(), tipoInmueble,
 				 entrada.getPrecioVenta(),   orientacion,entrada.getSuperficie(),entrada.getFrente(),  entrada.getFondo(),
 				 entrada.getAntiguedad(),  entrada.getDormitorios(), entrada.getBanios(),entrada.isGaraje(),entrada.ispHorizontal(),  entrada.isPatio(),
