@@ -249,8 +249,9 @@ public class CargarInmuebleController implements Initializable{
     			 * 
     			 */
     			
+    			String localidad= LocalidadMenu.getValue();
     			
-    			InmuebleDTO nuevoInmueble= new InmuebleDTO(propietarioID, (java.sql.Date) fecha, true, ProvinciaMenu.getValue(), LocalidadMenu.getValue(), null, 0, null, null, null, 0, null, 0, 0, 0, 0, 0, 0, false, false, false, false, false, false, false, false, false, false, false, null);
+    			InmuebleDTO nuevoInmueble= new InmuebleDTO(propietarioID, (java.sql.Date) fecha, true, ProvinciaMenu.getValue(), localidad, null, 0, null, null, null, 0, null, 0, 0, 0, 0, 0, 0, false, false, false, false, false, false, false, false, false, false, false, null);
     					//crear inmueble -> 
     			
     			serviceInmueble.createInmueble(nuevoInmueble);
@@ -281,6 +282,8 @@ public class CargarInmuebleController implements Initializable{
     @FXML
     void VolverPressed(ActionEvent event) {
     	try {
+    		
+    		
     		Parent root;
     		root = FXMLLoader.load((getClass().getResource("/interfaces/ClientesPrincipal.fxml")));
     		

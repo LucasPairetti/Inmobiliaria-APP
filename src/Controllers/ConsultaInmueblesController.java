@@ -264,6 +264,8 @@ public class ConsultaInmueblesController implements Initializable {
     	//esto es para volver a la anterior pagina
     	
     	try {
+    		
+
     		Parent root;
     		root = FXMLLoader.load((getClass().getResource("/interfaces/PantallaPrincipal.fxml")));
     		
