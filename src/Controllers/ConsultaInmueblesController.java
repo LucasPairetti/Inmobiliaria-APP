@@ -139,7 +139,7 @@ public class ConsultaInmueblesController implements Initializable {
     	ObservableList<String> localidades=  FXCollections.observableArrayList();
     	localidades.addAll(Localidad.getLocalidad());
     	ObservableList<String> provincias=  FXCollections.observableArrayList();
-    	provincias.addAll(Provincia.getProvincias());
+    	provincias.addAll(TipoDNI.getTiposDNI());
     	
      	LocalidadMenu.setItems( localidades );
      	ProvinciaMenu.setItems( provincias );
@@ -264,6 +264,8 @@ public class ConsultaInmueblesController implements Initializable {
     	//esto es para volver a la anterior pagina
     	
     	try {
+    		
+
     		Parent root;
     		root = FXMLLoader.load((getClass().getResource("/interfaces/PantallaPrincipal.fxml")));
     		

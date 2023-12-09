@@ -64,11 +64,11 @@ public class PropietarioServices {
 	
 	public List<PropietarioDTO> listPropietarios(){
 		
-		List<PropietarioDTO> propietarios= propietariodao.getAllPropietario().stream()
-	            .map(propietario -> new PropietarioDTO(propietario))
-	            .collect(Collectors.toList());
+	List<PropietarioDTO> propietarios= propietariodao.getAllPropietario().stream()
+	        .map(propietario -> new PropietarioDTO(propietario))
+	           .collect(Collectors.toList());
 
-		return propietarios;
+	return propietarios;
 	}
 	
 	public List<PropietarioDTO> getPropietario(String n, String a, String dni, String tipodni){

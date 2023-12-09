@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import application.clases.TipoDNI;
 import dto.InmuebleDTO;
 import javafx.scene.input.MouseEvent;
 import dto.PropietarioDTO;
@@ -65,7 +66,7 @@ public class PropietariosPrincipalController implements Initializable {
     private TableColumn<InmuebleDTO, String> LocalidadColumn;
 
     @FXML
-    private Button ModificarButton11;
+    private Button AgregarInmuebleButton;
 
     @FXML
     private Button ModificarInmuebleButton;
@@ -109,6 +110,10 @@ public class PropietariosPrincipalController implements Initializable {
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		// TODO Auto-generated method stub
     	
+    	ObservableList<String> dnis= FXCollections.observableArrayList();
+    			dnis.addAll(TipoDNI.getTiposDNI());
+    	TipoDocMenu.setItems(dnis);
+    	
     	NombreColumn.setCellValueFactory(new PropertyValueFactory<>("Nombre"));
     	ApellidoColumn.setCellValueFactory(new PropertyValueFactory<>("Apellido"));
     	
@@ -128,7 +133,31 @@ public class PropietariosPrincipalController implements Initializable {
 
     @FXML
     void AgergarInmueblePressed(ActionEvent event) {
-
+    	if(propietariosTable.getSelectionModel().getSelectedItem()!=null) {
+    		int idPropietario= propietariosTable.getSelectionModel().getSelectedItem().getId();
+    	
+    	try {
+    		
+    		Parent root;
+    	// root = FXMLLoader.load((getClass().getResource("/interfaces/NuevoPropietario.fxml")));
+    		FXMLLoader loader = new FXMLLoader(getClass().getResource("/interfaces/NuevoPropietario.fxml"));
+    		root = loader.load();
+    		CargarInmuebleController controladorCargaInmuele = loader.getController();
+    		controladorCargaInmuele.setPropietarioID(idPropietario);
+    		
+    		Stage window = (Stage)AgregarInmuebleButton.getScene().getWindow();
+    		window.setTitle("Cargar Inmueble");
+    		window.setScene(new Scene(root));
+    	} catch (IOException e) {
+    		// TODO Auto-generated catch block
+    		e.printStackTrace();
+    	}
+    	}else {
+    		Alert alertaTipo = new Alert(Alert.AlertType.ERROR); //esto es un mensaje de alerta
+    		alertaTipo.setTitle("Propietario"); //titulo
+    		alertaTipo.setContentText("Debe seleccionar un propietario de la tabla antes de agregar un inmueble"); //informacion
+    	}
+    	
     }
 
     @FXML
@@ -138,7 +167,7 @@ public class PropietariosPrincipalController implements Initializable {
     		root = FXMLLoader.load((getClass().getResource("/interfaces/NuevoPropietario.fxml")));
     		
     		Stage window = (Stage)VolverButton.getScene().getWindow();
-    		window.setTitle("Propietarios");
+    		window.setTitle("Agregar Propietario");
     		window.setScene(new Scene(root));
     	} catch (IOException e) {
     		// TODO Auto-generated catch block
@@ -198,6 +227,10 @@ public class PropietariosPrincipalController implements Initializable {
     	
     	listaDeInmuebles.remove(Inmueble);
     	InmuebleTable.setItems(listaDeInmuebles);
+    	}else {
+    		Alert alertaTipo = new Alert(Alert.AlertType.ERROR); //esto es un mensaje de alerta
+    		alertaTipo.setTitle("Inmueble"); //titulo
+    		alertaTipo.setContentText("Debe seleccionar un inmueble de la tabla antes de eliminarlo"); //informacion
     	}
     }
 
@@ -209,6 +242,10 @@ public class PropietariosPrincipalController implements Initializable {
     	
     	listaDePropietario.remove(prop);
     	propietariosTable.setItems(listaDePropietario);
+    	}else {
+    		Alert alertaTipo = new Alert(Alert.AlertType.ERROR); //esto es un mensaje de alerta
+    		alertaTipo.setTitle("Propietario"); //titulo
+    		alertaTipo.setContentText("Debe seleccionar un propietario de la tabla antes de eliminarlo"); //informacion
     	}
     	
     }
@@ -225,12 +262,62 @@ public class PropietariosPrincipalController implements Initializable {
 
     @FXML
     void ModificarInmueblePressed(ActionEvent event) {
-
+    	if(InmuebleTable.getSelectionModel().getSelectedItem()!=null) {
+    		int idPropietario= InmuebleTable.getSelectionModel().getSelectedItem().getIdPropietario();
+    		int idInmueble = InmuebleTable.getSelectionModel().getSelectedItem().getId();
+    	
+    	try {
+    		
+    		Parent root;
+    	// root = FXMLLoader.load((getClass().getResource("/interfaces/NuevoPropietario.fxml")));
+    		FXMLLoader loader = new FXMLLoader(getClass().getResource("/interfaces/ModificarInmueble.fxml"));
+    		root = loader.load();
+    		ModificarInmuebleController controladorCargaInmuele = loader.getController();
+    		controladorCargaInmuele.setInmueblePropietario(idPropietario,idInmueble);
+    		
+    		Stage window = (Stage)ModificarInmuebleButton.getScene().getWindow();
+    		window.setTitle("Modificar Inmueble");
+    		window.setScene(new Scene(root));
+    	} catch (IOException e) {
+    		// TODO Auto-generated catch block
+    		e.printStackTrace();
+    	}
+    	}else {
+    		Alert alertaTipo = new Alert(Alert.AlertType.ERROR); //esto es un mensaje de alerta
+    		alertaTipo.setTitle("Inmueble"); //titulo
+    		alertaTipo.setContentText("Debe seleccionar un inmueble de la tabla antes de modificarlo"); //informacion
+    	}
     }
 
     @FXML
     void ModificarPropietarioPressed(ActionEvent event) {
-
+    	if(propietariosTable.getSelectionModel().getSelectedItem()!=null) {
+    		int idPropietario= propietariosTable.getSelectionModel().getSelectedItem().getId();
+    		
+    	
+    	try {
+    		
+    		Parent root;
+    	// root = FXMLLoader.load((getClass().getResource("/interfaces/NuevoPropietario.fxml")));
+    		FXMLLoader loader = new FXMLLoader(getClass().getResource("/interfaces/ModificarPropietario.fxml"));
+    		root = loader.load();
+    		ModificarPropietarioController controladorCargaInmuele = loader.getController();
+    		controladorCargaInmuele.setPropietario(idPropietario);
+    		
+    		Stage window = (Stage)ModificarInmuebleButton.getScene().getWindow();
+    		window.setTitle("Modificar Inmueble");
+    		window.setScene(new Scene(root));
+    	} catch (IOException e) {
+    		// TODO Auto-generated catch block
+    		e.printStackTrace();
+    	}
+    	}else {
+    		Alert alertaTipo = new Alert(Alert.AlertType.ERROR); //esto es un mensaje de alerta
+    		alertaTipo.setTitle("Propietario"); //titulo
+    		alertaTipo.setContentText("Debe seleccionar un Propietario de la tabla antes de modificarlo"); //informacion
+    	}
+    	
+    	
     }
 
     @FXML

@@ -132,6 +132,8 @@ public class CargarInmuebleController implements Initializable{
 
     @FXML
     private ChoiceBox<String> TipoInmuebleMenu;
+    @FXML
+    private TextField PisoDeptoField;
 
     @FXML
     private Button VolverButton;
@@ -154,7 +156,11 @@ public class CargarInmuebleController implements Initializable{
     	FechaField.setText(sdf.format(fecha));
 	}
     
-
+public void setPropietarioID(int id) {
+	propietarioID=id;
+}
+    
+    
     @FXML
     void ImagenPressed(ActionEvent event) {
     	
@@ -242,15 +248,24 @@ public class CargarInmuebleController implements Initializable{
     			/*
     			 * public InmuebleDTO (int idPropietario,Date fechaCreacion, boolean estado, String provincia, String localidad, String calle,
 			int numero, String pisodpto, String barrio, String tipoInmueble,double precioVenta, String orientacion, float frente,float superficie,
-			float fondo, int antiguedad, int dormitorios, int banios,boolean garaje,boolean pHorizontal, boolean patio, boolean piscina, boolean aguaCorriente,
+			float fondo, int antiguedad, int dormitorios, int banios,boolean 
+			garaje,boolean pHorizontal, boolean patio, boolean piscina, boolean aguaCorriente,
 			boolean cloacas, boolean gasNatural,boolean aguaCaliente, boolean lavadero, boolean pavimento, boolean telefono,
 			String observaciones)
     			 * 
     			 * 
     			 */
     			
+    			String localidad= LocalidadMenu.getValue();
+    			if(OtraLocalidadField.getText()!="") {
+    				localidad=OtraLocalidadField.getText();
+    			}
     			
-    			InmuebleDTO nuevoInmueble= new InmuebleDTO(propietarioID, (java.sql.Date) fecha, true, ProvinciaMenu.getValue(), LocalidadMenu.getValue(), null, 0, null, null, null, 0, null, 0, 0, 0, 0, 0, 0, false, false, false, false, false, false, false, false, false, false, false, null);
+    			InmuebleDTO nuevoInmueble= new InmuebleDTO(propietarioID, (java.sql.Date) fecha, true, ProvinciaMenu.getValue(), localidad, CalleField.getText(), Integer.parseInt(NumeroField.getText()), PisoDeptoField.getText(), BarrioTextField.getText(),
+    					TipoInmuebleMenu.getValue(), Double.parseDouble(PrecioField.getText()), OrientacionMenu.getValue(), Float.parseFloat(FrenteField.getText()), Float.parseFloat(SuperficieField.getText()),
+    					Float.parseFloat(FondoField.getText()), Integer.parseInt(AntiguedadField.getText()), Integer.parseInt(DormitorioField.getText()), Integer.parseInt(BaniosField.getText()), GarajeCheckBox.isSelected(),
+    					PropiedadHorizontalCheckBox.isSelected(), PatioCheckBox.isSelected(), PiscinaCheckBox.isSelected(), AguaCheckBox.isSelected(), CloacasCheckBox.isSelected(), GasCheckBox.isSelected(), AguaCalienteCheckBox.isSelected(),
+    					LavaderoCheckBox.isSelected(), PavimentoCheckBox.isSelected(), TelefenoCheckBox.isSelected(), ObservacionesField.getText());
     					//crear inmueble -> 
     			
     			serviceInmueble.createInmueble(nuevoInmueble);
@@ -281,6 +296,8 @@ public class CargarInmuebleController implements Initializable{
     @FXML
     void VolverPressed(ActionEvent event) {
     	try {
+    		
+    		
     		Parent root;
     		root = FXMLLoader.load((getClass().getResource("/interfaces/ClientesPrincipal.fxml")));
     		

@@ -31,6 +31,21 @@ public class PropietarioDTO {
 	int telefono;
 	
 	String email;
+	public PropietarioDTO(int idPropietario,String nombre, String apellido, String tipodni, String dni, String calle, int numero,
+			String localidad, String provincia, int telefono, String email) {
+		super();
+		this.id= idPropietario;
+		this.nombre = nombre;
+		this.apellido = apellido;
+		this.tipodni = tipodni.replace(" ", "_");
+		this.dni = dni;
+		this.calle = calle;
+		this.numero = numero;
+		this.localidad = localidad;
+		this.provincia = provincia.replace(" ", "_");
+		this.telefono = telefono;
+		this.email = email;
+	}
 	
 	public PropietarioDTO(String nombre, String apellido, String tipodni, String dni, String calle, int numero,
 			String localidad, String provincia, int telefono, String email) {
