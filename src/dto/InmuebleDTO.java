@@ -24,14 +24,6 @@ public class InmuebleDTO {
 	
 	int idPropietario;
 	
-	String nombrePropietario;
-	
-	String apellidoPropietario;
-
-	String tipodniPropietario;
-	
-	String dniPropietario;
-	
 	Date fechaCreacion;
 	
 	boolean estado; //¿diponible - vendido?
@@ -58,11 +50,17 @@ public class InmuebleDTO {
 	
 	float fondo;
 	
+	float superficie;
+	
 	int antiguedad;
 	
 	int dormitorios;
 	
 	int banios;
+	
+	boolean pHorizontal;
+	
+	boolean garaje;
 	
 	boolean patio;
 
@@ -80,23 +78,18 @@ public class InmuebleDTO {
 	
 	boolean pavimento;
 	
-	int telefono;
+	boolean telefono;
 	
 	String observaciones;
 	
-	public InmuebleDTO (int id,int idPropietario, String nombrePropietario, String apellidoPropietario, String tipodniPropietario,
-			String dniPropietario, Date fechaCreacion, boolean estado, String provincia, String localidad, String calle,
-			int numero, String pisodpto, String barrio, String tipoInmueble,double precioVenta, String orientacion, float frente,
-			float fondo, int antiguedad, int dormitorios, int banios, boolean patio, boolean piscina, boolean aguaCorriente,
-			boolean cloacas, boolean gasNatural,boolean aguaCaliente, boolean lavadero, boolean pavimento, int telefono,
+	public InmuebleDTO (int id,int idPropietario,Date fechaCreacion, boolean estado, String provincia, String localidad, String calle,
+			int numero, String pisodpto, String barrio, String tipoInmueble,double precioVenta, String orientacion, float frente,float superficie,
+			float fondo, int antiguedad, int dormitorios, int banios,boolean garaje,boolean pHorizontal, boolean patio, boolean piscina, boolean aguaCorriente,
+			boolean cloacas, boolean gasNatural,boolean aguaCaliente, boolean lavadero, boolean pavimento, boolean telefono,
 			String observaciones) {
 		super();
 		this.id=id;
 		this.idPropietario=idPropietario;
-		this.nombrePropietario = nombrePropietario;
-		this.apellidoPropietario= apellidoPropietario;
-		this.tipodniPropietario= tipodniPropietario;
-		this.dniPropietario= dniPropietario;
 		this.fechaCreacion = fechaCreacion;
 		this.estado = estado;
 		this.provincia = provincia.replace(" ", "_");
@@ -122,16 +115,15 @@ public class InmuebleDTO {
 		this.lavadero = lavadero;
 		this.pavimento = pavimento;
 		this.telefono = telefono;
+		this.garaje=garaje;
+		this.superficie=superficie;
+		this.pHorizontal=pHorizontal;
 		this.observaciones = observaciones;
 	}
 	public InmuebleDTO (Propietario propietario, Inmueble inmueble) {
 		super();
 		this.id=inmueble.getId();
 		this.idPropietario=inmueble.getPropietario().getId();
-		this.nombrePropietario = inmueble.getPropietario().getNombre();
-		this.apellidoPropietario= inmueble.getPropietario().getApellido();
-		this.tipodniPropietario= inmueble.getPropietario().getTipodni().toString();
-		this.dniPropietario= inmueble.getPropietario().getDni();
 		this.fechaCreacion = inmueble.getFechaCreacion();
 		this.estado = inmueble.isEstado();
 		this.provincia = inmueble.getProvincia().toString().replace("_", " ");
@@ -156,10 +148,34 @@ public class InmuebleDTO {
 		this.aguaCaliente = inmueble.isAguaCaliente();
 		this.lavadero = inmueble.isLavadero();
 		this.pavimento = inmueble.isPavimento();
-		this.telefono = inmueble.getTelefono();
+		this.telefono = inmueble.isTelefono();
+		this.garaje=inmueble.isGaraje();
+		this.superficie=inmueble.getSuperficie();
+		this.pHorizontal=inmueble.ispHorizontal();
 		this.observaciones = inmueble.getObservaciones();
 	}
 
+	public float getSuperficie() {
+		return superficie;
+	}
+	public void setSuperficie(float superficie) {
+		this.superficie = superficie;
+	}
+	public boolean ispHorizontal() {
+		return pHorizontal;
+	}
+	public void setpHorizontal(boolean pHorizontal) {
+		this.pHorizontal = pHorizontal;
+	}
+	public boolean isGaraje() {
+		return garaje;
+	}
+	public void setGaraje(boolean garaje) {
+		this.garaje = garaje;
+	}
+	public void setTelefono(boolean telefono) {
+		this.telefono = telefono;
+	}
 	public int getId() {
 		return id;
 	}
@@ -176,37 +192,6 @@ public class InmuebleDTO {
 		this.idPropietario = idPropietario;
 	}
 
-	public String getNombrePropietario() {
-		return nombrePropietario;
-	}
-
-	public void setNombrePropietario(String nombrePropietario) {
-		this.nombrePropietario = nombrePropietario;
-	}
-
-	public String getApellidoPropietario() {
-		return apellidoPropietario;
-	}
-
-	public void setApellidoPropietario(String apellidoPropietario) {
-		this.apellidoPropietario = apellidoPropietario;
-	}
-
-	public String getTipodniPropietario() {
-		return tipodniPropietario;
-	}
-
-	public void setTipodniPropietario(String tipodniPropietario) {
-		this.tipodniPropietario = tipodniPropietario;
-	}
-
-	public String getDniPropietario() {
-		return dniPropietario;
-	}
-
-	public void setDniPropietario(String dniPropietario) {
-		this.dniPropietario = dniPropietario;
-	}
 
 	public Date getFechaCreacion() {
 		return fechaCreacion;
@@ -400,14 +385,10 @@ public class InmuebleDTO {
 		this.pavimento = pavimento;
 	}
 
-	public int getTelefono() {
+
+	public boolean isTelefono() {
 		return telefono;
 	}
-
-	public void setTelefono(int telefono) {
-		this.telefono = telefono;
-	}
-
 	public String getObservaciones() {
 		return observaciones;
 	}

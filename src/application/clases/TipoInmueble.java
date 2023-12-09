@@ -6,7 +6,7 @@ import java.util.stream.Collectors;
 
 public enum TipoInmueble {
 	L,C,D,T,Q,G,O;
-	public List<String> getTipoInmueble(){
+	public static List<String> getTipoInmueble(){
 		 return  Arrays.stream(TipoInmueble.values())
 	                .map(Enum::toString)
 	                .map(s -> s.replace("_", " "))

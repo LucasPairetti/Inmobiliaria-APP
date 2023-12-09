@@ -5,19 +5,23 @@ import java.util.stream.Collectors;
 import application.clases.Propietario;
 import application.clases.Provincia;
 import application.clases.TipoDNI;
+import application.clases.TipoInmueble;
+import application.dao.InmuebleDAO;
 import application.dao.PropietarioDAO;
-
+import dto.InmuebleDTO;
 import dto.PropietarioDTO;
 
 public class PropietarioServices {
 	private static PropietarioServices instance;
 	
 	private static PropietarioDAO propietariodao;
+	private static InmuebleDAO inmuebledao;
 	
 	public static PropietarioServices getInstance() {
 		if(instance==null) {
 			instance= new PropietarioServices();
 			propietariodao = PropietarioDAO.getPropietarioDAO();
+			inmuebledao = InmuebleDAO.getInmuebleDAO();
 		}
 		return instance;
 	}
@@ -60,9 +64,11 @@ public class PropietarioServices {
 	
 	public List<PropietarioDTO> listPropietarios(){
 		
-		return propietariodao.getAllPropietario().stream()
+		List<PropietarioDTO> propietarios= propietariodao.getAllPropietario().stream()
 	            .map(propietario -> new PropietarioDTO(propietario))
 	            .collect(Collectors.toList());
+
+		return propietarios;
 	}
 	
 	public List<PropietarioDTO> getPropietario(String n, String a, String dni, String tipodni){
@@ -74,6 +80,7 @@ public class PropietarioServices {
 	            .collect(Collectors.toList());
 		
 	}
+
 	private Propietario toPropietario(PropietarioDTO entrada) {
 		Provincia provincia = Provincia.valueOf(entrada.getProvincia());
 		TipoDNI tipodni= TipoDNI.valueOf(entrada.getTipodni());
