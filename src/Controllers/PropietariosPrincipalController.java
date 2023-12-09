@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import application.clases.Localidad;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -15,6 +17,7 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 
 public class PropietariosPrincipalController implements Initializable {
@@ -93,6 +96,18 @@ public class PropietariosPrincipalController implements Initializable {
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		// TODO Auto-generated method stub
 		
+    	NombreColumn.setCellValueFactory(new PropertyValueFactory<>("Nombre"));
+    	ApellidoColumn.setCellValueFactory(new PropertyValueFactory<>("Apellido"));
+    	
+     	BarrioColumn.setCellValueFactory(new PropertyValueFactory<>("barrio"));
+    	DormitoriosColumn.setCellValueFactory(new PropertyValueFactory<>("dormitorios"));
+    	LocalidadColumn.setCellValueFactory(new PropertyValueFactory<>("localidad"));
+    	PrecioColumn.setCellValueFactory(new PropertyValueFactory<>("precioVenta"));
+    	ProvinciaColumn.setCellValueFactory(new PropertyValueFactory<>("provincia"));
+    	TipoColumn.setCellValueFactory(new PropertyValueFactory<>("tipoInmueble"));
+    	
+    	//inicializar todos los combobox
+    	
 	}
 
     @FXML
