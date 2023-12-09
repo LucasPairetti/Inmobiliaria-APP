@@ -2,6 +2,9 @@ package Controllers;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.Date;
+import java.text.SimpleDateFormat;
+
 import java.util.ResourceBundle;
 
 import application.clases.Localidad;
@@ -137,16 +140,18 @@ public class CargarInmuebleController implements Initializable{
     
     private Validacion validar;
     private InmuebleServices serviceInmueble= InmuebleServices.getInstance();
+    SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+    Date fecha = new Date();
     @Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
+    	
     	ObservableList<String>localidades= (ObservableList<String>) Localidad.getLocalidad();
     	localidades.add("Otra localidad");
      	LocalidadMenu.setItems(localidades);
     	ProvinciaMenu.setItems((ObservableList<String>) Provincia.getProvincias());
     	TipoInmuebleMenu.setItems((ObservableList<String>) TipoInmueble.getTipoInmueble());
     	OrientacionMenu.setItems((ObservableList<String>) Orientacion.geOrientacion());
-    	
-    	
+    	FechaField.setText(sdf.format(fecha));
 	}
     
 
@@ -234,10 +239,21 @@ public class CargarInmuebleController implements Initializable{
     		
     		
     		try {
-    			InmuebleDTO nuevoInmueble= new InmuebleDTO(0, 0, null, false, null, null, null, 0, null, null, null, 0, null, 0, 0, 0, 0, 0, 0, false, false, false, false, false, false, false, false, false, false, false, null);
+    			/*
+    			 * public InmuebleDTO (int id,int idPropietario,Date fechaCreacion, boolean estado, String provincia, String localidad, String calle,
+			int numero, String pisodpto, String barrio, String tipoInmueble,double precioVenta, String orientacion, float frente,float superficie,
+			float fondo, int antiguedad, int dormitorios, int banios,boolean garaje,boolean pHorizontal, boolean patio, boolean piscina, boolean aguaCorriente,
+			boolean cloacas, boolean gasNatural,boolean aguaCaliente, boolean lavadero, boolean pavimento, boolean telefono,
+			String observaciones)
+    			 * 
+    			 * 
+    			 */
+    			
+    			
+    			InmuebleDTO nuevoInmueble= new InmuebleDTO(propietarioID, (java.sql.Date) fecha, false, null, null, null, 0, null, null, null, 0, null, 0, 0, 0, 0, 0, 0, false, false, false, false, false, false, false, false, false, false, false, null);
     					//crear inmueble -> 
     			
-    			serviceInmueble.createInmueble(null);
+    			serviceInmueble.createInmueble(nuevoInmueble);
     			
         		Parent root;
         		root = FXMLLoader.load((getClass().getResource("/interfaces/ClientesPrincipal.fxml")));
