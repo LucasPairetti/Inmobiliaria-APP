@@ -108,6 +108,18 @@ public class ClientesPrincipalController implements Initializable {
 
     @FXML
     void ModificarPressed(ActionEvent event) {
+    	
+    	try {
+    		Parent root;
+    		root = FXMLLoader.load((getClass().getResource("/interfaces/ModificarCliente.fxml")));
+    		
+    		Stage window = (Stage)VolverButton.getScene().getWindow();
+    		window.setTitle("Propietarios");
+    		window.setScene(new Scene(root));
+    	} catch (IOException e) {
+    		// TODO Auto-generated catch block
+    		e.printStackTrace();
+    	}
 
     }
 
