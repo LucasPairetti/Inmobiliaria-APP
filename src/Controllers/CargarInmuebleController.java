@@ -240,7 +240,7 @@ public class CargarInmuebleController implements Initializable{
     		
     		try {
     			/*
-    			 * public InmuebleDTO (int id,int idPropietario,Date fechaCreacion, boolean estado, String provincia, String localidad, String calle,
+    			 * public InmuebleDTO (int idPropietario,Date fechaCreacion, boolean estado, String provincia, String localidad, String calle,
 			int numero, String pisodpto, String barrio, String tipoInmueble,double precioVenta, String orientacion, float frente,float superficie,
 			float fondo, int antiguedad, int dormitorios, int banios,boolean garaje,boolean pHorizontal, boolean patio, boolean piscina, boolean aguaCorriente,
 			boolean cloacas, boolean gasNatural,boolean aguaCaliente, boolean lavadero, boolean pavimento, boolean telefono,
@@ -250,7 +250,7 @@ public class CargarInmuebleController implements Initializable{
     			 */
     			
     			
-    			InmuebleDTO nuevoInmueble= new InmuebleDTO(propietarioID, (java.sql.Date) fecha, false, null, null, null, 0, null, null, null, 0, null, 0, 0, 0, 0, 0, 0, false, false, false, false, false, false, false, false, false, false, false, null);
+    			InmuebleDTO nuevoInmueble= new InmuebleDTO(propietarioID, (java.sql.Date) fecha, true, ProvinciaMenu.getValue(), LocalidadMenu.getValue(), null, 0, null, null, null, 0, null, 0, 0, 0, 0, 0, 0, false, false, false, false, false, false, false, false, false, false, false, null);
     					//crear inmueble -> 
     			
     			serviceInmueble.createInmueble(nuevoInmueble);
