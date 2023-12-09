@@ -131,11 +131,15 @@ public class ModificarInmuebleController implements Initializable {
 
     @FXML
     private ChoiceBox<String> TipoInmuebleMenu;
+    
+    @FXML
+    private TextField PisoDeptoField;
 
     @FXML
     private Button VolverButton;
     
   private int inmuebleID;
+  private int IdPropietario;
     
     private Validacion validar;
     private InmuebleServices serviceInmueble= InmuebleServices.getInstance();
@@ -152,6 +156,11 @@ public class ModificarInmuebleController implements Initializable {
     	OrientacionMenu.setItems((ObservableList<String>) Orientacion.geOrientacion());
     	
 	}
+    
+    public void setInmueblePropietario(int idInm, int idProp) {
+    	inmuebleID= idInm;
+    	IdPropietario=idProp;
+    }
 
     @FXML
     void ImagenPressed(ActionEvent event) {
@@ -217,8 +226,18 @@ public class ModificarInmuebleController implements Initializable {
     		
     		
     		try {
-    			InmuebleDTO nuevoInmueble= new InmuebleDTO(0, 0, null, false, null, null, null, 0, null, null, null, 0, null, 0, 0, 0, 0, 0, 0, false, false, false, false, false, false, false, false, false, false, false, null);
-    					//crear inmueble -> 
+    			
+    			String localidad= LocalidadMenu.getValue();
+    			if(OtraLocalidadField.getText()!="") {
+    				localidad=OtraLocalidadField.getText();
+    			}
+    			
+    			InmuebleDTO nuevoInmueble= new InmuebleDTO(inmuebleID,IdPropietario, serviceInmueble.getById(inmuebleID).getFechaCreacion(), true, ProvinciaMenu.getValue(), localidad, CalleField.getText(), Integer.parseInt(NumeroField.getText()), PisoDeptoField.getText(), BarrioField.getText(),
+    					TipoInmuebleMenu.getValue(), Double.parseDouble(PrecioField.getText()), OrientacionMenu.getValue(), Float.parseFloat(FrenteField.getText()), Float.parseFloat(SuperficieField.getText()),
+    					Float.parseFloat(FondoField.getText()), Integer.parseInt(AntiguedadField.getText()), Integer.parseInt(DormitorioField.getText()), Integer.parseInt(BaniosField.getText()), GarajeCheckBox.isSelected(),
+    					PropiedadHorizontalCheckBox.isSelected(), PatioCheckBox.isSelected(), PiscinaCheckBox.isSelected(), AguaCheckBox.isSelected(), CloacasCheckBox.isSelected(), GasCheckBox.isSelected(), AguaCalienteCheckBox.isSelected(),
+    					LavaderoCheckBox.isSelected(), PavimentoCheckBox.isSelected(), TelefenoCheckBox.isSelected(), ObservacionesField.getText());
+    					//modificar inmueble 
     			
     			serviceInmueble.updateInmueble(nuevoInmueble);
     			
