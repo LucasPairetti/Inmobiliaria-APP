@@ -1,13 +1,18 @@
 package application;
 	
 import java.sql.Date;
+import java.util.List;
 
+import org.hibernate.Session;
+
+import application.clases.Cliente;
 import application.clases.Inmueble;
 import application.clases.Orientacion;
 import application.clases.Propietario;
 import application.clases.Provincia;
 import application.clases.TipoDNI;
 import application.clases.TipoInmueble;
+import application.dao.HibernateUtil;
 import application.dao.InmuebleDAO;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -45,6 +50,21 @@ Parent root = FXMLLoader.load((getClass().getResource("/interfaces/PantallaPrinc
 				TipoInmueble.C,20000000, Orientacion.Norte,256,1,1,50,3,3,true,true,true,true,true,true,true,true,true,true,true,"Fachera");
 		inmuebleDAO.createInmueble(inmueble);
 		*/
+		
+		Cliente cliente = new Cliente("Tomas", "Auday","44444444",TipoDNI.DNI, 111111111,"tomitoauday@gmail.com",40000000,
+				TipoInmueble.C, "Santa Fe", "Fomento/7 Jefes/Guadalupe",
+				"Varios banios, varios dormitorios, patio");
+		
+		System.out.println(cliente.getEmail());
+		
+		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+		
+		session.beginTransaction();
+		session.persist(cliente);
+		session.getTransaction().commit();
+		session.close();
+		System.out.println(cliente);
+		
 		
 		launch(args);	
 		
