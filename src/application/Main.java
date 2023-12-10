@@ -48,7 +48,7 @@ Parent root = FXMLLoader.load((getClass().getResource("/interfaces/PantallaPrinc
 		// Antes de ejecutar este main borrar database y volver a crear una con el nombre inmboliariaapp. 
 		// Luego correr este main.
 		// Una vez corrido, comentarlo, porque ya se creo la BD.
-		
+		/*
 		InmuebleDAO inmuebleDAO = InmuebleDAO.getInmuebleDAO();
 		Propietario p = new Propietario("Lucas", "Pairetti", TipoDNI.DNI,"42870675", "asd", 1111, "Santa Fe", Provincia.Santa_Fe,1111111,"pairet@gmail.com");
 		Inmueble inmueble = new Inmueble(p, Date.valueOf("2000-11-03"),Estado.Disponible,Provincia.Santa_Fe,"Santa Fe","asd",2476,"","Fomento",
@@ -73,7 +73,7 @@ Parent root = FXMLLoader.load((getClass().getResource("/interfaces/PantallaPrinc
 		InmuebleDAO i = InmuebleDAO.getInmuebleDAO();
 		
 		System.out.println(i.getInmueble(null,null, null, null, null, null));
-		
+	*/	
 		launch(args);	
 		
 		
