@@ -3,6 +3,7 @@ package dto;
 import java.sql.Date;
 
 import application.clases.Reserva;
+import application.clases.Venta;
 
 
 
@@ -38,13 +39,13 @@ public class VentaDTO {
 		this.fecha=fecha;
 		
 	}
-	public VentaDTO(Reserva reserva) {
-		this.id=reserva.getId();
-		this.inmueble=reserva.getInmueble().getId();
-		this.cliente=reserva.getCliente().getId();
-		this.vendedor=reserva.getVendedor().getId();
-		this.importeReserva=reserva.getImporteReserva();
-		this.fecha=reserva.getFecha();
+	public VentaDTO(Venta venta) {
+		this.id=venta.getId();
+		this.inmueble=venta.getPropiedad().getId();
+		this.cliente=venta.getCliente().getId();
+		this.vendedor=venta.getVendedor().getId();
+		this.importeReserva=venta.getImporteVenta();
+		this.fecha=venta.getFecha();
 	}
 	public int getId() {
 		return id;
