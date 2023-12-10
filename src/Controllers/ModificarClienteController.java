@@ -80,6 +80,7 @@ public class ModificarClienteController implements Initializable{
     	ObservableList<String> Inmuebles= FXCollections.observableArrayList();
     	Inmuebles.addAll(TipoInmueble.getTipoInmueble());
     	InmuebleMenu.setItems(Inmuebles);
+    	
     	ObservableList<String> localidades=  FXCollections.observableArrayList();
     	localidades.addAll(Localidad.getLocalidad());
     	LocalidadMenu.setItems(localidades);

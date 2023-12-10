@@ -80,8 +80,10 @@ public class NuevoClienteController implements Initializable{
 		dnis.addAll(TipoDNI.getTiposDNI());
 		tipoDocMenu.setItems(dnis);
     	
-    	ObservableList<String> Inmuebles= (ObservableList<String>)TipoInmueble.getTipoInmueble();
+    	ObservableList<String> Inmuebles=FXCollections.observableArrayList();
+    	Inmuebles.addAll(TipoInmueble.getTipoInmueble());
     	InmuebleMenu.setItems(Inmuebles);
+    	
     	ObservableList<String> localidades=  FXCollections.observableArrayList();
     	localidades.addAll(Localidad.getLocalidad());
     	LocalidadMenu.setItems(localidades);

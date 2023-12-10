@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.NuevoClienteController">
+   <children>
+      <ImageView fitHeight="800.0" fitWidth="1200.0" pickOnBounds="true">
+         <image>
+            <Image url="@imagenes/background.jpg" />
+         </image>
+      </ImageView>
+      <Label layoutX="63.0" layoutY="57.0" text="NUEVO VENDEDOR" textFill="WHITE">
+         <font>
+            <Font name="Verdana" size="64.0" />
+         </font>
+      </Label>
+      <TextField fx:id="NombreField" layoutX="76.0" layoutY="205.0" prefHeight="53.0" prefWidth="255.0" promptText="nombre" />
+      <TextField fx:id="ApellidoField" layoutX="76.0" layoutY="310.0" prefHeight="53.0" prefWidth="255.0" promptText="Apellido" />
+      <TextField fx:id="TelefonoField" layoutX="775.0" layoutY="516.0" prefHeight="53.0" prefWidth="255.0" promptText="tel: 03424512345" />
+      <Label layoutX="76.0" layoutY="180.0" text="nombre:" />
+      <Label layoutX="76.0" layoutY="292.0" text="Apellido:" />
+      <Label layoutX="775.0" layoutY="495.0" text="telefono:" />
+      <Label layoutX="775.0" layoutY="196.0" text="Fecha de nacimiento" />
+      <ComboBox fx:id="LocalidadMenu" layoutX="417.0" layoutY="332.0" prefHeight="44.0" prefWidth="255.0" promptText="Localidad" />
+      <Label layoutX="417.0" layoutY="298.0" text="Localidad:" />
+      <ComboBox fx:id="ProvinciaMenu" layoutX="417.0" layoutY="214.0" prefHeight="44.0" prefWidth="255.0" promptText="Provincia" />
+      <Label layoutX="417.0" layoutY="180.0" text="Provincia" />
+      <Button fx:id="GuardarBUtton" layoutX="1012.0" layoutY="731.0" mnemonicParsing="false" onAction="#GuardarPressed" prefHeight="53.0" prefWidth="143.0" text="Crear" />
+      <Button fx:id="CancelarButton" layoutX="43.0" layoutY="731.0" mnemonicParsing="false" onAction="#CancelarPressed" prefHeight="53.0" prefWidth="143.0" text="Cancelar" />
+      <ComboBox fx:id="tipoDocMenu" layoutX="76.0" layoutY="424.0" prefHeight="44.0" prefWidth="255.0" promptText="Tipo documento" />
+      <Label layoutX="76.0" layoutY="390.0" text="Tipo de documento" />
+      <TextField fx:id="numeroDocField" layoutX="79.0" layoutY="513.0" prefHeight="53.0" prefWidth="255.0" promptText="32113214123" />
+      <Label layoutX="74.0" layoutY="486.0" text="numero de documento" />
+      <TextField fx:id="SueldoField" layoutX="780.0" layoutY="310.0" prefHeight="53.0" prefWidth="255.0" />
+      <Label layoutX="780.0" layoutY="292.0" text="Sueldo:" />
+      <TextField fx:id="EmailField" layoutX="775.0" layoutY="401.0" prefHeight="53.0" prefWidth="255.0" promptText="email@gmail.com" />
+      <Label layoutX="775.0" layoutY="383.0" text="email:" />
+      <DatePicker fx:id="FechaNacimientoCalendar" layoutX="775.0" layoutY="223.0" prefHeight="44.0" prefWidth="255.0" />
+      <TextField fx:id="CalleField" layoutX="417.0" layoutY="429.0" prefHeight="53.0" prefWidth="255.0" promptText="Calle" />
+      <TextField fx:id="NumeroDomicilioField" layoutX="417.0" layoutY="534.0" prefHeight="53.0" prefWidth="255.0" promptText="1234" />
+      <Label layoutX="417.0" layoutY="404.0" text="Calle:" />
+      <Label layoutX="417.0" layoutY="516.0" text="Numero de domicilio:" />
+      <TextField fx:id="ClaveField" layoutX="417.0" layoutY="633.0" prefHeight="53.0" prefWidth="255.0" promptText="12345" />
+      <Label layoutX="417.0" layoutY="615.0" text="Clave:" />
+   </children>
+</AnchorPane>
