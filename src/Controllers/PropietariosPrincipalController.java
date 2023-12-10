@@ -213,7 +213,8 @@ public class PropietariosPrincipalController implements Initializable {
     @FXML
     void PropietarioSeleccionado(MouseEvent event) {
     	int idPropietario= propietariosTable.getSelectionModel().getSelectedItem().getId();
-    	listaDeInmuebles= (ObservableList<InmuebleDTO>) inmuebleService.getInmueblesByPropietario(idPropietario);
+    	listaDeInmuebles.clear();
+    	listaDeInmuebles.addAll(inmuebleService.getInmueblesByPropietario(idPropietario));
     	InmuebleTable.setItems(listaDeInmuebles);
     	
 

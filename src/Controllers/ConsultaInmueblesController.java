@@ -135,7 +135,7 @@ public class ConsultaInmueblesController implements Initializable {
     	TipoColumn.setCellValueFactory(new PropertyValueFactory<>("tipoInmueble"));
     	
     	//cuando arreglen estado, lo cambio
-    	//EstadoColumn.setCellValueFactory(new PropertyValueFactory<>("estado"));  
+    	EstadoColumn.setCellValueFactory(new PropertyValueFactory<>("estado"));  
     	
     	
     	//inicializar todos los combobox
@@ -193,7 +193,8 @@ public class ConsultaInmueblesController implements Initializable {
     	DormitorioSlider.setValue(0);
     	
     	//actualiza lista a todos los inmuebles sin filtro
-    	listaDeInmuebles = (ObservableList<InmuebleDTO>) inmuebleService.listInmuebles();
+    	listaDeInmuebles.clear();
+    	listaDeInmuebles.addAll(inmuebleService.listInmuebles());
     	InmuebleTable.setItems(listaDeInmuebles);
     }
 
@@ -254,8 +255,8 @@ public class ConsultaInmueblesController implements Initializable {
     	//se solicitan todos los datos
     	
     	//si no hay provincia o localidad o barrio seleccionado, que busque todo. sino tengo que hacer mas alertas y queda feo
-    	
-    	listaDeInmuebles= (ObservableList<InmuebleDTO>) inmuebleService.getInmueble(ProvinciaMenu.getSelectionModel().getSelectedItem(), LocalidadMenu.getSelectionModel().getSelectedItem(), BarrioTextField.getText(), tipo, (int)DormitorioSlider.getValue(),(float)MinPriceSlider.getValue() ,(float)MaxPriceSlider.getValue());
+    	listaDeInmuebles.clear();
+    	listaDeInmuebles.addAll(inmuebleService.getInmueble(ProvinciaMenu.getSelectionModel().getSelectedItem(), LocalidadMenu.getSelectionModel().getSelectedItem(), BarrioTextField.getText(), tipo, (int)DormitorioSlider.getValue(),(float)MinPriceSlider.getValue() ,(float)MaxPriceSlider.getValue()));
     	
     	//se muestran los datos
     	InmuebleTable.setItems(listaDeInmuebles);
