@@ -74,8 +74,9 @@ public class ClientesPrincipalController implements Initializable {
     @Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		// TODO Auto-generated method stub
-    	ObservableList<String> dnis= (ObservableList<String>)TipoDNI.getTiposDNI();
-    	TipoDocMenu.setItems(dnis);
+    	ObservableList<String> dnis= FXCollections.observableArrayList();
+		dnis.addAll(TipoDNI.getTiposDNI());
+		TipoDocMenu.setItems(dnis);
     	
     	NombreColumn.setCellValueFactory(new PropertyValueFactory<>("Nombre"));
     	ApellidoColumn.setCellValueFactory(new PropertyValueFactory<>("Apellido"));
@@ -156,18 +157,34 @@ else {
 
     @FXML
     void ModificarPressed(ActionEvent event) {
+    	if(ClientesTable.getSelectionModel().getSelectedItem()==null) {
+    		Alert alertaTipo = new Alert(Alert.AlertType.ERROR); //esto es un mensaje de alerta
+    		alertaTipo.setTitle("Cliente"); //titulo
+    		alertaTipo.setContentText("Debe seleccionar un cliente de la tabla antes de modificarlo"); //informacion
+    		
+    	}else {
+    		int idCliente= ClientesTable.getSelectionModel().getSelectedItem().getId();
+    		
     	
     	try {
-    		Parent root;
-    		root = FXMLLoader.load((getClass().getResource("/interfaces/ModificarCliente.fxml")));
     		
-    		Stage window = (Stage)VolverButton.getScene().getWindow();
-    		window.setTitle("Propietarios");
+    		Parent root;
+    	// root = FXMLLoader.load((getClass().getResource("/interfaces/NuevoPropietario.fxml")));
+    		FXMLLoader loader = new FXMLLoader(getClass().getResource("/interfaces/ModificarCliente.fxml"));
+    		root = loader.load();
+    		ModificarClienteController controladorModificarCliente = loader.getController();
+    		controladorModificarCliente.setCliente(idCliente);
+    		
+    		Stage window = (Stage)ModificarButton.getScene().getWindow();
+    		window.setTitle("Modificar Cliente");
     		window.setScene(new Scene(root));
     	} catch (IOException e) {
     		// TODO Auto-generated catch block
     		e.printStackTrace();
     	}
+    		
+    	}
+    	
 
     }
 
