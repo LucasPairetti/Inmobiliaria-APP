@@ -1,17 +1,24 @@
 package application.clases;
 
 import java.sql.Date;
-import javax.persistence.Column;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.ConstraintMode;
 import jakarta.persistence.ForeignKey;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 
-
+@Entity
+@Table(name="Reserva")
 public class Reserva {
 	
 	@Id
@@ -49,7 +56,15 @@ public class Reserva {
 		this.tiempoVigencia = tiempoVigencia;
 		this.fecha = fecha;
 	}
+   
 
+    public boolean esReservaValida() {
+      
+        LocalDateTime fechaActual = LocalDateTime.now();
+        LocalDateTime fechaCreacion = this.fecha.toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime();
+        LocalDateTime fechaVencimiento = fechaCreacion.plusDays((long) this.tiempoVigencia);
+        return fechaActual.isBefore(fechaVencimiento);
+    }
 
 
 	public Inmueble getInmueble() {

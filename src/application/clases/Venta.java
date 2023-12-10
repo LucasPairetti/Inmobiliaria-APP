@@ -37,21 +37,17 @@ public class Venta {
 	Vendedor vendedor;
 	@Column(name="importeVenta", nullable=false)
 	double importeVenta;
-	@Column(name="tiempoVigencia", nullable=false)
-	float tiempoVigencia; //??
+	
 	@Column(name="fecha", nullable=false)
 	Date fecha;
 	
-	// Creo que los constructores no deberian tener el id, pero despues lo vemos
 	
-	public Venta(Inmueble propiedad, Cliente cliente, Vendedor vendedor, double importeVenta,
-			float tiempoVigencia, Date fecha) {
+	public Venta(Inmueble propiedad, Cliente cliente, Vendedor vendedor, double importeVenta, Date fecha) {
 		super();
 		this.propiedad = propiedad;
 		this.cliente = cliente;
 		this.vendedor = vendedor;
 		this.importeVenta = importeVenta;
-		this.tiempoVigencia = tiempoVigencia;
 		this.fecha = fecha;
 	}
 
@@ -91,13 +87,6 @@ public class Venta {
 		this.importeVenta = importeVenta;
 	}
 
-	public float getTiempoVigencia() {
-		return tiempoVigencia;
-	}
-
-	public void setTiempoVigencia(float tiempoVigencia) {
-		this.tiempoVigencia = tiempoVigencia;
-	}
 
 	public Date getFecha() {
 		return fecha;

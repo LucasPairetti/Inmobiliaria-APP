@@ -93,7 +93,7 @@ public class VendedorDAO {
 			
 				session.beginTransaction();
 			List<Vendedor> vendedores = session
-					.createQuery("SELECT a FROM cliente", Vendedor.class)
+					.createQuery("SELECT a FROM vendedor a", Vendedor.class)
 					.getResultList();
 			session.getTransaction().commit();
 			session.close();

@@ -93,7 +93,7 @@ public class PropietarioDAO {
 			
 				session.beginTransaction();
 			List<Propietario> propietarios = session
-					.createQuery("SELECT a FROM cliente", Propietario.class)
+					.createQuery("SELECT a FROM Propietario a", Propietario.class)
 					.getResultList();
 			session.getTransaction().commit();
 			session.close();
@@ -133,7 +133,7 @@ public class PropietarioDAO {
 		}
 
 		
-			public List<Propietario> getCliente(TipoDNI tipo, String dni, String nombre, String apellido) {
+			public List<Propietario> getPropietario(TipoDNI tipo, String dni, String nombre, String apellido) {
 				// TODO Auto-generated method stub
 				
 				Session session = HibernateUtil.getSessionFactory().getCurrentSession();

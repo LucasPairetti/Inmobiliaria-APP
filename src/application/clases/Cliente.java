@@ -1,6 +1,14 @@
 package application.clases;
 
-import javax.persistence.*;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+
 
 @Entity
 @Table(name="Cliente")
@@ -40,7 +48,7 @@ public class Cliente {
 		// TODO Auto-generated constructor stub
 	}
 	
-	public Cliente( String nombre, String apellido,String dni,TipoDNI tipoDni, int telefono,String email, double montoDisponible,
+	public Cliente(String nombre, String apellido,String dni,TipoDNI tipoDni, int telefono,String email, double montoDisponible,
 			TipoInmueble tipoInmuebleBuscado, String localidadBuscada, String barrios,
 			String caracteristicasDeseadas) {
 		super();
@@ -48,6 +56,7 @@ public class Cliente {
 		this.apellido = apellido;
 		this.dni=dni;
 		this.tipodni=tipoDni;
+		this.email=email;
 		this.telefono = telefono;
 		this.montoDisponible = montoDisponible;
 		this.tipoInmuebleBuscado = tipoInmuebleBuscado;

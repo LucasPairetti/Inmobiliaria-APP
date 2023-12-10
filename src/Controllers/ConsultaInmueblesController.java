@@ -135,10 +135,16 @@ public class ConsultaInmueblesController implements Initializable {
     	
     	
     	//inicializar todos los combobox
-     	LocalidadMenu.setItems((ObservableList<String>) Localidad.getLocalidad());
-    	ProvinciaMenu.setItems((ObservableList<String>) Provincia.getProvincias());
+    
+    	ObservableList<String> localidades=  FXCollections.observableArrayList();
+    	localidades.addAll(Localidad.getLocalidad());
+    	ObservableList<String> provincias=  FXCollections.observableArrayList();
+    	provincias.addAll(Provincia.getProvincias());
     	
+     	LocalidadMenu.setItems( localidades );
+     	ProvinciaMenu.setItems( provincias );
     	
+    
     	
     	//inicializar los minimos y maximos de los sliders
     		
@@ -258,6 +264,8 @@ public class ConsultaInmueblesController implements Initializable {
     	//esto es para volver a la anterior pagina
     	
     	try {
+    		
+
     		Parent root;
     		root = FXMLLoader.load((getClass().getResource("/interfaces/PantallaPrincipal.fxml")));
     		

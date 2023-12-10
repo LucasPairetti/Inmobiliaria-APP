@@ -1,11 +1,27 @@
 package Controllers;
 
+import java.io.IOException;
 import java.net.URL;
+import java.util.Date;
+import java.text.SimpleDateFormat;
+
 import java.util.ResourceBundle;
 
+import application.clases.Localidad;
+import application.clases.Orientacion;
+import application.clases.Propietario;
+import application.clases.Provincia;
+import application.clases.TipoDNI;
+import application.clases.TipoInmueble;
+import dto.InmuebleDTO;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ChoiceBox;
@@ -13,11 +29,16 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
+import javafx.stage.Stage;
+import services.InmuebleServices;
 
 public class CargarInmuebleController implements Initializable{
 
     @FXML
     private CheckBox AguaCheckBox;
+    
+    @FXML
+    private CheckBox AguaCalienteCheckBox;
 
     @FXML
     private TextField AntiguedadField;
@@ -26,7 +47,7 @@ public class CargarInmuebleController implements Initializable{
     private TextField BaniosField;
 
     @FXML
-    private ComboBox<?> BarrioMenu;
+    private TextField BarrioTextField;
 
     @FXML
     private TextField CalleField;
@@ -59,9 +80,6 @@ public class CargarInmuebleController implements Initializable{
     private Button GuardarButton;
 
     @FXML
-    private TextField IdField;
-
-    @FXML
     private ImageView ImageView;
 
     @FXML
@@ -71,7 +89,7 @@ public class CargarInmuebleController implements Initializable{
     private CheckBox LavaderoCheckBox;
 
     @FXML
-    private ComboBox<?> LocalidadMenu;
+    private ComboBox<String> LocalidadMenu;
 
     @FXML
     private TextField NumeroField;
@@ -80,7 +98,7 @@ public class CargarInmuebleController implements Initializable{
     private TextArea ObservacionesField;
 
     @FXML
-    private ChoiceBox<?> OrientacionMenu;
+    private ChoiceBox<String> OrientacionMenu;
 
     @FXML
     private TextField OtraLocalidadField;
@@ -104,7 +122,7 @@ public class CargarInmuebleController implements Initializable{
     private TextField PropietarioField;
 
     @FXML
-    private ComboBox<?> ProvinciaMenu;
+    private ComboBox<String> ProvinciaMenu;
 
     @FXML
     private TextField SuperficieField;
@@ -113,18 +131,36 @@ public class CargarInmuebleController implements Initializable{
     private CheckBox TelefenoCheckBox;
 
     @FXML
-    private ChoiceBox<?> TipoInmuebleMenu;
+    private ChoiceBox<String> TipoInmuebleMenu;
+    @FXML
+    private TextField PisoDeptoField;
 
     @FXML
     private Button VolverButton;
     
+    private int propietarioID;
+    
+    private Validacion validar;
+    private InmuebleServices serviceInmueble= InmuebleServices.getInstance();
+    SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+    Date fecha = new Date();
     @Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
-		// TODO Auto-generated method stub
-		
+    	
+    	ObservableList<String>localidades= (ObservableList<String>) Localidad.getLocalidad();
+    	localidades.add("Otra localidad");
+     	LocalidadMenu.setItems(localidades);
+    	ProvinciaMenu.setItems((ObservableList<String>) Provincia.getProvincias());
+    	TipoInmuebleMenu.setItems((ObservableList<String>) TipoInmueble.getTipoInmueble());
+    	OrientacionMenu.setItems((ObservableList<String>) Orientacion.geOrientacion());
+    	FechaField.setText(sdf.format(fecha));
 	}
     
-
+public void setPropietarioID(int id) {
+	propietarioID=id;
+}
+    
+    
     @FXML
     void ImagenPressed(ActionEvent event) {
     	
@@ -152,11 +188,99 @@ public class CargarInmuebleController implements Initializable{
 
     @FXML
     void LocalidadSeleccionada(ActionEvent event) {
-
+    	
     }
 
     @FXML
-    void ModificarPressed(ActionEvent event) {
+    void GuardarPressed(ActionEvent event) {
+    	
+    	//validaciones -> numeroCalle -> Calle ->otraLocalidad ->precio
+    	
+    	if(validar.esUnNumero(NumeroField.getText())!=1) {
+    		Alert alertaTipo = new Alert(Alert.AlertType.ERROR); //esto es un mensaje de alerta
+    		alertaTipo.setTitle("Numero de calle invalido"); //titulo
+    		alertaTipo.setContentText("El campo 'Numero' para la calle debe ser de tipo numerico"); //informacion
+    	}else if(validar.esUnNumero(PrecioField.getText())!=1){
+    		
+    		Alert alertaTipo = new Alert(Alert.AlertType.ERROR); //esto es un mensaje de alerta
+    		alertaTipo.setTitle("Precio invalido"); //titulo
+    		alertaTipo.setContentText("El campo 'Precio' debe ser de tipo numerico"); //informacion
+    	}else if(validar.esUnNumero(SuperficieField.getText())!=1){
+    		
+    		Alert alertaTipo = new Alert(Alert.AlertType.ERROR); //esto es un mensaje de alerta
+    		alertaTipo.setTitle("Superficie invalida"); //titulo
+    		alertaTipo.setContentText("El campo 'superficie' debe ser de tipo numerico"); //informacion
+    	}else if(validar.esUnNumero(AntiguedadField.getText())!=1){
+    		
+    		Alert alertaTipo = new Alert(Alert.AlertType.ERROR); //esto es un mensaje de alerta
+    		alertaTipo.setTitle("Antiguedad invalida"); //titulo
+    		alertaTipo.setContentText("El campo 'Antiguedad' debe ser de tipo numerico"); //informacion
+    	}else if(validar.esUnNumero(DormitorioField.getText())!=1){
+    		
+    		Alert alertaTipo = new Alert(Alert.AlertType.ERROR); //esto es un mensaje de alerta
+    		alertaTipo.setTitle("Dormitorios invalida"); //titulo
+    		alertaTipo.setContentText("El campo 'Cantidad de Dormitorios' debe ser de tipo numerico"); //informacion
+    	}else if(validar.esUnNumero(FrenteField.getText())!=1){
+    		
+    		Alert alertaTipo = new Alert(Alert.AlertType.ERROR); //esto es un mensaje de alerta
+    		alertaTipo.setTitle("Frente invalido"); //titulo
+    		alertaTipo.setContentText("El campo 'Frente' debe ser de tipo numerico"); //informacion
+    	}else if(validar.esUnNumero(FondoField.getText())!=1){
+    		
+    		Alert alertaTipo = new Alert(Alert.AlertType.ERROR); //esto es un mensaje de alerta
+    		alertaTipo.setTitle("Fondo invalido"); //titulo
+    		alertaTipo.setContentText("El campo 'Fondo' debe ser de tipo numerico"); //informacion
+    	}else if(validar.esUnNumero(BaniosField.getText())!=1){
+    		
+    		Alert alertaTipo = new Alert(Alert.AlertType.ERROR); //esto es un mensaje de alerta
+    		alertaTipo.setTitle("baños invalido"); //titulo
+    		alertaTipo.setContentText("El campo 'Baños' debe ser de tipo numerico"); //informacion
+    	}else if(validar.esString(BarrioTextField.getText())!=1){
+    		
+    		Alert alertaTipo = new Alert(Alert.AlertType.ERROR); //esto es un mensaje de alerta
+    		alertaTipo.setTitle("Barrio invalido"); //titulo
+    		alertaTipo.setContentText("El campo 'Barrio' es invalido"); //informacion
+    	}
+    	else {
+    		
+    		
+    		try {
+    			/*
+    			 * public InmuebleDTO (int idPropietario,Date fechaCreacion, boolean estado, String provincia, String localidad, String calle,
+			int numero, String pisodpto, String barrio, String tipoInmueble,double precioVenta, String orientacion, float frente,float superficie,
+			float fondo, int antiguedad, int dormitorios, int banios,boolean 
+			garaje,boolean pHorizontal, boolean patio, boolean piscina, boolean aguaCorriente,
+			boolean cloacas, boolean gasNatural,boolean aguaCaliente, boolean lavadero, boolean pavimento, boolean telefono,
+			String observaciones)
+    			 * 
+    			 * 
+    			 */
+    			
+    			String localidad= LocalidadMenu.getValue();
+    			if(OtraLocalidadField.getText()!="") {
+    				localidad=OtraLocalidadField.getText();
+    			}
+    			
+    			InmuebleDTO nuevoInmueble= new InmuebleDTO(propietarioID, (java.sql.Date) fecha, true, ProvinciaMenu.getValue(), LocalidadMenu.getValue(), null, 0, null, null, null, 0, null, 0, 0, 0, 0, 0, 0, false, false, false, false, false, false, false, false, false, false, false, null);
+    					//crear inmueble -> 
+    			
+    			serviceInmueble.createInmueble(nuevoInmueble);
+    			
+        		Parent root;
+        		root = FXMLLoader.load((getClass().getResource("/interfaces/ClientesPrincipal.fxml")));
+        		
+        		Stage window = (Stage)VolverButton.getScene().getWindow();
+        		window.setTitle("Clientes");
+        		window.setScene(new Scene(root));
+        	} catch (IOException e) {
+        		// TODO Auto-generated catch block
+        		e.printStackTrace();
+        	}
+    		
+    		
+    		
+    	}
+    	
 
     }
 
@@ -167,7 +291,19 @@ public class CargarInmuebleController implements Initializable{
 
     @FXML
     void VolverPressed(ActionEvent event) {
-
+    	try {
+    		
+    		
+    		Parent root;
+    		root = FXMLLoader.load((getClass().getResource("/interfaces/ClientesPrincipal.fxml")));
+    		
+    		Stage window = (Stage)VolverButton.getScene().getWindow();
+    		window.setTitle("Clientes");
+    		window.setScene(new Scene(root));
+    	} catch (IOException e) {
+    		// TODO Auto-generated catch block
+    		e.printStackTrace();
+    	}
     }
 
 	

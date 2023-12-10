@@ -7,7 +7,7 @@ import java.util.stream.Collectors;
 public enum TipoDNI {
 	DNI,Libreta_Civica,Libreta_Enrolamiento,Pasaporte;
 	
-	public List<String> getTiposDNI(){
+	public static List<String> getTiposDNI(){
 		 return  Arrays.stream(TipoDNI.values())
 	                .map(Enum::toString)
 	                .map(s -> s.replace("_", " "))

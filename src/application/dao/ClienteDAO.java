@@ -96,7 +96,7 @@ public class ClienteDAO {
 		
 			session.beginTransaction();
 		List<Cliente> clientes = session
-				.createQuery("SELECT a FROM cliente", Cliente.class)
+				.createQuery("SELECT a FROM Cliente a", Cliente.class)
 				.getResultList();
 		session.getTransaction().commit();
 		session.close();

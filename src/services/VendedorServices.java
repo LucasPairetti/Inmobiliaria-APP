@@ -35,7 +35,7 @@ public class VendedorServices {
 		if(vendedor !=null) {
 			vendedordao.deleteVendedor(vendedor);
 			return 1;
-		}else {return -1;}
+		}else {return -1;}//no existia el vendedor con esa id
 	};
 	public int updateVendedor(VendedorDTO entrada) {
 		Vendedor og= vendedordao.getVendedorById(entrada.getId());
@@ -45,7 +45,7 @@ public class VendedorServices {
 			vendedor.setTipodni(og.getTipodni());
 			vendedordao.updateVendedor(vendedor);
 			return 1;
-		}else {return -1;}
+		}else {return -1;}//no existia el vendedor con esa id
 		
 	};
 	public List<VendedorDTO> listVendedores(){
