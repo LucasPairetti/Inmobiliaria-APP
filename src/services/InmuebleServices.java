@@ -76,13 +76,19 @@ public class InmuebleServices {
 	            .map(inmueble -> new InmuebleDTO(inmueble.getPropietario(), inmueble))
 	            .collect(Collectors.toList());
 	}
-	public List<InmuebleDTO> listInmueblesFiltrados() {
+	public List<InmuebleDTO> listInmueblesFiltradosDyR() {
 	    return inmuebledao.getAllInmuebles().stream()
 	            .filter(inmueble -> inmueble.getEstado() == Estado.Disponible || inmueble.getEstado() == Estado.Reservado)
 	            .map(inmueble -> new InmuebleDTO(inmueble.getPropietario(), inmueble))
 	            .collect(Collectors.toList());
 	}
-
+	public List<InmuebleDTO> listInmueblesFiltradosDisponibleYRporCliente(int c) {
+		
+	    return inmuebledao.getAllInmuebles().stream()
+	            .filter(inmueble -> inmueble.getEstado() == Estado.Disponible)
+	            .map(inmueble -> new InmuebleDTO(inmueble.getPropietario(), inmueble))
+	            .collect(Collectors.toList());
+	}
 	
 	public InmuebleDTO getById(int id) {
 		Inmueble i = inmuebledao.getInmuebleById(id);
@@ -95,10 +101,11 @@ public class InmuebleServices {
 	}
 	public List<InmuebleDTO> getInmueblesByPropietario(int propietario){
 		Propietario p = propietariodao.getPropietarioById(propietario);
-	
+		if(p!=null) {
 		return inmuebledao.getInmueble(p).stream()
 				          .map(inmueble -> new InmuebleDTO(inmueble.getPropietario(), inmueble))
-				          .collect(Collectors.toList());
+				          .collect(Collectors.toList());}
+		else {return null;}
 	}
 	
 	public List<InmuebleDTO> getInmueble(String p, String l, String b, List<String> tipos, int cantdorm,
