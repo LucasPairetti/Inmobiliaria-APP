@@ -212,7 +212,8 @@ public class InmuebleDAO {
 				    }
 				
 				
-			}	
+			}
+			
 			public List<Inmueble> getInmueble(Propietario propietario) {
 				// TODO Auto-generated method stub
 				
