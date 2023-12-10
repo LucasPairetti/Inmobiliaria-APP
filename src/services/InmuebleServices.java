@@ -203,7 +203,11 @@ public class InmuebleServices {
 
 	
 	private void chequearModificaciones(Inmueble og, Inmueble i) {
-		if(og.getEstado()!=Estado.Vendido) {i.setPropietario(og.getPropietario());}
+		if(og.getEstado()!=Estado.Vendido) {
+			i.setPropietario(og.getPropietario());
+			}else {
+				i.setEstado(Estado.Disponible);
+			}
 		i.setFechaCreacion(og.getFechaCreacion());
 		i.setProvincia(og.getProvincia());
 		i.setLocalidad(og.getLocalidad());
