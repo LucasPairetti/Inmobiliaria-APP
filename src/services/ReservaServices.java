@@ -31,7 +31,6 @@ private static ReservaServices instance;
 			instance = new ReservaServices();
 			reservadao = ReservaDAO.getReservaDAO();
 			inmuebledao = InmuebleDAO.getInmuebleDAO();
-			validation = Validacion.getInstance();
 		}
 		return instance;
 	}
