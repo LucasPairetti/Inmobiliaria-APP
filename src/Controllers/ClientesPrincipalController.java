@@ -63,6 +63,9 @@ public class ClientesPrincipalController implements Initializable {
 
     @FXML
     private TextField NombreField;
+    
+    @FXML
+    private Button InmueblesDisponiblesButton;
 
     @FXML
     private Button VolverButton;
@@ -203,6 +206,11 @@ else {
     		// TODO Auto-generated catch block
     		e.printStackTrace();
     	}
+
+    }
+    
+    @FXML
+    void InmueblesDisponiblesPressed(ActionEvent event) {
 
     }
 

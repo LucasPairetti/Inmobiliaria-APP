@@ -38,11 +38,12 @@
       <Button fx:id="BuscarButton" layoutX="404.0" layoutY="537.0" mnemonicParsing="false" onAction="#BuscarPressed" prefHeight="53.0" prefWidth="114.0" text="Buscar" />
       <Button fx:id="EliminarButton" layoutX="980.0" layoutY="606.0" mnemonicParsing="false" onAction="#EliminarPressed" prefHeight="53.0" prefWidth="114.0" text="Eliminar cliente" />
       <Button fx:id="ModificarButton" layoutX="823.0" layoutY="606.0" mnemonicParsing="false" onAction="#ModificarPressed" prefHeight="53.0" prefWidth="114.0" text="Modificar cliente" />
-      <Button fx:id="AgregarButton" layoutX="241.0" layoutY="606.0" mnemonicParsing="false" onAction="#AgregarPressed" prefHeight="53.0" prefWidth="271.0" text="Agregar nuevo Cliente" />
+      <Button fx:id="AgregarButton" layoutX="269.0" layoutY="606.0" mnemonicParsing="false" onAction="#AgregarPressed" prefHeight="53.0" prefWidth="250.0" text="Agregar nuevo Cliente" />
       <Button fx:id="VolverButton" layoutX="24.0" layoutY="721.0" mnemonicParsing="false" onAction="#VolverPressed" prefHeight="53.0" prefWidth="114.0" text="Volver" />
       <ComboBox fx:id="TipoDocMenu" layoutX="138.0" layoutY="391.0" prefHeight="38.0" prefWidth="305.0" />
       <Label layoutX="138.0" layoutY="374.0" text="Tipo de documento:" />
       <TextField fx:id="DocumentoField" layoutX="138.0" layoutY="458.0" prefHeight="38.0" prefWidth="305.0" promptText="0644894894" />
       <Label layoutX="138.0" layoutY="435.0" text="Numero de documento" />
+      <Button fx:id="InmueblesDisponiblesButton" layoutX="92.0" layoutY="580.0" mnemonicParsing="false" onAction="#InmueblesDisponiblesPressed" prefHeight="38.0" prefWidth="137.0" text="Inmuebles Disponibles" />
    </children>
 </AnchorPane>
