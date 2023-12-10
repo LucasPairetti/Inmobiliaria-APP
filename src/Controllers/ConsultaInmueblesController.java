@@ -40,7 +40,8 @@ public class ConsultaInmueblesController implements Initializable {
     @FXML
     private TextField BarrioTextField; 
 
-
+    @FXML
+    private TableColumn<InmuebleDTO, String> EstadoColumn;
     @FXML
     private Button BuscarButton;
 
@@ -132,6 +133,9 @@ public class ConsultaInmueblesController implements Initializable {
     	PrecioColumn.setCellValueFactory(new PropertyValueFactory<>("precioVenta"));
     	ProvinciaColumn.setCellValueFactory(new PropertyValueFactory<>("provincia"));
     	TipoColumn.setCellValueFactory(new PropertyValueFactory<>("tipoInmueble"));
+    	
+    	//cuando arreglen estado, lo cambio
+    	//EstadoColumn.setCellValueFactory(new PropertyValueFactory<>("estado"));  
     	
     	
     	//inicializar todos los combobox

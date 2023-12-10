@@ -2,14 +2,17 @@ package Controllers;
 
 import java.io.IOException;
 import java.net.URL;
+import java.sql.Date;
 import java.util.ResourceBundle;
 
+import application.clases.Estado;
 import application.clases.Localidad;
 import application.clases.Orientacion;
 import application.clases.Propietario;
 import application.clases.Provincia;
 import application.clases.TipoInmueble;
 import dto.InmuebleDTO;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -97,7 +100,7 @@ public class ModificarInmuebleController implements Initializable {
     private TextArea ObservacionesField;
 
     @FXML
-    private ChoiceBox<String> OrientacionMenu;
+    private ComboBox<String> OrientacionMenu;
 
     @FXML
     private TextField OtraLocalidadField;
@@ -130,7 +133,10 @@ public class ModificarInmuebleController implements Initializable {
     private CheckBox TelefenoCheckBox;
 
     @FXML
-    private ChoiceBox<String> TipoInmuebleMenu;
+    private ComboBox<String> TipoInmuebleMenu;
+    
+    @FXML
+    private ComboBox<String> estadoMenu;
     
     @FXML
     private TextField PisoDeptoField;
@@ -147,13 +153,23 @@ public class ModificarInmuebleController implements Initializable {
     @Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		// TODO Auto-generated method stub
-    	ObservableList<String>localidades= (ObservableList<String>) Localidad.getLocalidad();
+    	ObservableList<String>localidades= FXCollections.observableArrayList(); 
+    	localidades.addAll(Localidad.getLocalidad());
     	localidades.add("Otra localidad");
      	LocalidadMenu.setItems(localidades);
      	
-    	ProvinciaMenu.setItems((ObservableList<String>) Provincia.getProvincias());
-    	TipoInmuebleMenu.setItems((ObservableList<String>) TipoInmueble.getTipoInmueble());
-    	OrientacionMenu.setItems((ObservableList<String>) Orientacion.geOrientacion());
+     	ObservableList<String>estados=FXCollections.observableArrayList(); 
+     	estados.addAll(Estado.getEstado());
+     	
+     	ObservableList<String>provincia= FXCollections.observableArrayList(); 
+     	provincia.addAll(Provincia.getProvincias());
+    	ProvinciaMenu.setItems(provincia );
+    	ObservableList<String>inmuebles=FXCollections.observableArrayList(); 
+    	inmuebles.addAll(TipoInmueble.getTipoInmueble());
+    	TipoInmuebleMenu.setItems(inmuebles);
+    	ObservableList<String>orientaciones=FXCollections.observableArrayList(); 
+    	orientaciones.addAll(Orientacion.geOrientacion());
+    	OrientacionMenu.setItems(orientaciones);
     	
 	}
     
@@ -232,7 +248,14 @@ public class ModificarInmuebleController implements Initializable {
     				localidad=OtraLocalidadField.getText();
     			}
     			
-    			InmuebleDTO nuevoInmueble= new InmuebleDTO(inmuebleID,IdPropietario, serviceInmueble.getById(inmuebleID).getFechaCreacion(), true, ProvinciaMenu.getValue(), localidad, CalleField.getText(), Integer.parseInt(NumeroField.getText()), PisoDeptoField.getText(), BarrioField.getText(),
+    			/*
+    			 * public InmuebleDTO (int id,int idPropietario,Date fechaCreacion, String estado, String provincia, String localidad, String calle,
+			int numero, String pisodpto, String barrio, String tipoInmueble,double precioVenta, String orientacion, float frente,float superficie,
+			float fondo, int antiguedad, int dormitorios, int banios,boolean garaje,boolean pHorizontal, boolean patio, boolean piscina, boolean aguaCorriente,
+			boolean cloacas, boolean gasNatural,boolean aguaCaliente, boolean lavadero, boolean pavimento, boolean telefono,
+			String observaciones) 
+    			 */
+    			InmuebleDTO nuevoInmueble= new InmuebleDTO(inmuebleID,IdPropietario, serviceInmueble.getById(inmuebleID).getFechaCreacion(), estadoMenu.getValue(), ProvinciaMenu.getValue(), localidad, CalleField.getText(), Integer.parseInt(NumeroField.getText()), PisoDeptoField.getText(), BarrioField.getText(),
     					TipoInmuebleMenu.getValue(), Double.parseDouble(PrecioField.getText()), OrientacionMenu.getValue(), Float.parseFloat(FrenteField.getText()), Float.parseFloat(SuperficieField.getText()),
     					Float.parseFloat(FondoField.getText()), Integer.parseInt(AntiguedadField.getText()), Integer.parseInt(DormitorioField.getText()), Integer.parseInt(BaniosField.getText()), GarajeCheckBox.isSelected(),
     					PropiedadHorizontalCheckBox.isSelected(), PatioCheckBox.isSelected(), PiscinaCheckBox.isSelected(), AguaCheckBox.isSelected(), CloacasCheckBox.isSelected(), GasCheckBox.isSelected(), AguaCalienteCheckBox.isSelected(),

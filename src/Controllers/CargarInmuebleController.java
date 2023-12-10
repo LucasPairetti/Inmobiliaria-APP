@@ -7,6 +7,7 @@ import java.text.SimpleDateFormat;
 
 import java.util.ResourceBundle;
 
+import application.clases.Estado;
 import application.clases.Localidad;
 import application.clases.Orientacion;
 import application.clases.Propietario;
@@ -14,6 +15,7 @@ import application.clases.Provincia;
 import application.clases.TipoDNI;
 import application.clases.TipoInmueble;
 import dto.InmuebleDTO;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -147,12 +149,22 @@ public class CargarInmuebleController implements Initializable{
     @Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
     	
-    	ObservableList<String>localidades= (ObservableList<String>) Localidad.getLocalidad();
+    	ObservableList<String>localidades= FXCollections.observableArrayList(); 
+    	localidades.addAll(Localidad.getLocalidad());
     	localidades.add("Otra localidad");
      	LocalidadMenu.setItems(localidades);
-    	ProvinciaMenu.setItems((ObservableList<String>) Provincia.getProvincias());
-    	TipoInmuebleMenu.setItems((ObservableList<String>) TipoInmueble.getTipoInmueble());
-    	OrientacionMenu.setItems((ObservableList<String>) Orientacion.geOrientacion());
+     	
+     	
+     	ObservableList<String>provincia= FXCollections.observableArrayList(); 
+     	provincia.addAll(Provincia.getProvincias());
+    	ProvinciaMenu.setItems(provincia );
+    	ObservableList<String>inmuebles=FXCollections.observableArrayList(); 
+    	inmuebles.addAll(TipoInmueble.getTipoInmueble());
+    	TipoInmuebleMenu.setItems(inmuebles);
+    	ObservableList<String>orientaciones=FXCollections.observableArrayList(); 
+    	orientaciones.addAll(Orientacion.geOrientacion());
+    	OrientacionMenu.setItems(orientaciones);
+    	
     	FechaField.setText(sdf.format(fecha));
 	}
     
@@ -261,7 +273,7 @@ public void setPropietarioID(int id) {
     				localidad=OtraLocalidadField.getText();
     			}
     			
-    			InmuebleDTO nuevoInmueble= new InmuebleDTO(propietarioID, (java.sql.Date) fecha, true, ProvinciaMenu.getValue(), LocalidadMenu.getValue(), null, 0, null, null, null, 0, null, 0, 0, 0, 0, 0, 0, false, false, false, false, false, false, false, false, false, false, false, null);
+    			InmuebleDTO nuevoInmueble= new InmuebleDTO(propietarioID, (java.sql.Date) fecha, "Disponible", ProvinciaMenu.getValue(), LocalidadMenu.getValue(), null, 0, null, null, null, 0, null, 0, 0, 0, 0, 0, 0, false, false, false, false, false, false, false, false, false, false, false, null);
     					//crear inmueble -> 
     			
     			serviceInmueble.createInmueble(nuevoInmueble);

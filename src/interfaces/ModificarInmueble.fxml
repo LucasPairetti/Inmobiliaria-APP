@@ -47,9 +47,7 @@
       <TextField fx:id="PrecioField" layoutX="309.0" layoutY="196.0" prefHeight="34.0" prefWidth="176.0" promptText="USD" />
       <Label layoutX="309.0" layoutY="152.0" text="Precio:" />
       <Label layoutX="309.0" layoutY="342.0" text="Tipo de Inmueble" />
-      <ChoiceBox fx:id="TipoInmuebleMenu" layoutX="309.0" layoutY="375.0" prefHeight="44.0" prefWidth="176.0" />
       <Label layoutX="309.0" layoutY="437.0" text="Orientacion:" />
-      <ChoiceBox fx:id="OrientacionMenu" layoutX="309.0" layoutY="470.0" prefHeight="44.0" prefWidth="176.0" />
       <Label layoutX="795.0" layoutY="108.0" text="Datos del edificio" />
       <TextField fx:id="SuperficieField" layoutX="515.0" layoutY="208.0" prefHeight="34.0" prefWidth="176.0" text="Metros cuadrados" />
       <Label layoutX="524.0" layoutY="176.0" text="Superficie:" />
@@ -83,5 +81,9 @@
       <CheckBox fx:id="AguaCalienteCheckBox" layoutX="950.0" layoutY="442.0" mnemonicParsing="false" text="Agua Caliente" />
       <TextField fx:id="PisoDeptoField" layoutX="72.0" layoutY="674.0" prefHeight="34.0" prefWidth="176.0" />
       <Label layoutX="72.0" layoutY="630.0" text="Piso/Departamiento" />
+      <Label layoutX="309.0" layoutY="630.0" text="estado:" />
+      <ChoiceBox fx:id="EstadoMenu" layoutX="309.0" layoutY="669.0" prefHeight="44.0" prefWidth="176.0" />
+      <ComboBox fx:id="TipoInmuebleMenu" layoutX="309.0" layoutY="371.0" prefHeight="44.0" prefWidth="176.0" />
+      <ComboBox fx:id="OrientacionMenu" layoutX="309.0" layoutY="469.0" prefHeight="44.0" prefWidth="176.0" />
    </children>
 </AnchorPane>

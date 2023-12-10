@@ -32,23 +32,7 @@ public class ClienteDTO {
 	
 	String caracteristicasDeseadas;
 	
-	public ClienteDTO(int idCliente, String nombre, String apellido,String dni,String tipoDNI, int telefono,String email, double montoDisponible,
-			String tipoInmuebleBuscado, String localidadBuscada, String barrios,
-			String caracteristicasDeseadas) {
-		super();
-		this.id=idCliente;
-		this.nombre = nombre;
-		this.apellido = apellido;
-		this.dni=dni;
-		this.tipoDNI=tipoDNI.replace(" ", "_");
-		this.email=email;
-		this.telefono = telefono;
-		this.montoDisponible = montoDisponible;
-		this.tipoInmuebleBuscado = tipoInmuebleBuscado.replace(" ", "_");
-		this.localidadBuscada = localidadBuscada;
-		this.barrios = barrios;
-		this.caracteristicasDeseadas = caracteristicasDeseadas;
-	}
+	
 	
 	public ClienteDTO( String nombre, String apellido,String dni,String tipoDNI, int telefono,String email, double montoDisponible,
 			String tipoInmuebleBuscado, String localidadBuscada, String barrios,
