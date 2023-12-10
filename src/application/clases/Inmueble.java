@@ -32,8 +32,9 @@ public class Inmueble {
 	Propietario propietario;
 	@Column(name="fechaCreacion", nullable=false)
 	Date fechaCreacion;
+	@Enumerated(EnumType.STRING)
 	@Column(name="estado", nullable=false)
-	boolean estado; //¿diponible - vendido?
+	Estado estado;
 	@Enumerated(EnumType.STRING)
 	@Column(name="provincia", nullable=false)
 	Provincia provincia;
@@ -101,7 +102,7 @@ public class Inmueble {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	public Inmueble(Propietario propietario, Date fechaCreacion, boolean estado, Provincia provincia,
+	public Inmueble(Propietario propietario, Date fechaCreacion, Estado estado, Provincia provincia,
 			String localidad, String calle, int numero, String pisodpto, String barrio, TipoInmueble tipoInmueble,
 			double precioVenta, Orientacion orientacion,float superficie, float frente, float fondo, int antiguedad, int dormitorios,
 			int banios,boolean garaje,boolean pHorizontal, boolean patio, boolean piscina, boolean aguaCorriente, boolean cloacas, boolean gasNatural,
@@ -184,10 +185,10 @@ public class Inmueble {
 	public void setFechaCreacion(Date fechaCreacion) {
 		this.fechaCreacion = fechaCreacion;
 	}
-	public boolean isEstado() {
+	public Estado getEstado() {
 		return estado;
 	}
-	public void setEstado(boolean estado) {
+	public void setEstado(Estado estado) {
 		this.estado = estado;
 	}
 	public Provincia getProvincia() {

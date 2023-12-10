@@ -139,7 +139,7 @@ public class ConsultaInmueblesController implements Initializable {
     	ObservableList<String> localidades=  FXCollections.observableArrayList();
     	localidades.addAll(Localidad.getLocalidad());
     	ObservableList<String> provincias=  FXCollections.observableArrayList();
-    	provincias.addAll(TipoDNI.getTiposDNI());
+    	provincias.addAll(Provincia.getProvincias());
     	
      	LocalidadMenu.setItems( localidades );
      	ProvinciaMenu.setItems( provincias );

@@ -261,11 +261,7 @@ public void setPropietarioID(int id) {
     				localidad=OtraLocalidadField.getText();
     			}
     			
-    			InmuebleDTO nuevoInmueble= new InmuebleDTO(propietarioID, (java.sql.Date) fecha, true, ProvinciaMenu.getValue(), localidad, CalleField.getText(), Integer.parseInt(NumeroField.getText()), PisoDeptoField.getText(), BarrioTextField.getText(),
-    					TipoInmuebleMenu.getValue(), Double.parseDouble(PrecioField.getText()), OrientacionMenu.getValue(), Float.parseFloat(FrenteField.getText()), Float.parseFloat(SuperficieField.getText()),
-    					Float.parseFloat(FondoField.getText()), Integer.parseInt(AntiguedadField.getText()), Integer.parseInt(DormitorioField.getText()), Integer.parseInt(BaniosField.getText()), GarajeCheckBox.isSelected(),
-    					PropiedadHorizontalCheckBox.isSelected(), PatioCheckBox.isSelected(), PiscinaCheckBox.isSelected(), AguaCheckBox.isSelected(), CloacasCheckBox.isSelected(), GasCheckBox.isSelected(), AguaCalienteCheckBox.isSelected(),
-    					LavaderoCheckBox.isSelected(), PavimentoCheckBox.isSelected(), TelefenoCheckBox.isSelected(), ObservacionesField.getText());
+    			InmuebleDTO nuevoInmueble= new InmuebleDTO(propietarioID, (java.sql.Date) fecha, true, ProvinciaMenu.getValue(), LocalidadMenu.getValue(), null, 0, null, null, null, 0, null, 0, 0, 0, 0, 0, 0, false, false, false, false, false, false, false, false, false, false, false, null);
     					//crear inmueble -> 
     			
     			serviceInmueble.createInmueble(nuevoInmueble);

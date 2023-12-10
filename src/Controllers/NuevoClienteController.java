@@ -76,9 +76,8 @@ public class NuevoClienteController implements Initializable{
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		// TODO Auto-generated method stub
 		
-    	ObservableList<String> dnis= FXCollections.observableArrayList();
-		dnis.addAll(TipoDNI.getTiposDNI());
-		tipoDocMenu.setItems(dnis);
+    	ObservableList<String> dnis= (ObservableList<String>)TipoDNI.getTiposDNI();
+    	tipoDocMenu.setItems(dnis);
     	
     	ObservableList<String> Inmuebles= (ObservableList<String>)TipoInmueble.getTipoInmueble();
     	InmuebleMenu.setItems(Inmuebles);

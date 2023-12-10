@@ -81,6 +81,7 @@ public class Vendedor {
 	public void setId(int id) {
 		this.id = id;
 	}
+	
 	public String getNombre() {
 		return nombre;
 	}
@@ -158,11 +159,11 @@ public class Vendedor {
 		return nombre + " " + apellido;
 	}
 	public boolean equals(Vendedor v) {
-		if(v.getId().equals(id)) {return true;}
+		if(v.getDni().equals(id)) {return true;}
 		else {return false;}
 	}
-	public String getId() {
+	public int getId() {
 		// TODO Auto-generated method stub
-		return this.dni;
+		return this.id;
 	}
 }
