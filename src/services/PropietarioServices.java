@@ -1,7 +1,10 @@
 package services;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
+
 import application.clases.Propietario;
 import application.clases.Provincia;
 import application.clases.TipoDNI;
@@ -62,24 +65,23 @@ public class PropietarioServices {
 		}
 	}
 	
-	public List<PropietarioDTO> listPropietarios(){
-		
-	List<PropietarioDTO> propietarios= propietariodao.getAllPropietario().stream()
-	        .map(propietario -> new PropietarioDTO(propietario))
-	           .collect(Collectors.toList());
-
-	return propietarios;
-	}
-	
-	public List<PropietarioDTO> getPropietario(String n, String a, String dni, String tipodni){
-		
-		TipoDNI tipo= TipoDNI.valueOf(tipodni.replace(" ", "_"));
-		
-		return propietariodao.getPropietario(tipo,dni,n,a).stream()
+	public List<PropietarioDTO> listPropietarios() {
+	    return Optional.ofNullable(propietariodao.getAllPropietario())
+	            .map(List::stream)
+	            .orElseGet(Stream::empty)
 	            .map(propietario -> new PropietarioDTO(propietario))
 	            .collect(Collectors.toList());
-		
 	}
+	public List<PropietarioDTO> getPropietario(String n, String a, String dni, String tipodni) {
+	    TipoDNI tipo = TipoDNI.valueOf(tipodni.replace(" ", "_"));
+
+	    return Optional.ofNullable(propietariodao.getPropietario(tipo, dni, n, a))
+	            .map(List::stream)
+	            .orElseGet(Stream::empty)
+	            .map(propietario -> new PropietarioDTO(propietario))
+	            .collect(Collectors.toList());
+	}
+
 
 	private Propietario toPropietario(PropietarioDTO entrada) {
 		Provincia provincia = Provincia.valueOf(entrada.getProvincia());

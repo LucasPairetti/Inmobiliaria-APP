@@ -1,7 +1,9 @@
 package services;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import application.clases.Provincia;
 import application.clases.TipoDNI;
@@ -48,11 +50,14 @@ public class VendedorServices {
 		}else {return -1;}//no existia el vendedor con esa id
 		
 	};
-	public List<VendedorDTO> listVendedores(){
-		return vendedordao.getAllVendedor().stream()
+	public List<VendedorDTO> listVendedores() {
+	    return Optional.ofNullable(vendedordao.getAllVendedor())
+	            .map(List::stream)
+	            .orElseGet(Stream::empty)
 	            .map(vendedor -> new VendedorDTO(vendedor))
 	            .collect(Collectors.toList());
 	}
+
 	public VendedorDTO validarVendedor(String dni,String nombre, String apellido,String clave) {//si es null no esta validado, por ende no debe iniciar
 		Vendedor vendedor = vendedordao.validarVendedor(dni,nombre,apellido,clave);
 		if(vendedor==null) {return null;}
@@ -61,7 +66,8 @@ public class VendedorServices {
 		}
 	}
 	public VendedorDTO getVendedorById(int id) {
-		return new VendedorDTO(vendedordao.getVendedorById(id));
+	    Vendedor vendedor = vendedordao.getVendedorById(id);
+	    return vendedor != null ? new VendedorDTO(vendedor) : null;
 	}
 	private Vendedor toVendedor( VendedorDTO entrada) {
 		TipoDNI tipoDni= TipoDNI.valueOf(entrada.getTipodni());
