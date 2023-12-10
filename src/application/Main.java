@@ -49,7 +49,7 @@ Parent root = FXMLLoader.load((getClass().getResource("/interfaces/PantallaPrinc
 		Inmueble inmueble = new Inmueble(p, Date.valueOf("2000-11-03"),true,Provincia.Santa_Fe,"Santa Fe","asd",2476,"","Fomento",
 				TipoInmueble.C,20000000, Orientacion.Norte,256,1,1,50,3,3,true,true,true,true,true,true,true,true,true,true,true,"Fachera");
 		inmuebleDAO.createInmueble(inmueble);
-		*/
+		
 		
 		Cliente cliente = new Cliente("Tomas", "Auday","44444444",TipoDNI.DNI, 111111111,"tomitoauday@gmail.com",40000000,
 				TipoInmueble.C, "Santa Fe", "Fomento/7 Jefes/Guadalupe",
@@ -64,7 +64,7 @@ Parent root = FXMLLoader.load((getClass().getResource("/interfaces/PantallaPrinc
 		session.getTransaction().commit();
 		session.close();
 		System.out.println(cliente);
-		
+		*/
 		
 		launch(args);	
 		
