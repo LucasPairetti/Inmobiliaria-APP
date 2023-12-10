@@ -75,8 +75,9 @@ public class ClientesPrincipalController implements Initializable {
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		// TODO Auto-generated method stub
     	ObservableList<String> dnis= FXCollections.observableArrayList();
-		dnis.addAll(TipoDNI.getTiposDNI());
-		TipoDocMenu.setItems(dnis);
+    			
+    			dnis.addAll(TipoDNI.getTiposDNI());
+    	TipoDocMenu.setItems(dnis);
     	
     	NombreColumn.setCellValueFactory(new PropertyValueFactory<>("Nombre"));
     	ApellidoColumn.setCellValueFactory(new PropertyValueFactory<>("Apellido"));
