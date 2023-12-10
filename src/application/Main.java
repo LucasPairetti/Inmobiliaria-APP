@@ -6,6 +6,7 @@ import java.util.List;
 import org.hibernate.Session;
 
 import application.clases.Cliente;
+import application.clases.Estado;
 import application.clases.Inmueble;
 import application.clases.Orientacion;
 import application.clases.Propietario;
@@ -43,10 +44,14 @@ Parent root = FXMLLoader.load((getClass().getResource("/interfaces/PantallaPrinc
 	}
 	
 	public static void main(String[] args) {
-	/*	
+		
+		// Antes de ejecutar este main borrar database y volver a crear una con el nombre inmboliariaapp. 
+		// Luego correr este main.
+		// Una vez corrido, comentarlo, porque ya se creo la BD.
+		
 		InmuebleDAO inmuebleDAO = InmuebleDAO.getInmuebleDAO();
 		Propietario p = new Propietario("Lucas", "Pairetti", TipoDNI.DNI,"42870675", "asd", 1111, "Santa Fe", Provincia.Santa_Fe,1111111,"pairet@gmail.com");
-		Inmueble inmueble = new Inmueble(p, Date.valueOf("2000-11-03"),true,Provincia.Santa_Fe,"Santa Fe","asd",2476,"","Fomento",
+		Inmueble inmueble = new Inmueble(p, Date.valueOf("2000-11-03"),Estado.Disponible,Provincia.Santa_Fe,"Santa Fe","asd",2476,"","Fomento",
 				TipoInmueble.C,20000000, Orientacion.Norte,256,1,1,50,3,3,true,true,true,true,true,true,true,true,true,true,true,"Fachera");
 		inmuebleDAO.createInmueble(inmueble);
 		
@@ -68,7 +73,6 @@ Parent root = FXMLLoader.load((getClass().getResource("/interfaces/PantallaPrinc
 		InmuebleDAO i = InmuebleDAO.getInmuebleDAO();
 		
 		System.out.println(i.getInmueble(null,null, null, null, null, null));
-				*/
 		
 		launch(args);	
 		
