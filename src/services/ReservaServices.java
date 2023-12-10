@@ -18,6 +18,16 @@ import application.dao.VendedorDAO;
 import application.dao.VentaDAO;
 import dto.ReservaDTO;
 
+import com.itextpdf.text.*;
+import com.itextpdf.text.Font;
+import com.itextpdf.text.pdf.PdfContentByte;
+import com.itextpdf.text.pdf.PdfWriter;
+import jakarta.mail.*;
+import jakarta.mail.internet.InternetAddress;
+import jakarta.mail.internet.MimeBodyPart;
+import jakarta.mail.internet.MimeMessage;
+import jakarta.mail.internet.MimeMultipart;
+
 public class ReservaServices {
 private static ReservaServices instance;
 	
