@@ -211,7 +211,8 @@ public class InmuebleDAO {
 				    }
 				
 				
-			}	
+			}
+			
 			public List<Inmueble> getInmueble(Propietario propietario) {
 				// TODO Auto-generated method stub
 				
@@ -219,11 +220,10 @@ public class InmuebleDAO {
 				session.beginTransaction();
 				
 				try {
-				
-				Query<Inmueble> query = session.createQuery("SELECT * FROM INMUEBLE WHERE"
-						+ "(PROPIETARIO == ?1);", Inmueble.class);
-				query.setParameter(1, propietario);
-				
+					
+				Query<Inmueble> query = session.createQuery("SELECT i FROM INMUEBLE i WHERE "
+						+ "i.idPropietario = "+propietario.getId()+";", Inmueble.class);
+							
 				
 			    ArrayList<Inmueble> inmuebles = (ArrayList<Inmueble>) query.getResultList();
 			    
