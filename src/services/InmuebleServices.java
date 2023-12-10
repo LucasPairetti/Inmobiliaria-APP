@@ -4,15 +4,20 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import Controllers.Validacion;
+import application.clases.Cliente;
 import application.clases.Estado;
 import application.clases.Inmueble;
 import application.clases.Localidad;
 import application.clases.Orientacion;
 import application.clases.Propietario;
 import application.clases.Provincia;
+import application.clases.Reserva;
+import application.clases.TipoDNI;
 import application.clases.TipoInmueble;
 import application.dao.InmuebleDAO;
 import application.dao.PropietarioDAO;
+import application.dao.ReservaDAO;
+import dto.ClienteDTO;
 import dto.InmuebleDTO;
 import dto.PropietarioDTO;
 
@@ -26,12 +31,14 @@ public class InmuebleServices {
 	private static InmuebleServices instance;
 	private static InmuebleDAO inmuebledao;
 	private static PropietarioDAO propietariodao;
+	private static ReservaDAO reservadao;
 	
 	public static InmuebleServices getInstance() {
 		if(instance==null) {
 			instance= new InmuebleServices();
 			inmuebledao = InmuebleDAO.getInmuebleDAO(); 
 			propietariodao = PropietarioDAO.getPropietarioDAO();
+			reservadao=ReservaDAO.getReservaDAO();
 		}
 		return instance;
 	}
@@ -82,12 +89,23 @@ public class InmuebleServices {
 	            .map(inmueble -> new InmuebleDTO(inmueble.getPropietario(), inmueble))
 	            .collect(Collectors.toList());
 	}
-	public List<InmuebleDTO> listInmueblesFiltradosDisponibleYRporCliente(int c) {
+	public List<InmuebleDTO> listInmueblesFiltradosParaVenta(ClienteDTO c) {
 		
-	    return inmuebledao.getAllInmuebles().stream()
+	    List<InmuebleDTO> disponibles = inmuebledao.getAllInmuebles().stream()
 	            .filter(inmueble -> inmueble.getEstado() == Estado.Disponible)
 	            .map(inmueble -> new InmuebleDTO(inmueble.getPropietario(), inmueble))
 	            .collect(Collectors.toList());
+	    List<Reserva> reservas = reservadao.getReservasByCliente(toCliente(c)).stream().filter(Reserva::esReservaValida).collect(Collectors.toList());
+	    if(reservas!=null) {
+	    List<InmuebleDTO> inmueblesConReservas = reservas.stream()
+	            .map(Reserva::getInmueble)
+	            .map(inmueble -> new InmuebleDTO(inmueble.getPropietario(), inmueble))
+	            .collect(Collectors.toList());
+
+	    disponibles.addAll(inmueblesConReservas);
+	    }
+	    return disponibles;
+	 
 	}
 	
 	public InmuebleDTO getById(int id) {
@@ -186,5 +204,10 @@ public class InmuebleServices {
 		return inmueble;
 		
 	}
-	
+	private Cliente toCliente( ClienteDTO entrada) {
+		TipoInmueble tipoInmueble= TipoInmueble.valueOf(entrada.getTipoInmuebleBuscado());
+		TipoDNI tipoDNI= TipoDNI.valueOf(entrada.getTipoDNI());
+		return new Cliente( entrada.getNombre(), entrada.getApellido(), entrada.getDni(),tipoDNI,entrada.getTelefono(),entrada.getEmail(),
+				entrada.getMontoDisponible(),tipoInmueble, entrada.getLocalidadBuscada(), entrada.getBarrios(),entrada.getCaracteristicasDeseadas());
+	}
 }
