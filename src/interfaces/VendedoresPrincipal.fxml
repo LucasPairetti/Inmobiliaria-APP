@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.ClientesPrincipalController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.VendedoresPrincipalController">
    <children>
       <ImageView fitHeight="800.0" fitWidth="1200.0" pickOnBounds="true">
          <image>
@@ -28,7 +28,7 @@
       <Label layoutX="138.0" layoutY="217.0" text="nombre:" />
       <Label layoutX="138.0" layoutY="292.0" text="Apellido:" />
       <Label layoutX="138.0" layoutY="188.0" text="BUSCAR:" />
-      <TableView fx:id="ClientesTable" layoutX="725.0" layoutY="67.0" prefHeight="523.0" prefWidth="369.0">
+      <TableView fx:id="VendedoresTable" layoutX="725.0" layoutY="67.0" prefHeight="523.0" prefWidth="369.0">
         <columns>
           <TableColumn fx:id="NombreColumn" prefWidth="187.0" text="Nombre" />
           <TableColumn fx:id="ApellidoColumn" prefWidth="181.0" text="Apellido" />

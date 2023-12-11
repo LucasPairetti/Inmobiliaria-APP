@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.NuevoClienteController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.ModificarVendedorController">
    <children>
       <ImageView fitHeight="800.0" fitWidth="1200.0" pickOnBounds="true">
          <image>
@@ -35,7 +35,7 @@
       <Label layoutX="417.0" layoutY="180.0" text="Provincia" />
       <Button fx:id="GuardarBUtton" layoutX="1012.0" layoutY="731.0" mnemonicParsing="false" onAction="#GuardarPressed" prefHeight="53.0" prefWidth="143.0" text="Modificar" />
       <Button fx:id="CancelarButton" layoutX="43.0" layoutY="731.0" mnemonicParsing="false" onAction="#CancelarPressed" prefHeight="53.0" prefWidth="143.0" text="Cancelar" />
-      <ComboBox fx:id="tipoDocMenu" editable="true" layoutX="76.0" layoutY="424.0" prefHeight="44.0" prefWidth="255.0" promptText="Tipo documento" />
+      <ComboBox fx:id="tipoDocMenu" layoutX="76.0" layoutY="424.0" prefHeight="44.0" prefWidth="255.0" promptText="Tipo documento" />
       <Label layoutX="76.0" layoutY="390.0" text="Tipo de documento" />
       <TextField fx:id="numeroDocField" editable="false" layoutX="79.0" layoutY="513.0" prefHeight="53.0" prefWidth="255.0" promptText="32113214123" />
       <Label layoutX="74.0" layoutY="486.0" text="numero de documento" />

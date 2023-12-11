@@ -64,5 +64,6 @@
       <Slider fx:id="DormitorioSlider" blockIncrement="1.0" layoutX="71.0" layoutY="598.0" majorTickUnit="1.0" max="10.0" min="1.0" minorTickCount="1" onDragDetected="#DormitorioDrag" showTickLabels="true" showTickMarks="true" snapToTicks="true" value="1.0" />
       <Label fx:id="DormitorioLabel" layoutX="224.0" layoutY="598.0" text="1" />
       <TextField fx:id="BarrioTextField" layoutX="71.0" layoutY="367.0" prefHeight="44.0" prefWidth="186.0" />
+      <Button fx:id="VerMasButton" layoutX="1080.0" layoutY="604.0" mnemonicParsing="false" onAction="#VerMasPressed" prefHeight="35.0" prefWidth="101.0" text="Ver Mas" />
    </children>
 </AnchorPane>

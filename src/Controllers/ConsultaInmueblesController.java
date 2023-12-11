@@ -63,6 +63,9 @@ public class ConsultaInmueblesController implements Initializable {
     @FXML
     private CheckBox GalponCheckBox;
     
+    @FXML
+    private Button VerMasButton;
+    
 
     @FXML
     private TableView<InmuebleDTO> InmuebleTable;
@@ -281,6 +284,11 @@ public class ConsultaInmueblesController implements Initializable {
     		// TODO Auto-generated catch block
     		e.printStackTrace();
     	}
+
+    }
+    
+    @FXML
+    void VerMasPressed(ActionEvent event) {
 
     }
 
