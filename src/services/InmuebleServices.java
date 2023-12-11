@@ -133,7 +133,7 @@ public class InmuebleServices {
 			return null;
 		}
 	}
-	public List<InmuebleDTO> getInmueblesByPropietario(int propietario) {
+	/*public List<InmuebleDTO> getInmueblesByPropietario(int propietario) {
 	    Propietario p = propietariodao.getPropietarioById(propietario);
 	    if (p != null) {
 	        return Optional.ofNullable(inmuebledao.getInmueble(p))
@@ -144,7 +144,24 @@ public class InmuebleServices {
 	    } else {
 	        return Collections.emptyList(); // Devolver una lista vacía en lugar de null
 	    }
+	}*/
+	public List<InmuebleDTO> getInmueblesByPropietario(int propietarioId) {
+	    Propietario propietario = propietariodao.getPropietarioById(propietarioId);
+
+	    if (propietario != null) {
+	        List<InmuebleDTO> inmuebles = Optional.ofNullable(inmuebledao.getAllInmuebles())
+	                .orElse(Collections.emptyList())
+	                .stream()
+	                .filter(inmueble -> inmueble.getPropietario().equals(propietario))
+	                .map(inmueble -> new InmuebleDTO(inmueble.getPropietario(), inmueble))
+	                .collect(Collectors.toList());
+
+	        return inmuebles;
+	    } else {
+	        return Collections.emptyList();
+	    }
 	}
+
 
 	
 	public List<InmuebleDTO> getInmueble(String p, String l, String b, List<String> tipos, int cantdorm,
