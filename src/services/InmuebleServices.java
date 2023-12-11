@@ -114,7 +114,7 @@ public class InmuebleServices {
 	            .collect(Collectors.toList());
 	   List<InmuebleDTO> resultado = new ArrayList<InmuebleDTO>();
 	    
-	    if (reservas != null) {
+	    if (!reservas.isEmpty()) {
 	        List<InmuebleDTO> inmueblesConReservas = reservas.stream()
 	                .map(Reserva::getInmueble)
 	                .map(inmueble -> new InmuebleDTO(inmueble.getPropietario(), inmueble))
