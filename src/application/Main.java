@@ -13,8 +13,10 @@ import application.clases.Propietario;
 import application.clases.Provincia;
 import application.clases.TipoDNI;
 import application.clases.TipoInmueble;
+import application.clases.Vendedor;
 import application.dao.HibernateUtil;
 import application.dao.InmuebleDAO;
+import application.dao.VendedorDAO;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.stage.Stage;
@@ -70,12 +72,18 @@ Parent root = FXMLLoader.load((getClass().getResource("/interfaces/PantallaPrinc
 		session.close();
 		System.out.println(cliente);
 		/*
-		 * 
-		 */
+		
 		InmuebleDAO i = InmuebleDAO.getInmuebleDAO();
 		
-		System.out.println(i.getInmueble(null,null, null, null, null, null));
-	*/	
+		System.out.println(i.getInmueble(null,null, null, null, null, null));*/
+		
+		Vendedor vendedor = new Vendedor("Sebastian","Paredes",TipoDNI.DNI,"11111111","calle",3424,"Santa Fe",
+				Provincia.Santa_Fe,234234234,"seba@gmail.com",Date.valueOf("2000-03-03"),20000,"a4g5h6");
+		
+		VendedorDAO vdao = VendedorDAO.getVendedorDAO();
+		
+		System.out.println(vdao.getAllVendedor());
+		
 		launch(args);	
 		
 		

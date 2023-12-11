@@ -93,7 +93,7 @@ public class VendedorDAO {
 			
 				session.beginTransaction();
 			List<Vendedor> vendedores = session
-					.createQuery("SELECT a FROM vendedor a", Vendedor.class)
+					.createQuery("SELECT a FROM Vendedor a", Vendedor.class)
 					.getResultList();
 			session.getTransaction().commit();
 			session.close();
@@ -139,11 +139,11 @@ public class VendedorDAO {
 			
 			try {
 			
-			Query<Vendedor> query = session.createQuery("SELECT * FROM CLIENTE WHERE"
-					+ "(DNI = ?1) AND"
-					+ "(TIPODNI =?2)", Vendedor.class);
-			query.setParameter(1, dni);
-			query.setParameter(2, tipodni);
+			Query<Vendedor> query = session.createQuery("SELECT a FROM Vendedor a WHERE "
+					+ "(DNI = :dni) AND "
+					+ "(TIPODNI = :tipodni)", Vendedor.class);
+			query.setParameter("dni", dni);
+			query.setParameter("tipodni", tipodni);
 			
 		    Vendedor vendedor = query.getSingleResult();
 		    
@@ -170,11 +170,11 @@ public class VendedorDAO {
 				
 				try {
 				
-				Query<Vendedor> query = session.createQuery("SELECT * FROM CLIENTE WHERE"
-						+ "(DNI = ?1) AND"
-						+ "(NOMBRE = ?2) AND"
-						+ "(APELLIDO = ?3) AND"
-						+ "(CLAVE = ?4)", Vendedor.class);
+				Query<Vendedor> query = session.createQuery("SELECT a FROM Vendedor a WHERE "
+						+ "(DNI = :dni) AND "
+						+ "(NOMBRE = :nombre) AND "
+						+ "(APELLIDO = :apellido) AND "
+						+ "(CLAVE = :clave)", Vendedor.class);
 				query.setParameter(1, dni);
 				query.setParameter(2, nombre);
 				query.setParameter(3, apellido);
