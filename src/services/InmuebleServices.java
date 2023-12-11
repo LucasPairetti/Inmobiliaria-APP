@@ -99,6 +99,7 @@ public class InmuebleServices {
 	}
 
 	public List<InmuebleDTO> listInmueblesFiltradosParaVenta(ClienteDTO c) {
+		
 		TipoInmueble tipoInmueble = TipoInmueble.valueOf(c.getTipoInmuebleBuscado());
 		List<Reserva> reservas = Optional.ofNullable(reservadao.getReservasByCliente(toCliente(c)))
 	            .map(List::stream)
@@ -122,7 +123,9 @@ public class InmuebleServices {
 
 	        resultado.addAll(inmueblesConReservas);
 	    }
+	    if(!disponibles.isEmpty()) {
 	    resultado.addAll(disponibles);
+	    }
 	    if(resultado.isEmpty()) {
 	    	List<InmuebleDTO> todos = Optional.ofNullable(inmuebledao.getAllInmuebles())
 		            .map(List::stream)
@@ -134,7 +137,7 @@ public class InmuebleServices {
 	    
 	    return resultado;
 	}
-
+	private getInmueblesReservadosCliente()
 	
 	public InmuebleDTO getById(int id) {
 		Inmueble i = inmuebledao.getInmuebleById(id);
