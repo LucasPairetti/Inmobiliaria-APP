@@ -133,18 +133,7 @@ public class InmuebleServices {
 			return null;
 		}
 	}
-	/*public List<InmuebleDTO> getInmueblesByPropietario(int propietario) {
-	    Propietario p = propietariodao.getPropietarioById(propietario);
-	    if (p != null) {
-	        return Optional.ofNullable(inmuebledao.getInmueble(p))
-	                .map(List::stream)
-	                .orElseGet(Stream::empty)
-	                .map(inmueble -> new InmuebleDTO(inmueble.getPropietario(), inmueble))
-	                .collect(Collectors.toList());
-	    } else {
-	        return Collections.emptyList(); // Devolver una lista vacía en lugar de null
-	    }
-	}*/
+	
 	public List<InmuebleDTO> getInmueblesByPropietario(int propietarioId) {
 	    Propietario propietario = propietariodao.getPropietarioById(propietarioId);
 
