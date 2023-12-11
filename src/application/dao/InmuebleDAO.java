@@ -226,7 +226,7 @@ public class InmuebleDAO {
 			    CriteriaQuery<Inmueble> criteria = builder.createQuery(Inmueble.class);
 			    Root<Inmueble> from = criteria.from(Inmueble.class);
 			    criteria.select(from);
-			    criteria.where(builder.equal(from.get("idPropietario"), propietario.getId()));
+			    criteria.where(builder.equal(from.get("propietario"), propietario));
 			    TypedQuery<Inmueble> typed = session.createQuery(criteria);
 			    
 			    ArrayList<Inmueble> reservas = (ArrayList<Inmueble>) typed.getResultList();
