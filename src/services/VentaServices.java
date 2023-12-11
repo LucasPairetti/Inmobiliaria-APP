@@ -83,11 +83,14 @@ public class VentaServices {
 		Vendedor vendedor= vendedordao.getVendedorById(venta.getVendedor());
 		if(vendedor==null) {return -4;}//no existe el vendedor
 		
-		ventadao.createVenta(toVenta(venta,inmueble,cliente,vendedor));
+		Venta ventafinal = toVenta(venta,inmueble,cliente,vendedor);
+		ventadao.createVenta(ventafinal);
 		inmueble.setEstado(Estado.Vendido);
 		inmuebledao.updateInmueble(inmueble);
+		generarPDF(ventafinal);
 		return 0;//0 para evita chocar con el id 1
 		//AGREGAR METODO IMPRIMIR
+		
 	}
 	public VentaDTO getVentaById(int id) {
 		Venta venta = ventadao.getVentaById(id);
