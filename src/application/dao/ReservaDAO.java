@@ -99,7 +99,7 @@ public class ReservaDAO {
 		
 			session.beginTransaction();
 		List<Reserva> reservas = session
-				.createQuery("SELECT a FROM reserva a", Reserva.class)
+				.createQuery("SELECT a FROM Reserva a", Reserva.class)
 				.getResultList();
 		session.getTransaction().commit();
 		session.close();
@@ -149,7 +149,7 @@ public class ReservaDAO {
 	    CriteriaQuery<Reserva> criteria = builder.createQuery(Reserva.class);
 	    Root<Reserva> from = criteria.from(Reserva.class);
 	    criteria.select(from);
-	    criteria.where(builder.equal(from.get("inmueble_id"), inmueble.getId()));
+	    criteria.where(builder.equal(from.get("inmueble"), inmueble));
 	    TypedQuery<Reserva> typed = session.createQuery(criteria);
 	    
 	    ArrayList<Reserva> reservas = (ArrayList<Reserva>) typed.getResultList();
@@ -181,7 +181,7 @@ public class ReservaDAO {
 		    CriteriaQuery<Reserva> criteria = builder.createQuery(Reserva.class);
 		    Root<Reserva> from = criteria.from(Reserva.class);
 		    criteria.select(from);
-		    criteria.where(builder.equal(from.get("cliente_id"), cliente.getId()));
+		    criteria.where(builder.equal(from.get("cliente"), cliente));
 		    TypedQuery<Reserva> typed = session.createQuery(criteria);
 		    
 		    ArrayList<Reserva> reservas = (ArrayList<Reserva>) typed.getResultList();
