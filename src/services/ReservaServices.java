@@ -7,7 +7,9 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.sql.Date;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 import java.util.Properties;
 
 import Controllers.Validacion;
@@ -22,6 +24,7 @@ import application.dao.InmuebleDAO;
 import application.dao.ReservaDAO;
 import application.dao.VendedorDAO;
 import application.dao.VentaDAO;
+import dto.PropietarioDTO;
 import dto.ReservaDTO;
 
 import com.itextpdf.text.*;
@@ -69,23 +72,37 @@ private static ReservaServices instance;
 				return reservasValidas.get(0).getCliente().getId(); // existe otra reserva vigente en este momento y te digo de que cliente es
 			}
 		}
-		reservadao.createReserva(toReserva(reserva,inmueble,cliente,vendedor));
+		Reserva reservaTerminada = toReserva(reserva,inmueble,cliente,vendedor);
+		reservadao.createReserva(reservaTerminada);
 		inmueble.setEstado(Estado.Reservado);
 		inmuebledao.updateInmueble(inmueble);
-		return 0;
-		//AGREGAR METODO MAIL.
+		generarPDF(reservaTerminada);
+		return 0;//retorna 0 para no concidir con el id 1 de un cliente que tenga una reserva
+		
 		
 	}
 	
 	
-	public List<Reserva> getAllReservas(){
-		return reservadao.getAllReservas();
+	public List<ReservaDTO> getAllReservas(){
+		return Optional.ofNullable( reservadao.getAllReservas())
+	            .map(List::stream)
+	            .orElseGet(Stream::empty)
+	            .map(reserva -> new ReservaDTO(reserva))
+	            .collect(Collectors.toList());
 	}
-	public List<Reserva> getReservaByCliente(Cliente c){
-		return reservadao.getReservasByCliente(c);
+	public List<ReservaDTO> getReservaByCliente(Cliente c){
+		return Optional.ofNullable( reservadao.getReservasByCliente(c))
+	            .map(List::stream)
+	            .orElseGet(Stream::empty)
+	            .map(reserva -> new ReservaDTO(reserva))
+	            .collect(Collectors.toList());
 	}
-	public List<Reserva> getReservaByInmueble(Inmueble i){
-		return reservadao.getReservasByInmueble(i);
+	public List<ReservaDTO> getReservaByInmueble(Inmueble i){
+		return Optional.ofNullable( reservadao.getReservasByInmueble(i))
+	            .map(List::stream)
+	            .orElseGet(Stream::empty)
+	            .map(reserva -> new ReservaDTO(reserva))
+	            .collect(Collectors.toList());
 	}
 	private Reserva toReserva(ReservaDTO entrada,Inmueble inmueble,Cliente cliente, Vendedor vendedor ) {
 		return new Reserva(inmueble,cliente,vendedor,entrada.getImporteReserva(),entrada.getTiempoVigencia(),entrada.getFecha());

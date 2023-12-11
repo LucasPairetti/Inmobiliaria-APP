@@ -1,7 +1,9 @@
 package services;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import Controllers.Validacion;
 import application.clases.Cliente;
@@ -12,6 +14,7 @@ import application.clases.Vendedor;
 import application.clases.Venta;
 import application.dao.ClienteDAO;
 import application.dao.InmuebleDAO;
+import application.dao.ReservaDAO;
 import application.dao.VendedorDAO;
 import application.dao.VentaDAO;
 import dto.ReservaDTO;
@@ -24,6 +27,7 @@ public class VentaServices {
 	private static InmuebleDAO inmuebledao;
 	private static VendedorDAO vendedordao;
 	private static ClienteDAO clientedao;
+	private static ReservaDAO reservadao;
 
 	
 	public static VentaServices getInstance() {
@@ -31,6 +35,7 @@ public class VentaServices {
 			instance = new VentaServices();
 			ventadao = VentaDAO.getVentaDAO();
 			inmuebledao= InmuebleDAO.getInmuebleDAO();
+			reservadao=ReservaDAO.getReservaDAO();
 		}
 		return instance;
 	}
@@ -42,23 +47,45 @@ public class VentaServices {
 		Cliente cliente = clientedao.getClienteById(venta.getCliente());
 		if(cliente==null) {return -3;}//no existe cliente
 		
+		List<Reserva> reservas =reservadao.getReservasByInmueble(inmueble);
+		if(reservas!= null) {
+			List<Reserva> reservasValidas = reservas.stream().filter(Reserva::esReservaValida).collect(Collectors.toList());
+			if(reservasValidas != null) {
+				if(reservasValidas.get(0).getCliente().getId() != cliente.getId())
+				return reservasValidas.get(0).getCliente().getId(); // existe una reserva vigente en este momento y te digo de que cliente es
+			}
+			
+		}
+		
 		Vendedor vendedor= vendedordao.getVendedorById(venta.getVendedor());
 		if(vendedor==null) {return -4;}//no existe el vendedor
 		
 		ventadao.createVenta(toVenta(venta,inmueble,cliente,vendedor));
 		inmueble.setEstado(Estado.Vendido);
 		inmuebledao.updateInmueble(inmueble);
-		return 1;
+		return 0;//0 para evita chocar con el id 1
 		//AGREGAR METODO IMPRIMIR
 	}
-	public Venta getVentaById(int id) {
-		return ventadao.getVentaById(id);
+	public VentaDTO getVentaById(int id) {
+		Venta venta = ventadao.getVentaById(id);
+		if(venta==null) {return null;}
+		else {return new VentaDTO(venta);}
+		
+		
 	}
-	public List<Venta> getAllVentas(){
-		return ventadao.getAllVentas();
+	public List<VentaDTO> getAllVentas(){
+		return Optional.ofNullable( ventadao.getAllVentas())
+	            .map(List::stream)
+	            .orElseGet(Stream::empty)
+	            .map(venta -> new VentaDTO(venta))
+	            .collect(Collectors.toList());
 	}
-	public List<Venta> getVentasByVendedor(Vendedor v){
-		return ventadao.getVentasByVendedor(v);
+	public List<VentaDTO> getVentasByVendedor(Vendedor v){
+		return Optional.ofNullable( ventadao.getVentasByVendedor(v))
+	            .map(List::stream)
+	            .orElseGet(Stream::empty)
+	            .map(venta -> new VentaDTO(venta))
+	            .collect(Collectors.toList());
 	}
 	private Venta toVenta(VentaDTO entrada,Inmueble inmueble,Cliente cliente, Vendedor vendedor ) {
 		return new Venta(inmueble,cliente,vendedor,entrada.getImporteReserva(),entrada.getFecha());
