@@ -1,13 +1,25 @@
 package Controllers;
 
+import java.io.IOException;
+import java.net.URL;
+import java.util.ResourceBundle;
+
+import application.clases.TipoDNI;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
+import javafx.stage.Stage;
 
-public class ModificarVendedorController {
+public class ModificarVendedorController implements Initializable {
 
     @FXML
     private TextField ApellidoField;
@@ -31,7 +43,7 @@ public class ModificarVendedorController {
     private Button GuardarBUtton;
 
     @FXML
-    private ComboBox<?> LocalidadMenu;
+    private ComboBox<String> LocalidadMenu;
 
     @FXML
     private TextField NombreField;
@@ -40,7 +52,7 @@ public class ModificarVendedorController {
     private TextField NumeroDomicilioField;
 
     @FXML
-    private ComboBox<?> ProvinciaMenu;
+    private ComboBox<String> ProvinciaMenu;
 
     @FXML
     private TextField SueldoField;
@@ -52,16 +64,36 @@ public class ModificarVendedorController {
     private TextField numeroDocField;
 
     @FXML
-    private ComboBox<?> tipoDocMenu;
+    private ComboBox<String> tipoDocMenu;
+    
+    @Override
+	public void initialize(URL arg0, ResourceBundle arg1) {
+		// TODO Auto-generated method stub
+    	ObservableList<String> TipoDocumentos=  FXCollections.observableArrayList();
+    	TipoDocumentos.addAll(TipoDNI.getTiposDNI());
+    	tipoDocMenu.setItems(TipoDocumentos);
+	}
 
     @FXML
     void CancelarPressed(ActionEvent event) {
-
+    	try {
+    		Parent root;
+    		root = FXMLLoader.load((getClass().getResource("/interfaces/VendedoresPrincipal.fxml")));
+    		
+    		Stage window = (Stage)CancelarButton.getScene().getWindow();
+    		window.setTitle("Vendedores");
+    		window.setScene(new Scene(root));
+    	} catch (IOException e) {
+    		// TODO Auto-generated catch block
+    		e.printStackTrace();
+    	}
     }
 
     @FXML
     void GuardarPressed(ActionEvent event) {
 
     }
+
+	
 
 }

@@ -23,5 +23,6 @@
       <Button fx:id="SalirButton" layoutX="43.0" layoutY="731.0" mnemonicParsing="false" onAction="#SalirPressed" prefHeight="53.0" prefWidth="143.0" text="SALIR" />
       <Button fx:id="ClientesButton" layoutX="385.0" layoutY="317.0" mnemonicParsing="false" onAction="#ClientesPressed" prefHeight="53.0" prefWidth="340.0" text="Clientes" />
       <Button fx:id="InmueblesButton" layoutX="385.0" layoutY="400.0" mnemonicParsing="false" onAction="#InmueblesPressed" prefHeight="53.0" prefWidth="340.0" text="Inmuebles" />
+      <Button fx:id="VendedoresButton" layoutX="385.0" layoutY="489.0" mnemonicParsing="false" onAction="#VendedoresPressed" prefHeight="53.0" prefWidth="340.0" text="Vendedores" />
    </children>
 </AnchorPane>

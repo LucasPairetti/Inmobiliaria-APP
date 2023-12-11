@@ -100,6 +100,9 @@ public class PropietariosPrincipalController implements Initializable {
     
     private Validacion validar;
     
+    @FXML
+    private Button TestButton;
+    
     ObservableList<InmuebleDTO> listaDeInmuebles= FXCollections.observableArrayList(); 
     ObservableList<PropietarioDTO> listaDePropietario= FXCollections.observableArrayList(); 
     
@@ -209,6 +212,14 @@ public class PropietariosPrincipalController implements Initializable {
 
     }
     
+    @FXML
+    void TestPressed(ActionEvent event) {
+    	int idPropietario= propietariosTable.getSelectionModel().getSelectedItem().getId();
+    	
+    	listaDeInmuebles.addAll(inmuebleService.getInmueblesByPropietario(idPropietario));
+    	System.out.println(inmuebleService.getInmueblesByPropietario(idPropietario));
+    	InmuebleTable.setItems(listaDeInmuebles);
+    }
     
     @FXML
     void PropietarioSeleccionado(MouseEvent event) {

@@ -30,16 +30,16 @@ public class ModificarPropietarioController implements Initializable {
     private TextField ApellidoField;
 
     @FXML
+    private TextField CalleField;
+
+    @FXML
     private Button CancelarButton;
 
     @FXML
+    private TextField DNIField;
+
+    @FXML
     private Button GuardarBUtton;
-
-    @FXML
-    private ComboBox<String> ProvinciaMenu;
-
-    @FXML
-    private ComboBox<String> TipoDocMenu;
 
     @FXML
     private ComboBox<String> LocalidadMenu;
@@ -48,22 +48,20 @@ public class ModificarPropietarioController implements Initializable {
     private TextField NombreField;
 
     @FXML
+    private ComboBox<String> ProvinciaMenu;
+
+    @FXML
     private TextField TelefonoField;
+
+    @FXML
+    private ComboBox<String> TipoDocMenu;
 
     @FXML
     private TextField emailField;
 
     @FXML
-    private TextField DNIField;
-
-    
-
-    @FXML
-    private TextField CalleField;
-
-    @FXML
     private TextField numeroField;
-    
+
     private int propietarioID;
     private Validacion validar;
     private PropietarioServices propietarioService= PropietarioServices.getInstance();

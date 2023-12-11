@@ -27,6 +27,10 @@ public class PantallaPrincipalController {
     
     @FXML
     private AnchorPane Scenario;
+    
+    @FXML
+    private Button VendedoresButton;
+
 
     @FXML
     void ClientesPressed(ActionEvent event) {
@@ -76,6 +80,21 @@ try {
     		e.printStackTrace();
     	}
 
+    }
+    
+    @FXML
+    void VendedoresPressed(ActionEvent event) {
+    	try {
+    		Parent root;
+    		root = FXMLLoader.load((getClass().getResource("/interfaces/VendedoresPrincipal.fxml")));
+    		
+    		Stage window = (Stage)VendedoresButton.getScene().getWindow();
+    		window.setTitle("Vendedores");
+    		window.setScene(new Scene(root));
+    	} catch (IOException e) {
+    		// TODO Auto-generated catch block
+    		e.printStackTrace();
+    	}
     }
 
     @FXML
