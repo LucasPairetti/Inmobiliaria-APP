@@ -168,27 +168,6 @@ else {
     		
     	}else {
     		
-    		
-    	/*
-    	try {
-    		
-    		Parent root;
-    	// root = FXMLLoader.load((getClass().getResource("/interfaces/NuevoPropietario.fxml")));
-    		FXMLLoader loader = new FXMLLoader(getClass().getResource("/interfaces/ModificarCliente.fxml"));
-    		root = loader.load();
-    		ModificarClienteController controladorModificarCliente = loader.getController();
-    		controladorModificarCliente.setCliente(idCliente);
-    		
-    		Stage window = (Stage)ModificarButton.getScene().getWindow();
-    		window.setTitle("Modificar Cliente");
-    		window.setScene(new Scene(root));
-    	} catch (IOException e) {
-    		// TODO Auto-generated catch block
-    		e.printStackTrace();
-    	}
-    	*/
-    		
-			
     		try {
     			
     			
@@ -237,7 +216,39 @@ else {
     
     @FXML
     void InmueblesDisponiblesPressed(ActionEvent event) {
-
+    	if(ClientesTable.getSelectionModel().getSelectedItem()==null) {
+    		Alert alertaTipo = new Alert(Alert.AlertType.ERROR); //esto es un mensaje de alerta
+    		alertaTipo.setTitle("Cliente"); //titulo
+    		alertaTipo.setContentText("Debe seleccionar un cliente de la tabla para buscar sus inmuebles disponibles"); //informacion
+    		
+    	}else {
+    		
+    		try {
+    			
+    			
+    			int idCliente= ClientesTable.getSelectionModel().getSelectedItem().getId();
+    				
+    			Parent root;
+        	
+    			Holder holder= Holder.getInstance();
+        
+        		holder.setIdCliente(idCliente);
+        
+        		
+        		root = FXMLLoader.load((getClass().getResource("/interfaces/InmueblesParaCliente.fxml")));
+        		
+        		Stage window = (Stage)VolverButton.getScene().getWindow();
+        		window.setTitle("Propietarios");
+        		window.setScene(new Scene(root));
+        		
+        	} catch (IOException e) {
+        		// TODO Auto-generated catch block
+        		e.printStackTrace();
+        	}
+    		
+    		
+    	}
+    	
     }
 
 	

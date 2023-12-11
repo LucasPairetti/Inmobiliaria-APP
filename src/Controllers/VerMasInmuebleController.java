@@ -175,20 +175,16 @@ public class VerMasInmuebleController implements Initializable{
 		TelefenoCheckBox.setSelected(inmueble.isTelefono());
 
 		
-		ObservableList<String>localidades= FXCollections.observableArrayList(); 
-    	localidades.addAll(Localidad.getLocalidad());
-     	LocalidadMenu.setItems(localidades);
+		
+     	LocalidadMenu.setPromptText(inmueble.getLocalidad());
      	
      	
-     	ObservableList<String>provincia= FXCollections.observableArrayList(); 
-     	provincia.addAll(Provincia.getProvincias());
-    	ProvinciaMenu.setItems(provincia );
-    	ObservableList<String>inmuebles=FXCollections.observableArrayList(); 
-    	inmuebles.addAll(TipoInmueble.getTipoInmueble());
-    	TipoInmuebleMenu.setItems(inmuebles);
-    	ObservableList<String>orientaciones=FXCollections.observableArrayList(); 
-    	orientaciones.addAll(Orientacion.geOrientacion());
-    	OrientacionMenu.setItems(orientaciones);
+    
+    	ProvinciaMenu.setPromptText(inmueble.getProvincia());
+    	
+    	TipoInmuebleMenu.setPromptText(inmueble.getTipoInmueble());
+    
+    	OrientacionMenu.setPromptText(inmueble.getOrientacion());
 		
 	}
 
