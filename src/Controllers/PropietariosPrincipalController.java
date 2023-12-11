@@ -43,6 +43,8 @@ public class PropietariosPrincipalController implements Initializable {
 
     @FXML
     private Button BuscarButton;
+    @FXML
+    private TableColumn<InmuebleDTO, String> EstadoColumn;
 
     @FXML
     private TableView<PropietarioDTO> propietariosTable;
@@ -100,6 +102,9 @@ public class PropietariosPrincipalController implements Initializable {
     
     private Validacion validar;
     
+    @FXML
+    private Button TestButton;
+    
     ObservableList<InmuebleDTO> listaDeInmuebles= FXCollections.observableArrayList(); 
     ObservableList<PropietarioDTO> listaDePropietario= FXCollections.observableArrayList(); 
     
@@ -123,7 +128,7 @@ public class PropietariosPrincipalController implements Initializable {
     	PrecioColumn.setCellValueFactory(new PropertyValueFactory<>("precioVenta"));
     	ProvinciaColumn.setCellValueFactory(new PropertyValueFactory<>("provincia"));
     	TipoColumn.setCellValueFactory(new PropertyValueFactory<>("tipoInmueble"));
-		
+    	EstadoColumn.setCellValueFactory(new PropertyValueFactory<>("estado")); 
     	
     	listaDePropietario.addAll(propietarioService.listPropietarios());
     	propietariosTable.setItems(listaDePropietario);
@@ -209,11 +214,20 @@ public class PropietariosPrincipalController implements Initializable {
 
     }
     
+    @FXML
+    void TestPressed(ActionEvent event) {
+    	int idPropietario= propietariosTable.getSelectionModel().getSelectedItem().getId();
+    	
+    	listaDeInmuebles.addAll(inmuebleService.getInmueblesByPropietario(idPropietario));
+    	System.out.println(inmuebleService.getInmueblesByPropietario(idPropietario));
+    	InmuebleTable.setItems(listaDeInmuebles);
+    }
     
     @FXML
     void PropietarioSeleccionado(MouseEvent event) {
     	int idPropietario= propietariosTable.getSelectionModel().getSelectedItem().getId();
-    	listaDeInmuebles= (ObservableList<InmuebleDTO>) inmuebleService.getInmueblesByPropietario(idPropietario);
+    	listaDeInmuebles.clear();
+    	listaDeInmuebles.addAll(inmuebleService.getInmueblesByPropietario(idPropietario));
     	InmuebleTable.setItems(listaDeInmuebles);
     	
 

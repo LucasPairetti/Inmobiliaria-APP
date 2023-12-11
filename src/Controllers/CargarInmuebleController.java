@@ -100,7 +100,7 @@ public class CargarInmuebleController implements Initializable{
     private TextArea ObservacionesField;
 
     @FXML
-    private ChoiceBox<String> OrientacionMenu;
+    private ComboBox<String> OrientacionMenu;
 
     @FXML
     private TextField OtraLocalidadField;
@@ -133,7 +133,7 @@ public class CargarInmuebleController implements Initializable{
     private CheckBox TelefenoCheckBox;
 
     @FXML
-    private ChoiceBox<String> TipoInmuebleMenu;
+    private ComboBox<String> TipoInmuebleMenu;
     @FXML
     private TextField PisoDeptoField;
 

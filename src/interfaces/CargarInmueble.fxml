@@ -2,7 +2,6 @@
 
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.CheckBox?>
-<?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextArea?>
@@ -27,9 +26,9 @@
       </Label>
       <Button fx:id="GuardarButton" layoutX="1045.0" layoutY="741.0" mnemonicParsing="false" onAction="#GuardarPressed" prefHeight="44.0" prefWidth="138.0" text="Guardar" />
       <Button fx:id="VolverButton" layoutX="22.0" layoutY="741.0" mnemonicParsing="false" onAction="#VolverPressed" prefHeight="44.0" prefWidth="138.0" text="Volver" />
-      <ComboBox fx:id="ProvinciaMenu" layoutX="71.0" layoutY="194.0" onAction="#ProvinciaSelccionada" prefHeight="44.0" prefWidth="198.0" promptText="Santa Fe" />
+      <ComboBox fx:id="ProvinciaMenu" editable="true" layoutX="71.0" layoutY="194.0" onAction="#ProvinciaSelccionada" prefHeight="44.0" prefWidth="198.0" promptText="Santa Fe" />
       <Label layoutX="69.0" layoutY="152.0" text="Provincia" />
-      <ComboBox fx:id="LocalidadMenu" layoutX="71.0" layoutY="285.0" onAction="#LocalidadSeleccionada" prefHeight="44.0" prefWidth="198.0" promptText="Localidad" />
+      <ComboBox fx:id="LocalidadMenu" editable="true" layoutX="71.0" layoutY="285.0" onAction="#LocalidadSeleccionada" prefHeight="44.0" prefWidth="198.0" promptText="Localidad" />
       <Label layoutX="71.0" layoutY="251.0" text="Localidad:" />
       <Label layoutX="71.0" layoutY="341.0" text="Barrio:" />
       <CheckBox fx:id="AguaCheckBox" layoutX="661.0" layoutY="380.0" mnemonicParsing="false" text="Agua Corriente" />
@@ -46,10 +45,6 @@
       <Label layoutX="71.0" layoutY="535.0" text="Numero:" />
       <TextField fx:id="PrecioField" layoutX="309.0" layoutY="196.0" prefHeight="34.0" prefWidth="176.0" promptText="USD" />
       <Label layoutX="309.0" layoutY="152.0" text="Precio:" />
-      <Label layoutX="309.0" layoutY="342.0" text="Tipo de Inmueble" />
-      <ChoiceBox fx:id="TipoInmuebleMenu" layoutX="309.0" layoutY="375.0" prefHeight="44.0" prefWidth="176.0" />
-      <Label layoutX="309.0" layoutY="437.0" text="Orientacion:" />
-      <ChoiceBox fx:id="OrientacionMenu" layoutX="309.0" layoutY="470.0" prefHeight="44.0" prefWidth="176.0" />
       <Label layoutX="795.0" layoutY="108.0" text="Datos del edificio" />
       <TextField fx:id="SuperficieField" layoutX="515.0" layoutY="208.0" prefHeight="34.0" prefWidth="176.0" text="Metros cuadrados" />
       <Label layoutX="524.0" layoutY="176.0" text="Superficie:" />
@@ -83,5 +78,9 @@
       <CheckBox fx:id="AguaCalienteCheckBox" layoutX="949.0" layoutY="443.0" mnemonicParsing="false" text="Agua Caliente" />
       <TextField fx:id="PisoDeptoField" layoutX="72.0" layoutY="674.0" prefHeight="34.0" prefWidth="176.0" />
       <Label layoutX="72.0" layoutY="630.0" text="Piso/Departamiento" />
+      <Label layoutX="309.0" layoutY="346.0" text="Tipo de Inmueble" />
+      <Label layoutX="309.0" layoutY="441.0" text="Orientacion:" />
+      <ComboBox fx:id="TipoInmuebleMenu" editable="true" layoutX="309.0" layoutY="375.0" prefHeight="44.0" prefWidth="176.0" />
+      <ComboBox fx:id="OrientacionMenu" editable="true" layoutX="309.0" layoutY="473.0" prefHeight="44.0" prefWidth="176.0" />
    </children>
 </AnchorPane>

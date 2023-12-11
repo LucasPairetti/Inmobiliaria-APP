@@ -23,26 +23,27 @@
             <Font name="Verdana" size="64.0" />
          </font>
       </Label>
-      <TextField fx:id="NombreField" layoutX="138.0" layoutY="242.0" prefHeight="38.0" prefWidth="305.0" promptText="nombre" />
-      <TextField fx:id="ApellidoField" layoutX="138.0" layoutY="315.0" prefHeight="38.0" prefWidth="305.0" promptText="Apellido" />
+      <TextField fx:id="NombreField" layoutX="138.0" layoutY="242.0" prefHeight="38.0" prefWidth="205.0" promptText="nombre" />
+      <TextField fx:id="ApellidoField" layoutX="138.0" layoutY="315.0" prefHeight="38.0" prefWidth="205.0" promptText="Apellido" />
       <Label layoutX="138.0" layoutY="217.0" text="nombre:" />
       <Label layoutX="138.0" layoutY="292.0" text="Apellido:" />
       <Label layoutX="138.0" layoutY="188.0" text="BUSCAR:" />
-      <TableView fx:id="ClientesTable" layoutX="725.0" layoutY="67.0" prefHeight="523.0" prefWidth="369.0">
+      <TableView fx:id="ClientesTable" layoutX="539.0" layoutY="67.0" prefHeight="523.0" prefWidth="369.0">
         <columns>
           <TableColumn fx:id="NombreColumn" prefWidth="180.0" text="Nombre" />
           <TableColumn fx:id="ApellidoColumn" prefWidth="188.0" text="Apellido" />
         </columns>
       </TableView>
-      <Button fx:id="LimpiarButton" layoutX="269.0" layoutY="537.0" mnemonicParsing="false" onAction="#LimpiarPressed" prefHeight="53.0" prefWidth="114.0" text="Limpiar" />
-      <Button fx:id="BuscarButton" layoutX="404.0" layoutY="537.0" mnemonicParsing="false" onAction="#BuscarPressed" prefHeight="53.0" prefWidth="114.0" text="Buscar" />
-      <Button fx:id="EliminarButton" layoutX="980.0" layoutY="606.0" mnemonicParsing="false" onAction="#EliminarPressed" prefHeight="53.0" prefWidth="114.0" text="Eliminar cliente" />
-      <Button fx:id="ModificarButton" layoutX="823.0" layoutY="606.0" mnemonicParsing="false" onAction="#ModificarPressed" prefHeight="53.0" prefWidth="114.0" text="Modificar cliente" />
-      <Button fx:id="AgregarButton" layoutX="241.0" layoutY="606.0" mnemonicParsing="false" onAction="#AgregarPressed" prefHeight="53.0" prefWidth="271.0" text="Agregar nuevo Cliente" />
+      <Button fx:id="LimpiarButton" layoutX="138.0" layoutY="517.0" mnemonicParsing="false" onAction="#LimpiarPressed" prefHeight="53.0" prefWidth="114.0" text="Limpiar" />
+      <Button fx:id="BuscarButton" layoutX="273.0" layoutY="517.0" mnemonicParsing="false" onAction="#BuscarPressed" prefHeight="53.0" prefWidth="114.0" text="Buscar" />
+      <Button fx:id="EliminarButton" layoutX="973.0" layoutY="421.0" mnemonicParsing="false" onAction="#EliminarPressed" prefHeight="53.0" prefWidth="114.0" text="Eliminar cliente" />
+      <Button fx:id="ModificarButton" layoutX="973.0" layoutY="347.0" mnemonicParsing="false" onAction="#ModificarPressed" prefHeight="53.0" prefWidth="114.0" text="Modificar cliente" />
+      <Button fx:id="AgregarButton" layoutX="138.0" layoutY="586.0" mnemonicParsing="false" onAction="#AgregarPressed" prefHeight="53.0" prefWidth="250.0" text="Agregar nuevo Cliente" />
       <Button fx:id="VolverButton" layoutX="24.0" layoutY="721.0" mnemonicParsing="false" onAction="#VolverPressed" prefHeight="53.0" prefWidth="114.0" text="Volver" />
-      <ComboBox fx:id="TipoDocMenu" layoutX="138.0" layoutY="391.0" prefHeight="38.0" prefWidth="305.0" />
+      <ComboBox fx:id="TipoDocMenu" layoutX="138.0" layoutY="391.0" prefHeight="38.0" prefWidth="205.0" />
       <Label layoutX="138.0" layoutY="374.0" text="Tipo de documento:" />
-      <TextField fx:id="DocumentoField" layoutX="138.0" layoutY="458.0" prefHeight="38.0" prefWidth="305.0" promptText="0644894894" />
+      <TextField fx:id="DocumentoField" layoutX="138.0" layoutY="458.0" prefHeight="38.0" prefWidth="205.0" promptText="0644894894" />
       <Label layoutX="138.0" layoutY="435.0" text="Numero de documento" />
+      <Button fx:id="InmueblesDisponiblesButton" layoutX="961.0" layoutY="290.0" mnemonicParsing="false" onAction="#InmueblesDisponiblesPressed" prefHeight="38.0" prefWidth="137.0" text="Inmuebles Disponibles" />
    </children>
 </AnchorPane>

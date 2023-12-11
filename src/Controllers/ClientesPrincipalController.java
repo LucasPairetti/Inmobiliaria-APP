@@ -63,6 +63,9 @@ public class ClientesPrincipalController implements Initializable {
 
     @FXML
     private TextField NombreField;
+    
+    @FXML
+    private Button InmueblesDisponiblesButton;
 
     @FXML
     private Button VolverButton;
@@ -74,7 +77,9 @@ public class ClientesPrincipalController implements Initializable {
     @Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		// TODO Auto-generated method stub
-    	ObservableList<String> dnis= (ObservableList<String>)TipoDNI.getTiposDNI();
+    	ObservableList<String> dnis= FXCollections.observableArrayList();
+    			
+    			dnis.addAll(TipoDNI.getTiposDNI());
     	TipoDocMenu.setItems(dnis);
     	
     	NombreColumn.setCellValueFactory(new PropertyValueFactory<>("Nombre"));
@@ -201,6 +206,11 @@ else {
     		// TODO Auto-generated catch block
     		e.printStackTrace();
     	}
+
+    }
+    
+    @FXML
+    void InmueblesDisponiblesPressed(ActionEvent event) {
 
     }
 

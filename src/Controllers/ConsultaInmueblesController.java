@@ -63,6 +63,9 @@ public class ConsultaInmueblesController implements Initializable {
     @FXML
     private CheckBox GalponCheckBox;
     
+    @FXML
+    private Button VerMasButton;
+    
 
     @FXML
     private TableView<InmuebleDTO> InmuebleTable;
@@ -115,7 +118,7 @@ public class ConsultaInmueblesController implements Initializable {
     @FXML
     private Button VolverButton;
     
-    
+   
     private InmuebleServices inmuebleService = InmuebleServices.getInstance();
 
     ObservableList<InmuebleDTO> listaDeInmuebles= FXCollections.observableArrayList(); 
@@ -133,9 +136,7 @@ public class ConsultaInmueblesController implements Initializable {
     	PrecioColumn.setCellValueFactory(new PropertyValueFactory<>("precioVenta"));
     	ProvinciaColumn.setCellValueFactory(new PropertyValueFactory<>("provincia"));
     	TipoColumn.setCellValueFactory(new PropertyValueFactory<>("tipoInmueble"));
-    	
-    	//cuando arreglen estado, lo cambio
-    	//EstadoColumn.setCellValueFactory(new PropertyValueFactory<>("estado"));  
+    	EstadoColumn.setCellValueFactory(new PropertyValueFactory<>("estado"));  
     	
     	
     	//inicializar todos los combobox
@@ -169,6 +170,7 @@ public class ConsultaInmueblesController implements Initializable {
 	}
     
     
+    
     @FXML
     void DormitorioDrag(MouseEvent  event) {
     	//esto hace que cuando soltas el drag, te dé el valor que selecciona
@@ -193,7 +195,8 @@ public class ConsultaInmueblesController implements Initializable {
     	DormitorioSlider.setValue(0);
     	
     	//actualiza lista a todos los inmuebles sin filtro
-    	listaDeInmuebles = (ObservableList<InmuebleDTO>) inmuebleService.listInmuebles();
+    	listaDeInmuebles.clear();
+    	listaDeInmuebles.addAll(inmuebleService.listInmuebles());
     	InmuebleTable.setItems(listaDeInmuebles);
     }
 
@@ -254,8 +257,8 @@ public class ConsultaInmueblesController implements Initializable {
     	//se solicitan todos los datos
     	
     	//si no hay provincia o localidad o barrio seleccionado, que busque todo. sino tengo que hacer mas alertas y queda feo
-    	
-    	listaDeInmuebles= (ObservableList<InmuebleDTO>) inmuebleService.getInmueble(ProvinciaMenu.getSelectionModel().getSelectedItem(), LocalidadMenu.getSelectionModel().getSelectedItem(), BarrioTextField.getText(), tipo, (int)DormitorioSlider.getValue(),(float)MinPriceSlider.getValue() ,(float)MaxPriceSlider.getValue());
+    	listaDeInmuebles.clear();
+    	listaDeInmuebles.addAll(inmuebleService.getInmueble(ProvinciaMenu.getSelectionModel().getSelectedItem(), LocalidadMenu.getSelectionModel().getSelectedItem(), BarrioTextField.getText(), tipo, (int)DormitorioSlider.getValue(),(float)MinPriceSlider.getValue() ,(float)MaxPriceSlider.getValue()));
     	
     	//se muestran los datos
     	InmuebleTable.setItems(listaDeInmuebles);
@@ -281,6 +284,37 @@ public class ConsultaInmueblesController implements Initializable {
     		e.printStackTrace();
     	}
 
+    }
+    
+    @FXML
+    void VerMasPressed(ActionEvent event) {
+    	if(InmuebleTable.getSelectionModel().getSelectedItem()==null) {
+    		Alert alertaTipo = new Alert(Alert.AlertType.ERROR); //esto es un mensaje de alerta
+    		alertaTipo.setTitle("Inmueble"); //titulo
+    		alertaTipo.setContentText("Debe seleccionar un Inmueble para ver sus detalles"); //informacion
+    		
+    	}else {
+    		int idInmueble= InmuebleTable.getSelectionModel().getSelectedItem().getId();
+    		
+    	
+    	try {
+    		
+    		Parent root;
+    	// root = FXMLLoader.load((getClass().getResource("/interfaces/NuevoPropietario.fxml")));
+    		FXMLLoader loader = new FXMLLoader(getClass().getResource("/interfaces/VerMasInmueble.fxml"));
+    		root = loader.load();
+    		VerMasInmuebleController controladorVerMas = loader.getController();
+    		controladorVerMas.setIdInmuebleypantalla(idInmueble, 0);
+    		
+    		Stage window = (Stage)VerMasButton.getScene().getWindow();
+    		window.setTitle("Detalles de Inmueeble");
+    		window.setScene(new Scene(root));
+    	} catch (IOException e) {
+    		// TODO Auto-generated catch block
+    		e.printStackTrace();
+    	}
+    		
+    	}
     }
 
 	

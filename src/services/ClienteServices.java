@@ -11,7 +11,9 @@ import dto.PropietarioDTO;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class ClienteServices {
 	private static ClienteServices instance;
@@ -51,21 +53,30 @@ public class ClienteServices {
 		}else {return -1;}
 		
 	};
-	public List<ClienteDTO> listClientes(){
-		return clientedao.getAllClientes().stream()
+	public List<ClienteDTO> listClientes() {
+	    return Optional.ofNullable(clientedao.getAllClientes())
+	            .map(List::stream)
+	            .orElseGet(Stream::empty)
 	            .map(cliente -> new ClienteDTO(cliente))
 	            .collect(Collectors.toList());
 	}
-	public List<ClienteDTO> getClientes(String tipoDNI,String dni,String nombre, String apellido) {
-		TipoDNI tipo= TipoDNI.valueOf(tipoDNI.replace(" ", "_"));
-		 
-		return clientedao.getCliente(dni, tipo, nombre, apellido)
-				.stream()
+
+	public List<ClienteDTO> getClientes(String tipoDNI, String dni, String nombre, String apellido) {
+	    TipoDNI tipo = TipoDNI.valueOf(tipoDNI.replace(" ", "_"));
+
+	    return Optional.ofNullable(clientedao.getCliente(dni, tipo, nombre, apellido))
+	            .map(List::stream)
+	            .orElseGet(Stream::empty)
 	            .map(cliente -> new ClienteDTO(cliente))
 	            .collect(Collectors.toList());
 	}
+
 	public ClienteDTO getClienteById(int id) {
-		return new ClienteDTO(clientedao.getClienteById(id));
+		Cliente c =clientedao.getClienteById(id);
+		if(c !=null) {
+		return new ClienteDTO(c);
+		}
+		else {return null;}
 	}
 	private Cliente toCliente( ClienteDTO entrada) {
 		TipoInmueble tipoInmueble= TipoInmueble.valueOf(entrada.getTipoInmuebleBuscado());
