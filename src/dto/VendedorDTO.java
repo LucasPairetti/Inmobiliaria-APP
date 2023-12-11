@@ -161,6 +161,7 @@ public class VendedorDTO {
 		this.clave = clave;
 	}
 	public VendedorDTO(Vendedor vendedor) {
+		this.id=vendedor.getId();
 		this.nombre = vendedor.getNombre();
 		this.apellido = vendedor.getApellido();
 		this.tipodni = vendedor.getTipodni().toString().replace("_"," ");

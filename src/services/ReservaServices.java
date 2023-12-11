@@ -66,12 +66,17 @@ private static ReservaServices instance;
 		if(vendedor==null) {return -4;}//no existe el vendedor
 		
 		List<Reserva> reservasInmueble = reservadao.getReservasByInmueble(inmueble);
+		double monto=0.0;
 		if(reservasInmueble !=null) {
 			List<Reserva> reservasValidas = reservasInmueble.stream().filter(Reserva::esReservaValida).collect(Collectors.toList());
-			if(reservasValidas != null) {
+			if(!reservasValidas.isEmpty()) {
 				return reservasValidas.get(0).getCliente().getId(); // existe otra reserva vigente en este momento y te digo de que cliente es
+			}else {
+						monto=reservasValidas.get(0).getImporteReserva();
+				}
 			}
-		}
+		if(monto>inmueble.getPrecioVenta()) {return -1;}//esta reservando por mayor valor del que debia
+		
 		Reserva reservaTerminada = toReserva(reserva,inmueble,cliente,vendedor);
 		reservadao.createReserva(reservaTerminada);
 		inmueble.setEstado(Estado.Reservado);
@@ -103,6 +108,22 @@ private static ReservaServices instance;
 	            .orElseGet(Stream::empty)
 	            .map(reserva -> new ReservaDTO(reserva))
 	            .collect(Collectors.toList());
+	}
+	public double getMontoReserva(Inmueble i, Cliente c) {
+		List<Reserva> reservas =  reservadao.getReservasByInmueble(i);
+		if(reservas != null) {
+			List<Reserva> reservasValidas = reservas.stream().filter(Reserva::esReservaValida).collect(Collectors.toList());
+			if(reservasValidas.isEmpty()) {
+				return 0; // existe otra reserva vigente en este momento y te digo de que cliente es
+			}else {
+				if(c.getId()!=reservasValidas.get(0).getId()) {
+					return -1;//la reserva es valida y esta a nombre de otro
+				}else {
+					return reservasValidas.get(0).getImporteReserva();//devuelvo en importe de la reserva
+				}
+			}
+		}
+		return 0;
 	}
 	private Reserva toReserva(ReservaDTO entrada,Inmueble inmueble,Cliente cliente, Vendedor vendedor ) {
 		return new Reserva(inmueble,cliente,vendedor,entrada.getImporteReserva(),entrada.getTiempoVigencia(),entrada.getFecha());
