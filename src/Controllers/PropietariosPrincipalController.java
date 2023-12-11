@@ -43,6 +43,8 @@ public class PropietariosPrincipalController implements Initializable {
 
     @FXML
     private Button BuscarButton;
+    @FXML
+    private TableColumn<InmuebleDTO, String> EstadoColumn;
 
     @FXML
     private TableView<PropietarioDTO> propietariosTable;
@@ -126,7 +128,7 @@ public class PropietariosPrincipalController implements Initializable {
     	PrecioColumn.setCellValueFactory(new PropertyValueFactory<>("precioVenta"));
     	ProvinciaColumn.setCellValueFactory(new PropertyValueFactory<>("provincia"));
     	TipoColumn.setCellValueFactory(new PropertyValueFactory<>("tipoInmueble"));
-		
+    	EstadoColumn.setCellValueFactory(new PropertyValueFactory<>("estado")); 
     	
     	listaDePropietario.addAll(propietarioService.listPropietarios());
     	propietariosTable.setItems(listaDePropietario);
