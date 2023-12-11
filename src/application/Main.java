@@ -80,7 +80,7 @@ Parent root = FXMLLoader.load((getClass().getResource("/interfaces/PantallaPrinc
 		InmuebleDAO i = InmuebleDAO.getInmuebleDAO();
 		
 		System.out.println(i.getInmueble(null,null, null, null, null, null));
-	*/
+	
 		
 		Cliente cliente = new Cliente("Tomas", "Auday","44444444",TipoDNI.DNI, 111111111,"sofia.30.10.99@gmail.com",40000000,
 				TipoInmueble.C, "Santa Fe", "Fomento/7 Jefes/Guadalupe",
@@ -94,12 +94,12 @@ Parent root = FXMLLoader.load((getClass().getResource("/interfaces/PantallaPrinc
 		Reserva reserva = new Reserva(inmueble,cliente, vendedor,4000.0,60,date);
 		
 		ReservaServices reservaS = ReservaServices.getInstance();
-		reservaS.generarPDF(reserva);*/
+		reservaS.generarPDF(reserva);
 		Venta venta = new Venta(inmueble,cliente,vendedor,10000.0,date);
 		
 		VentaServices ventaservices = VentaServices.getInstance();
 		ventaservices.generarPDF(venta);
-		
+		*/
 		launch(args);	
 		
 		
