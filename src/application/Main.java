@@ -1,4 +1,5 @@
 package application;
+import dto.*;
 import application.clases.Reserva;
 import application.clases.Venta;
 import java.sql.Date;
@@ -100,7 +101,19 @@ Parent root = FXMLLoader.load((getClass().getResource("/interfaces/PantallaPrinc
 		VentaServices ventaservices = VentaServices.getInstance();
 		ventaservices.generarPDF(venta);
 		*/
-		launch(args);	
+		
+		Cliente cliente = new Cliente("Tomas", "Auday","44444444",TipoDNI.DNI, 111111111,"sofia.30.10.99@gmail.com",40000000,
+				TipoInmueble.C, "Santa Fe", "Fomento/7 Jefes/Guadalupe",
+				"Varios banios, varios dormitorios, patio");
+		
+		ClienteDTO clientedto = new ClienteDTO(cliente);
+		clientedto.setId(3);
+		InmuebleServices inmservices = InmuebleServices.getInstance();
+		//System.out.print(inmservices.getInmueblesDisponibles());
+		//System.out.print(inmservices.inmueblesDisponiblesParaCliente(clientedto,TipoInmueble.C));
+		System.out.print(inmservices.reservasValidasCliente(clientedto));
+		
+		//launch(args);	
 		
 		
 		
