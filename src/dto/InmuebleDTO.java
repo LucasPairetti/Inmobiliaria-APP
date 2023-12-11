@@ -24,6 +24,8 @@ public class InmuebleDTO {
 	
 	int idPropietario;
 	
+	String nombreApellidoPropietario;
+	
 	Date fechaCreacion;
 	
 	String estado;
@@ -161,6 +163,7 @@ public class InmuebleDTO {
 		super();
 		this.id=inmueble.getId();
 		this.idPropietario=inmueble.getPropietario().getId();
+		this.nombreApellidoPropietario=inmueble.getPropietario().getNombre()+ " "+ inmueble.getPropietario().getApellido();
 		this.fechaCreacion = inmueble.getFechaCreacion();
 		this.estado = inmueble.getEstado().toString().replace("_"," ");
 		this.provincia = inmueble.getProvincia().toString().replace("_", " ");
@@ -192,6 +195,12 @@ public class InmuebleDTO {
 		this.observaciones = inmueble.getObservaciones();
 	}
 
+	public String getNombreApellidoPropietario() {
+		return nombreApellidoPropietario;
+	}
+	public void setNombreApellidoPropietario(String nombreApellidoPropietario) {
+		this.nombreApellidoPropietario = nombreApellidoPropietario;
+	}
 	public float getSuperficie() {
 		return superficie;
 	}

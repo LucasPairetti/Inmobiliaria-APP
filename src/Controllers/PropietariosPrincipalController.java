@@ -214,14 +214,7 @@ public class PropietariosPrincipalController implements Initializable {
 
     }
     
-    @FXML
-    void TestPressed(ActionEvent event) {
-    	int idPropietario= propietariosTable.getSelectionModel().getSelectedItem().getId();
-    	
-    	listaDeInmuebles.addAll(inmuebleService.getInmueblesByPropietario(idPropietario));
-    	System.out.println(inmuebleService.getInmueblesByPropietario(idPropietario));
-    	InmuebleTable.setItems(listaDeInmuebles);
-    }
+ 
     
     @FXML
     void PropietarioSeleccionado(MouseEvent event) {
@@ -280,22 +273,21 @@ public class PropietariosPrincipalController implements Initializable {
     		int idPropietario= InmuebleTable.getSelectionModel().getSelectedItem().getIdPropietario();
     		int idInmueble = InmuebleTable.getSelectionModel().getSelectedItem().getId();
     	
-    	try {
-    		
-    		Parent root;
-    	// root = FXMLLoader.load((getClass().getResource("/interfaces/NuevoPropietario.fxml")));
-    		FXMLLoader loader = new FXMLLoader(getClass().getResource("/interfaces/ModificarInmueble.fxml"));
-    		root = loader.load();
-    		ModificarInmuebleController controladorCargaInmuele = loader.getController();
-    		controladorCargaInmuele.setInmueblePropietario(idPropietario,idInmueble);
-    		
-    		Stage window = (Stage)ModificarInmuebleButton.getScene().getWindow();
-    		window.setTitle("Modificar Inmueble");
-    		window.setScene(new Scene(root));
-    	} catch (IOException e) {
-    		// TODO Auto-generated catch block
-    		e.printStackTrace();
-    	}
+    		try {
+    			
+    			Holder holder = Holder.getInstance();
+    			holder.setIdInmueble(idInmueble);
+    			holder.setIdPropietario(idPropietario);
+        		Parent root;
+        		root = FXMLLoader.load((getClass().getResource("/interfaces/ModificarInmueble.fxml")));
+        		
+        		Stage window = (Stage)ModificarInmuebleButton.getScene().getWindow();
+        		window.setTitle("Propietarios");
+        		window.setScene(new Scene(root));
+        	} catch (IOException e) {
+        		// TODO Auto-generated catch block
+        		e.printStackTrace();
+        	}
     	}else {
     		Alert alertaTipo = new Alert(Alert.AlertType.ERROR); //esto es un mensaje de alerta
     		alertaTipo.setTitle("Inmueble"); //titulo
@@ -306,25 +298,24 @@ public class PropietariosPrincipalController implements Initializable {
     @FXML
     void ModificarPropietarioPressed(ActionEvent event) {
     	if(propietariosTable.getSelectionModel().getSelectedItem()!=null) {
-    		int idPropietario= propietariosTable.getSelectionModel().getSelectedItem().getId();
+    		
     		
     	
-    	try {
-    		
-    		Parent root;
-    	// root = FXMLLoader.load((getClass().getResource("/interfaces/NuevoPropietario.fxml")));
-    		FXMLLoader loader = new FXMLLoader(getClass().getResource("/interfaces/ModificarPropietario.fxml"));
-    		root = loader.load();
-    		ModificarPropietarioController controladorCargaInmuele = loader.getController();
-    		controladorCargaInmuele.setPropietario(idPropietario);
-    		
-    		Stage window = (Stage)ModificarInmuebleButton.getScene().getWindow();
-    		window.setTitle("Modificar Inmueble");
-    		window.setScene(new Scene(root));
-    	} catch (IOException e) {
-    		// TODO Auto-generated catch block
-    		e.printStackTrace();
-    	}
+    		try {
+    			int idPropietario= propietariosTable.getSelectionModel().getSelectedItem().getId();
+    			Holder holder = Holder.getInstance();
+    			
+    			holder.setIdPropietario(idPropietario);
+        		Parent root;
+        		root = FXMLLoader.load((getClass().getResource("/interfaces/ModificarPropietario.fxml")));
+        		
+        		Stage window = (Stage)ModificarInmuebleButton.getScene().getWindow();
+        		window.setTitle("Propietarios");
+        		window.setScene(new Scene(root));
+        	} catch (IOException e) {
+        		// TODO Auto-generated catch block
+        		e.printStackTrace();
+        	}
     	}else {
     		Alert alertaTipo = new Alert(Alert.AlertType.ERROR); //esto es un mensaje de alerta
     		alertaTipo.setTitle("Propietario"); //titulo

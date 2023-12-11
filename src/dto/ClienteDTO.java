@@ -68,6 +68,7 @@ public class ClienteDTO {
 		this.caracteristicasDeseadas = caracteristicasDeseadas;
 	}
 	public ClienteDTO(Cliente cliente) {
+		this.id= cliente.getId();
 		this.nombre = cliente.getNombre();
 		this.dni=cliente.getDni();
 		this.apellido = cliente.getApellido();

@@ -70,6 +70,10 @@ public class ModificarPropietarioController implements Initializable {
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		// TODO Auto-generated method stub
 		
+    	Holder holder = Holder.getInstance();
+    	propietarioID= holder.getIdCliente();
+    	
+    	
     	ObservableList<String> localidades=  FXCollections.observableArrayList();
     	localidades.addAll(Localidad.getLocalidad());
     	ObservableList<String> provincias=  FXCollections.observableArrayList();

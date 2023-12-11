@@ -35,8 +35,8 @@
         </columns>
       </TableView>
       <Button fx:id="VolverButton" layoutX="24.0" layoutY="721.0" mnemonicParsing="false" onAction="#VolverPressed" prefHeight="53.0" prefWidth="114.0" text="Volver" />
-      <Button fx:id="ReservarButton" layoutX="1068.0" layoutY="620.0" mnemonicParsing="false" onAction="#ReservarPressed" prefHeight="53.0" prefWidth="114.0" text="Reservar" />
-      <Button fx:id="ComprarButton" layoutX="876.0" layoutY="620.0" mnemonicParsing="false" onAction="#ComprarPressed" prefHeight="53.0" prefWidth="114.0" text="Comprar" />
+      <Button fx:id="ReservarButton" layoutX="1068.0" layoutY="605.0" mnemonicParsing="false" onAction="#ReservarPressed" prefHeight="30.0" prefWidth="114.0" text="Reservar" />
+      <Button fx:id="ComprarButton" layoutX="875.0" layoutY="605.0" mnemonicParsing="false" onAction="#ComprarPressed" prefHeight="30.0" prefWidth="114.0" text="Realizar Venta" />
       <Button fx:id="VerMasButton" layoutX="50.0" layoutY="605.0" mnemonicParsing="false" onAction="#VerMasPressed" prefHeight="30.0" prefWidth="71.0" text="ver mas" />
    </children>
 </AnchorPane>

@@ -99,28 +99,40 @@ public class InmuebleServices {
 	}
 
 	public List<InmuebleDTO> listInmueblesFiltradosParaVenta(ClienteDTO c) {
-	    List<InmuebleDTO> disponibles = Optional.ofNullable(inmuebledao.getAllInmuebles())
+		TipoInmueble tipoInmueble = TipoInmueble.valueOf(c.getTipoInmuebleBuscado());
+		List<Reserva> reservas = Optional.ofNullable(reservadao.getReservasByCliente(toCliente(c)))
+	            .map(List::stream)
+	            .orElseGet(Stream::empty)
+	            .filter(Reserva::esReservaValida)
+	            .collect(Collectors.toList());
+	    List<InmuebleDTO> disponibles = Optional.ofNullable(inmuebledao.getInmueble(null,c.getLocalidadBuscada(),c.getBarrios(),tipoInmueble,
+	    		null,(float)0.0,(float) c.getMontoDisponible()))
 	            .map(List::stream)
 	            .orElseGet(Stream::empty)
 	            .filter(inmueble -> inmueble.getEstado() == Estado.Disponible)
 	            .map(inmueble -> new InmuebleDTO(inmueble.getPropietario(), inmueble))
 	            .collect(Collectors.toList());
-
-	    List<Reserva> reservas = Optional.ofNullable(reservadao.getReservasByCliente(toCliente(c)))
-	            .map(List::stream)
-	            .orElseGet(Stream::empty)
-	            .filter(Reserva::esReservaValida)
-	            .collect(Collectors.toList());
-
-	    if (reservas != null) {
+	   List<InmuebleDTO> resultado = new ArrayList<InmuebleDTO>();
+	    
+	    if (!reservas.isEmpty()) {
 	        List<InmuebleDTO> inmueblesConReservas = reservas.stream()
 	                .map(Reserva::getInmueble)
 	                .map(inmueble -> new InmuebleDTO(inmueble.getPropietario(), inmueble))
 	                .collect(Collectors.toList());
 
-	        disponibles.addAll(inmueblesConReservas);
+	        resultado.addAll(inmueblesConReservas);
 	    }
-	    return disponibles;
+	    resultado.addAll(disponibles);
+	    if(resultado.isEmpty()) {
+	    	List<InmuebleDTO> todos = Optional.ofNullable(inmuebledao.getAllInmuebles())
+		            .map(List::stream)
+		            .orElseGet(Stream::empty)
+		            .filter(inmueble -> inmueble.getEstado() == Estado.Disponible)
+		            .map(inmueble -> new InmuebleDTO(inmueble.getPropietario(), inmueble))
+		            .collect(Collectors.toList());
+	    	resultado.addAll(todos);}
+	    
+	    return resultado;
 	}
 
 	
@@ -133,18 +145,24 @@ public class InmuebleServices {
 			return null;
 		}
 	}
-	public List<InmuebleDTO> getInmueblesByPropietario(int propietario) {
-	    Propietario p = propietariodao.getPropietarioById(propietario);
-	    if (p != null) {
-	        return Optional.ofNullable(inmuebledao.getInmueble(p))
-	                .map(List::stream)
-	                .orElseGet(Stream::empty)
+	
+	public List<InmuebleDTO> getInmueblesByPropietario(int propietarioId) {
+	    Propietario propietario = propietariodao.getPropietarioById(propietarioId);
+
+	    if (propietario != null) {
+	        List<InmuebleDTO> inmuebles = Optional.ofNullable(inmuebledao.getAllInmuebles())
+	                .orElse(Collections.emptyList())
+	                .stream()
+	                .filter(inmueble -> inmueble.getPropietario().equals(propietario))
 	                .map(inmueble -> new InmuebleDTO(inmueble.getPropietario(), inmueble))
 	                .collect(Collectors.toList());
+
+	        return inmuebles;
 	    } else {
-	        return Collections.emptyList(); // Devolver una lista vacía en lugar de null
+	        return Collections.emptyList();
 	    }
 	}
+
 
 	
 	public List<InmuebleDTO> getInmueble(String p, String l, String b, List<String> tipos, int cantdorm,

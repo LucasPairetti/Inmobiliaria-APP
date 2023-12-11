@@ -63,6 +63,7 @@ public class PropietarioDTO {
 	}
 	public PropietarioDTO(Propietario propietario) {
 		super();
+		this.id = propietario.getId();
 		this.nombre = propietario.getNombre();
 		this.apellido = propietario.getApellido();
 		this.tipodni = propietario.getTipodni().toString().replace("_"," ");

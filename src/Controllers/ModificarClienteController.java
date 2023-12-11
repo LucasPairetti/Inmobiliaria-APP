@@ -72,7 +72,10 @@ public class ModificarClienteController implements Initializable{
     @Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		// TODO Auto-generated method stub
+    	Holder holder = Holder.getInstance();
+    	idCliente= holder.getIdCliente();
     	
+    	System.out.println(idCliente);
     	ObservableList<String> dnis= FXCollections.observableArrayList();
 		
 		dnis.addAll(TipoDNI.getTiposDNI());
