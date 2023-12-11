@@ -69,7 +69,9 @@ Parent root = FXMLLoader.load((getClass().getResource("/interfaces/PantallaPrinc
 		session.getTransaction().commit();
 		session.close();
 		System.out.println(cliente);
-		
+		/*
+		 * 
+		 */
 		InmuebleDAO i = InmuebleDAO.getInmuebleDAO();
 		
 		System.out.println(i.getInmueble(null,null, null, null, null, null));
