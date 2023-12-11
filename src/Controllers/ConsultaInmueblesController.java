@@ -118,7 +118,7 @@ public class ConsultaInmueblesController implements Initializable {
     @FXML
     private Button VolverButton;
     
-    
+   
     private InmuebleServices inmuebleService = InmuebleServices.getInstance();
 
     ObservableList<InmuebleDTO> listaDeInmuebles= FXCollections.observableArrayList(); 
@@ -136,8 +136,6 @@ public class ConsultaInmueblesController implements Initializable {
     	PrecioColumn.setCellValueFactory(new PropertyValueFactory<>("precioVenta"));
     	ProvinciaColumn.setCellValueFactory(new PropertyValueFactory<>("provincia"));
     	TipoColumn.setCellValueFactory(new PropertyValueFactory<>("tipoInmueble"));
-    	
-    	//cuando arreglen estado, lo cambio
     	EstadoColumn.setCellValueFactory(new PropertyValueFactory<>("estado"));  
     	
     	
@@ -170,6 +168,7 @@ public class ConsultaInmueblesController implements Initializable {
     	InmuebleTable.setItems(listaDeInmuebles);
 		
 	}
+    
     
     
     @FXML
@@ -289,7 +288,33 @@ public class ConsultaInmueblesController implements Initializable {
     
     @FXML
     void VerMasPressed(ActionEvent event) {
-
+    	if(InmuebleTable.getSelectionModel().getSelectedItem()==null) {
+    		Alert alertaTipo = new Alert(Alert.AlertType.ERROR); //esto es un mensaje de alerta
+    		alertaTipo.setTitle("Inmueble"); //titulo
+    		alertaTipo.setContentText("Debe seleccionar un Inmueble para ver sus detalles"); //informacion
+    		
+    	}else {
+    		int idInmueble= InmuebleTable.getSelectionModel().getSelectedItem().getId();
+    		
+    	
+    	try {
+    		
+    		Parent root;
+    	// root = FXMLLoader.load((getClass().getResource("/interfaces/NuevoPropietario.fxml")));
+    		FXMLLoader loader = new FXMLLoader(getClass().getResource("/interfaces/VerMasInmueble.fxml"));
+    		root = loader.load();
+    		VerMasInmuebleController controladorVerMas = loader.getController();
+    		controladorVerMas.setIdInmuebleypantalla(idInmueble, 0);
+    		
+    		Stage window = (Stage)VerMasButton.getScene().getWindow();
+    		window.setTitle("Detalles de Inmueeble");
+    		window.setScene(new Scene(root));
+    	} catch (IOException e) {
+    		// TODO Auto-generated catch block
+    		e.printStackTrace();
+    	}
+    		
+    	}
     }
 
 	
