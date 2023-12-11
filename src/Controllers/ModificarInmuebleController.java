@@ -152,6 +152,11 @@ public class ModificarInmuebleController implements Initializable {
     
     @Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
+    	
+    	
+    	Holder holder = Holder.getInstance();
+    	IdPropietario= holder.getIdCliente();
+    	inmuebleID= holder.getIdInmueble();
 		// TODO Auto-generated method stub
     	ObservableList<String>localidades= FXCollections.observableArrayList(); 
     	localidades.addAll(Localidad.getLocalidad());

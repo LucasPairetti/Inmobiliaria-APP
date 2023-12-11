@@ -11,6 +11,7 @@ import application.clases.Orientacion;
 import application.clases.Provincia;
 import application.clases.TipoInmueble;
 import dto.InmuebleDTO;
+import dto.PropietarioDTO;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -138,12 +139,12 @@ public class VerMasInmuebleController implements Initializable{
     @Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		// TODO Auto-generated method stub
+    	Holder holder = Holder.getInstance();
+    	idInmueble=holder.getIdInmueble();
+		pantalla= holder.getPantalla();
+
+
 		InmuebleDTO inmueble = inmuebleService.getById(idInmueble);
-		String nombreApellido;
-		
-		nombreApellido=propietarioService.getPropietarioById(inmueble.getIdPropietario()).getNombre();
-		nombreApellido.concat(" ");
-		nombreApellido.concat(propietarioService.getPropietarioById(inmueble.getIdPropietario()).getApellido());
 		AntiguedadField.setText(String.valueOf(inmueble.getAntiguedad()));
 		BaniosField.setText(String.valueOf(inmueble.getBanios()));
 		BarrioTextField.setText(inmueble.getBarrio());
@@ -157,7 +158,7 @@ public class VerMasInmuebleController implements Initializable{
 		OtraLocalidadField.setText(inmueble.getLocalidad());
 		PisoDeptoField.setText(inmueble.getPisodpto());
 		PrecioField.setText(String.valueOf(inmueble.getPrecioVenta()));
-		PropietarioField.setText(nombreApellido);
+		PropietarioField.setText(inmueble.getNombreApellidoPropietario());
 		SuperficieField.setText(String.valueOf(inmueble.getSuperficie()));
 
 		
@@ -197,7 +198,7 @@ public class VerMasInmuebleController implements Initializable{
     }
     
     public void setIdInmuebleypantalla(int id, int pantalla) {
-    	idInmueble= id;
+    	this.idInmueble= id;
     	this.pantalla=pantalla;
     }
 
