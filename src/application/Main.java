@@ -13,8 +13,10 @@ import application.clases.Propietario;
 import application.clases.Provincia;
 import application.clases.TipoDNI;
 import application.clases.TipoInmueble;
+import application.clases.Vendedor;
 import application.dao.HibernateUtil;
 import application.dao.InmuebleDAO;
+import application.dao.VendedorDAO;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.stage.Stage;
@@ -70,8 +72,7 @@ Parent root = FXMLLoader.load((getClass().getResource("/interfaces/PantallaPrinc
 		session.close();
 		System.out.println(cliente);
 		/*
-		 * 
-		 */
+		
 		InmuebleDAO i = InmuebleDAO.getInmuebleDAO();
 		
 		System.out.println(i.getInmueble(null,null, null, null, null, null));
