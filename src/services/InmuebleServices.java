@@ -120,12 +120,7 @@ public class InmuebleServices {
 	    }
 	    
 	    if(resultado.isEmpty()) {
-	    	List<InmuebleDTO> todos = Optional.ofNullable(inmuebledao.getAllInmuebles())
-		            .map(List::stream)
-		            .orElseGet(Stream::empty)
-		            .filter(inmueble -> inmueble.getEstado() == Estado.Disponible)
-		            .map(inmueble -> new InmuebleDTO(inmueble.getPropietario(), inmueble))
-		            .collect(Collectors.toList());
+	    	List<InmuebleDTO> todos = getInmueblesDisponibles();
 	    	resultado.addAll(todos);
 	    	}
 	    
@@ -147,6 +142,14 @@ public class InmuebleServices {
             .map(inmueble -> new InmuebleDTO(inmueble.getPropietario(), inmueble))
             .collect(Collectors.toList());
 	}
+	public List<InmuebleDTO> getInmueblesDisponibles(){
+		return Optional.ofNullable(inmuebledao.getAllInmuebles())
+            .map(List::stream)
+            .orElseGet(Stream::empty)
+            .filter(inmueble -> inmueble.getEstado() == Estado.Disponible)
+            .map(inmueble -> new InmuebleDTO(inmueble.getPropietario(), inmueble))
+            .collect(Collectors.toList());}
+	
 	public InmuebleDTO getById(int id) {
 		Inmueble i = inmuebledao.getInmuebleById(id);
 		if(i!= null) {
