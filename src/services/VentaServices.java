@@ -48,15 +48,19 @@ public class VentaServices {
 		if(cliente==null) {return -3;}//no existe cliente
 		
 		List<Reserva> reservas =reservadao.getReservasByInmueble(inmueble);
+		double monto =0.0;
 		if(reservas!= null) {
 			List<Reserva> reservasValidas = reservas.stream().filter(Reserva::esReservaValida).collect(Collectors.toList());
-			if(reservasValidas != null) {
-				if(reservasValidas.get(0).getCliente().getId() != cliente.getId())
-				return reservasValidas.get(0).getCliente().getId(); // existe una reserva vigente en este momento y te digo de que cliente es
+			if(!reservasValidas.isEmpty()) {
+				if(reservasValidas.get(0).getCliente().getId() != cliente.getId()) {
+				return reservasValidas.get(0).getCliente().getId();}// existe una reserva vigente en este momento y te digo de que cliente es
+				else{
+					monto=reservasValidas.get(0).getImporteReserva();
+				}
 			}
 			
 		}
-		
+		if(inmueble.getPrecioVenta()<(monto+ venta.getImporteReserva())) {return -1;}//no es suficiente la suma de la reserva y el importe ingresado.
 		Vendedor vendedor= vendedordao.getVendedorById(venta.getVendedor());
 		if(vendedor==null) {return -4;}//no existe el vendedor
 		

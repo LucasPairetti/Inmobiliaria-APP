@@ -99,28 +99,40 @@ public class InmuebleServices {
 	}
 
 	public List<InmuebleDTO> listInmueblesFiltradosParaVenta(ClienteDTO c) {
-	    List<InmuebleDTO> disponibles = Optional.ofNullable(inmuebledao.getAllInmuebles())
+		TipoInmueble tipoInmueble = TipoInmueble.valueOf(c.getTipoInmuebleBuscado());
+		List<Reserva> reservas = Optional.ofNullable(reservadao.getReservasByCliente(toCliente(c)))
+	            .map(List::stream)
+	            .orElseGet(Stream::empty)
+	            .filter(Reserva::esReservaValida)
+	            .collect(Collectors.toList());
+	    List<InmuebleDTO> disponibles = Optional.ofNullable(inmuebledao.getInmueble(null,c.getLocalidadBuscada(),c.getBarrios(),tipoInmueble,
+	    		null,(float)0.0,(float) c.getMontoDisponible()))
 	            .map(List::stream)
 	            .orElseGet(Stream::empty)
 	            .filter(inmueble -> inmueble.getEstado() == Estado.Disponible)
 	            .map(inmueble -> new InmuebleDTO(inmueble.getPropietario(), inmueble))
 	            .collect(Collectors.toList());
-
-	    List<Reserva> reservas = Optional.ofNullable(reservadao.getReservasByCliente(toCliente(c)))
-	            .map(List::stream)
-	            .orElseGet(Stream::empty)
-	            .filter(Reserva::esReservaValida)
-	            .collect(Collectors.toList());
-
+	   List<InmuebleDTO> resultado = new ArrayList<InmuebleDTO>();
+	    
 	    if (reservas != null) {
 	        List<InmuebleDTO> inmueblesConReservas = reservas.stream()
 	                .map(Reserva::getInmueble)
 	                .map(inmueble -> new InmuebleDTO(inmueble.getPropietario(), inmueble))
 	                .collect(Collectors.toList());
 
-	        disponibles.addAll(inmueblesConReservas);
+	        resultado.addAll(inmueblesConReservas);
 	    }
-	    return disponibles;
+	    resultado.addAll(disponibles);
+	    if(resultado.isEmpty()) {
+	    	List<InmuebleDTO> todos = Optional.ofNullable(inmuebledao.getAllInmuebles())
+		            .map(List::stream)
+		            .orElseGet(Stream::empty)
+		            .filter(inmueble -> inmueble.getEstado() == Estado.Disponible)
+		            .map(inmueble -> new InmuebleDTO(inmueble.getPropietario(), inmueble))
+		            .collect(Collectors.toList());
+	    	resultado.addAll(todos);}
+	    
+	    return resultado;
 	}
 
 	
