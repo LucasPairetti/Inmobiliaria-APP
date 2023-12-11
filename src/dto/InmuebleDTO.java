@@ -84,7 +84,7 @@ public class InmuebleDTO {
 	
 	String observaciones;
 	
-	public InmuebleDTO (int id,int idPropietario,String nombre,Date fechaCreacion, String estado, String provincia, String localidad, String calle,
+	public InmuebleDTO (int id,int idPropietario,Date fechaCreacion, String estado, String provincia, String localidad, String calle,
 			int numero, String pisodpto, String barrio, String tipoInmueble,double precioVenta, String orientacion, float frente,float superficie,
 			float fondo, int antiguedad, int dormitorios, int banios,boolean garaje,boolean pHorizontal, boolean patio, boolean piscina, boolean aguaCorriente,
 			boolean cloacas, boolean gasNatural,boolean aguaCaliente, boolean lavadero, boolean pavimento, boolean telefono,
@@ -92,7 +92,6 @@ public class InmuebleDTO {
 		super();
 		this.id=id;
 		this.idPropietario=idPropietario;
-		this.nombreApellidoPropietario=nombre.replace(" ","_");
 		this.fechaCreacion = fechaCreacion;
 		this.estado = estado;
 		this.provincia = provincia.replace(" ", "_");
@@ -123,14 +122,13 @@ public class InmuebleDTO {
 		this.pHorizontal=pHorizontal;
 		this.observaciones = observaciones;
 	}
-	public InmuebleDTO (int idPropietario,String nombre,Date fechaCreacion, String estado, String provincia, String localidad, String calle,
+	public InmuebleDTO (int idPropietario,Date fechaCreacion, String estado, String provincia, String localidad, String calle,
 			int numero, String pisodpto, String barrio, String tipoInmueble,double precioVenta, String orientacion, float frente,float superficie,
 			float fondo, int antiguedad, int dormitorios, int banios,boolean garaje,boolean pHorizontal, boolean patio, boolean piscina, boolean aguaCorriente,
 			boolean cloacas, boolean gasNatural,boolean aguaCaliente, boolean lavadero, boolean pavimento, boolean telefono,
 			String observaciones) {
 		super();
 		this.idPropietario=idPropietario;
-		this.nombreApellidoPropietario=nombre.replace(" ","_");
 		this.fechaCreacion = fechaCreacion;
 		this.estado = estado;
 		this.provincia = provincia.replace(" ", "_");

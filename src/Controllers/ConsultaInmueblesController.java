@@ -288,34 +288,37 @@ public class ConsultaInmueblesController implements Initializable {
     
     @FXML
     void VerMasPressed(ActionEvent event) {
+    	
+    	
     	if(InmuebleTable.getSelectionModel().getSelectedItem()==null) {
     		Alert alertaTipo = new Alert(Alert.AlertType.ERROR); //esto es un mensaje de alerta
     		alertaTipo.setTitle("Inmueble"); //titulo
     		alertaTipo.setContentText("Debe seleccionar un Inmueble para ver sus detalles"); //informacion
     		
     	}else {
-    		int idInmueble= InmuebleTable.getSelectionModel().getSelectedItem().getId();
+    		
     		
     	
-    	try {
+    		try {
+    			int idInmueble= InmuebleTable.getSelectionModel().getSelectedItem().getId();
+    			Holder holder = Holder.getInstance();
+    			holder.setIdInmueble(idInmueble);
+    			holder.setPantalla(0);
+        		Parent root;
+        		root = FXMLLoader.load((getClass().getResource("/interfaces/VerMasInmueble.fxml")));
+        		
+        		Stage window = (Stage)VolverButton.getScene().getWindow();
+        		window.setTitle("Propietarios");
+        		window.setScene(new Scene(root));
+        	} catch (IOException e) {
+        		// TODO Auto-generated catch block
+        		e.printStackTrace();
+        	}
+
+        }
     		
-    		Parent root;
-    	// root = FXMLLoader.load((getClass().getResource("/interfaces/NuevoPropietario.fxml")));
-    		FXMLLoader loader = new FXMLLoader(getClass().getResource("/interfaces/VerMasInmueble.fxml"));
-    		root = loader.load();
-    		VerMasInmuebleController controladorVerMas = loader.getController();
-    		controladorVerMas.setIdInmuebleypantalla(idInmueble, 0);
-    		
-    		Stage window = (Stage)VerMasButton.getScene().getWindow();
-    		window.setTitle("Detalles de Inmueeble");
-    		window.setScene(new Scene(root));
-    	} catch (IOException e) {
-    		// TODO Auto-generated catch block
-    		e.printStackTrace();
     	}
-    		
-    	}
-    }
+    
 
 	
 

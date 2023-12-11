@@ -167,9 +167,9 @@ else {
     		alertaTipo.setContentText("Debe seleccionar un cliente de la tabla antes de modificarlo"); //informacion
     		
     	}else {
-    		int idCliente= ClientesTable.getSelectionModel().getSelectedItem().getId();
     		
-    	
+    		
+    	/*
     	try {
     		
     		Parent root;
@@ -186,6 +186,32 @@ else {
     		// TODO Auto-generated catch block
     		e.printStackTrace();
     	}
+    	*/
+    		
+			
+    		try {
+    			
+    			
+    			int idCliente= ClientesTable.getSelectionModel().getSelectedItem().getId();
+    				
+    			Parent root;
+        	
+    			Holder holder= Holder.getInstance();
+        
+        		holder.setIdCliente(idCliente);
+        
+        		
+        		root = FXMLLoader.load((getClass().getResource("/interfaces/ModificarCliente.fxml")));
+        		
+        		Stage window = (Stage)VolverButton.getScene().getWindow();
+        		window.setTitle("Propietarios");
+        		window.setScene(new Scene(root));
+        		
+        	} catch (IOException e) {
+        		// TODO Auto-generated catch block
+        		e.printStackTrace();
+        	}
+    		
     		
     	}
     	

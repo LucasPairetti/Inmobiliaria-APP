@@ -79,7 +79,7 @@ public class ClienteInmueblesController implements Initializable {
     	
     	
     	//falta columna  propietario para eso pedir que me pasen "nombre Apellido" entonces agreguen 1 atributo "nombreApellido" y que el string que manden tenga un espacio entre el nombre y apellido
-    	
+    	PropietarioColumn.setCellValueFactory(new PropertyValueFactory<>("nombreApellidoPropietario"));
     	BarrioColumn.setCellValueFactory(new PropertyValueFactory<>("barrio"));
     	DormitoriosColumn.setCellValueFactory(new PropertyValueFactory<>("dormitorios"));
     	LocalidadColumn.setCellValueFactory(new PropertyValueFactory<>("localidad"));
@@ -118,25 +118,26 @@ public class ClienteInmueblesController implements Initializable {
     		alertaTipo.setContentText("Debe seleccionar un Inmueble para ver sus detalles"); //informacion
     		
     	}else {
-    		int idInmueble= InmuebleTable.getSelectionModel().getSelectedItem().getId();
+    		
     		
     	
-    	try {
-    		
-    		Parent root;
-    	// root = FXMLLoader.load((getClass().getResource("/interfaces/NuevoPropietario.fxml")));
-    		FXMLLoader loader = new FXMLLoader(getClass().getResource("/interfaces/VerMasInmueble.fxml"));
-    		root = loader.load();
-    		VerMasInmuebleController controladorVerMas = loader.getController();
-    		controladorVerMas.setIdInmuebleypantalla(idInmueble, 1);
-    		
-    		Stage window = (Stage)VerMasButton.getScene().getWindow();
-    		window.setTitle("Detalles de Inmueeble");
-    		window.setScene(new Scene(root));
-    	} catch (IOException e) {
-    		// TODO Auto-generated catch block
-    		e.printStackTrace();
-    	}
+    		try {
+    			int idInmueble= InmuebleTable.getSelectionModel().getSelectedItem().getId();
+    			Holder holder = Holder.getInstance();
+    			holder.setIdInmueble(idInmueble);
+    			holder.setPantalla(1);
+        		Parent root;
+        		root = FXMLLoader.load((getClass().getResource("/interfaces/VerMasInmueble.fxml")));
+        		
+        		Stage window = (Stage)VolverButton.getScene().getWindow();
+        		window.setTitle("Propietarios");
+        		window.setScene(new Scene(root));
+        	} catch (IOException e) {
+        		// TODO Auto-generated catch block
+        		e.printStackTrace();
+        	}
+
+        
     		
     	}
     }
