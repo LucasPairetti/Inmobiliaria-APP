@@ -76,6 +76,8 @@ public class ClienteInmueblesController implements Initializable {
     @Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		// TODO Auto-generated method stub
+    	Holder holder = Holder.getInstance();
+    	idCliente = holder.getIdCliente();
     	
     	
     	//falta columna  propietario para eso pedir que me pasen "nombre Apellido" entonces agreguen 1 atributo "nombreApellido" y que el string que manden tenga un espacio entre el nombre y apellido
