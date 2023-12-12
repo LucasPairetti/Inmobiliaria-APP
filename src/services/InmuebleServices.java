@@ -16,6 +16,7 @@ import application.clases.Provincia;
 import application.clases.Reserva;
 import application.clases.TipoDNI;
 import application.clases.TipoInmueble;
+import application.dao.ClienteDAO;
 import application.dao.InmuebleDAO;
 import application.dao.PropietarioDAO;
 import application.dao.ReservaDAO;
@@ -35,6 +36,7 @@ public class InmuebleServices {
 	private static InmuebleDAO inmuebledao;
 	private static PropietarioDAO propietariodao;
 	private static ReservaDAO reservadao;
+	private static ClienteDAO clientedao;
 	
 	public static InmuebleServices getInstance() {
 		if(instance==null) {
@@ -42,6 +44,7 @@ public class InmuebleServices {
 			inmuebledao = InmuebleDAO.getInmuebleDAO(); 
 			propietariodao = PropietarioDAO.getPropietarioDAO();
 			reservadao=ReservaDAO.getReservaDAO();
+			clientedao=ClienteDAO.getClienteDAO();
 		}
 		return instance;
 	}
@@ -99,22 +102,11 @@ public class InmuebleServices {
 	}
 
 	public List<InmuebleDTO> listInmueblesFiltradosParaVenta(ClienteDTO c) {
-		TipoInmueble tipoInmueble = TipoInmueble.valueOf(c.getTipoInmuebleBuscado());
-		List<Reserva> reservas = Optional.ofNullable(reservadao.getReservasByCliente(toCliente(c)))
-	            .map(List::stream)
-	            .orElseGet(Stream::empty)
-	            .filter(Reserva::esReservaValida)
-	            .collect(Collectors.toList());
-	    List<InmuebleDTO> disponibles = Optional.ofNullable(inmuebledao.getInmueble(null,c.getLocalidadBuscada(),c.getBarrios(),tipoInmueble,
-	    		null,(float)0.0,(float) c.getMontoDisponible()))
-	            .map(List::stream)
-	            .orElseGet(Stream::empty)
-	            .filter(inmueble -> inmueble.getEstado() == Estado.Disponible)
-	            .map(inmueble -> new InmuebleDTO(inmueble.getPropietario(), inmueble))
-	            .collect(Collectors.toList());
-	   List<InmuebleDTO> resultado = new ArrayList<InmuebleDTO>();
-	    
-	    if (!reservas.isEmpty()) {
+		List<InmuebleDTO> resultado = new ArrayList<InmuebleDTO>();
+		
+		List<Reserva> reservas = reservasValidasCliente(c);
+		
+		if (!reservas.isEmpty()) {
 	        List<InmuebleDTO> inmueblesConReservas = reservas.stream()
 	                .map(Reserva::getInmueble)
 	                .map(inmueble -> new InmuebleDTO(inmueble.getPropietario(), inmueble))
@@ -122,19 +114,44 @@ public class InmuebleServices {
 
 	        resultado.addAll(inmueblesConReservas);
 	    }
+
+		TipoInmueble tipoInmueble = TipoInmueble.valueOf(c.getTipoInmuebleBuscado());
+	    List<InmuebleDTO> disponibles = inmueblesDisponiblesParaCliente(c,tipoInmueble);
+	   
+	    if(!disponibles.isEmpty()) {
 	    resultado.addAll(disponibles);
+	    }
+	    
 	    if(resultado.isEmpty()) {
-	    	List<InmuebleDTO> todos = Optional.ofNullable(inmuebledao.getAllInmuebles())
-		            .map(List::stream)
-		            .orElseGet(Stream::empty)
-		            .filter(inmueble -> inmueble.getEstado() == Estado.Disponible)
-		            .map(inmueble -> new InmuebleDTO(inmueble.getPropietario(), inmueble))
-		            .collect(Collectors.toList());
-	    	resultado.addAll(todos);}
+	    	List<InmuebleDTO> todos = getInmueblesDisponibles();
+	    	resultado.addAll(todos);
+	    	}
 	    
 	    return resultado;
 	}
-
+	public List<Reserva> reservasValidasCliente(ClienteDTO c){
+		return Optional.ofNullable(reservadao.getReservasByCliente(toCliente(c)))
+            .map(List::stream)
+            .orElseGet(Stream::empty)
+            .filter(Reserva::esReservaValida)
+            .collect(Collectors.toList());
+	}
+	public List<InmuebleDTO> inmueblesDisponiblesParaCliente(ClienteDTO c, TipoInmueble tipo){
+		return Optional.ofNullable(inmuebledao.getInmueble(null,c.getLocalidadBuscada(),c.getBarrios(),tipo,
+    		null,(float)0.0,(float) c.getMontoDisponible()))
+            .map(List::stream)
+            .orElseGet(Stream::empty)
+            .filter(inmueble -> inmueble.getEstado() == Estado.Disponible)
+            .map(inmueble -> new InmuebleDTO(inmueble.getPropietario(), inmueble))
+            .collect(Collectors.toList());
+	}
+	public List<InmuebleDTO> getInmueblesDisponibles(){
+		return Optional.ofNullable(inmuebledao.getAllInmuebles())
+            .map(List::stream)
+            .orElseGet(Stream::empty)
+            .filter(inmueble -> inmueble.getEstado() == Estado.Disponible)
+            .map(inmueble -> new InmuebleDTO(inmueble.getPropietario(), inmueble))
+            .collect(Collectors.toList());}
 	
 	public InmuebleDTO getById(int id) {
 		Inmueble i = inmuebledao.getInmuebleById(id);
@@ -259,9 +276,8 @@ public class InmuebleServices {
 		
 	}
 	private Cliente toCliente( ClienteDTO entrada) {
-		TipoInmueble tipoInmueble= TipoInmueble.valueOf(entrada.getTipoInmuebleBuscado());
-		TipoDNI tipoDNI= TipoDNI.valueOf(entrada.getTipoDNI());
-		return new Cliente( entrada.getNombre(), entrada.getApellido(), entrada.getDni(),tipoDNI,entrada.getTelefono(),entrada.getEmail(),
-				entrada.getMontoDisponible(),tipoInmueble, entrada.getLocalidadBuscada(), entrada.getBarrios(),entrada.getCaracteristicasDeseadas());
+		Cliente cliente= clientedao.getClienteById(entrada.getId());
+		if(cliente==null) {return null;}
+		else {return cliente;}
 	}
 }

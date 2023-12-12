@@ -148,9 +148,9 @@ public class InmuebleDAO {
 						+ "(a.localidad = :localidad OR :localidad IS NULL) AND "
 						+ "(a.barrio = :barrio OR :barrio IS NULL) AND "
 						+ "(a.tipoInmueble = :tipo OR :tipo IS NULL) AND "
-						+ "(a.dormitorio = :dormitorio OR :dormitorio IS NULL) AND "
-						+ "(a.precio >= :precio OR :precio IS NULL) AND "
-						+ "(a.precio <= :precio OR :precio IS NULL)", Inmueble.class);
+						+ "(a.dormitorios = :dormitorios OR :dormitorios IS NULL) AND "
+						+ "(a.precioVenta >= :precioMin OR :precioMin IS NULL) AND "
+						+ "(a.precioVenta <= :precioMax OR :precioMax IS NULL)", Inmueble.class);
 				query.setParameter("provincia", provincia);
 				query.setParameter("localidad", localidad);
 				query.setParameter("barrio", barrio);
