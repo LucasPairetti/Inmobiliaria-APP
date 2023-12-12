@@ -3,6 +3,7 @@ package Controllers;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.Date;
+import java.text.SimpleDateFormat;
 import java.util.ResourceBundle;
 
 import application.clases.Estado;
@@ -149,7 +150,7 @@ public class ModificarInmuebleController implements Initializable {
     
     private Validacion validar;
     private InmuebleServices serviceInmueble= InmuebleServices.getInstance();
-    
+    SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
     @Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
     	
@@ -175,6 +176,36 @@ public class ModificarInmuebleController implements Initializable {
     	ObservableList<String>orientaciones=FXCollections.observableArrayList(); 
     	orientaciones.addAll(Orientacion.geOrientacion());
     	OrientacionMenu.setItems(orientaciones);
+    	
+    	InmuebleDTO inmueble = serviceInmueble.getById(inmuebleID);
+		AntiguedadField.setText(String.valueOf(inmueble.getAntiguedad()));
+		BaniosField.setText(String.valueOf(inmueble.getBanios()));
+		BarrioField.setText(inmueble.getBarrio());
+		CalleField.setText(inmueble.getCalle());
+		DormitorioField.setText(String.valueOf(inmueble.getDormitorios()));
+		FechaField.setText(sdf.format(inmueble.getFechaCreacion()));
+		FondoField.setText(String.valueOf(inmueble.getFondo()));
+		FrenteField.setText(String.valueOf(inmueble.getFrente()));
+		NumeroField.setText(String.valueOf(inmueble.getNumero()));
+		ObservacionesField.setText(inmueble.getObservaciones());
+		OtraLocalidadField.setText(inmueble.getLocalidad());
+		PisoDeptoField.setText(inmueble.getPisodpto());
+		PrecioField.setText(String.valueOf(inmueble.getPrecioVenta()));
+		PropietarioField.setText(inmueble.getNombreApellidoPropietario());
+		SuperficieField.setText(String.valueOf(inmueble.getSuperficie()));
+
+		
+		AguaCalienteCheckBox.setSelected(inmueble.isAguaCaliente());
+		AguaCheckBox.setSelected(inmueble.isAguaCorriente());
+		CloacasCheckBox.setSelected(inmueble.isCloacas());
+		GarajeCheckBox.setSelected(inmueble.isGaraje());
+		GasCheckBox.setSelected(inmueble.isGasNatural());
+		LavaderoCheckBox.setSelected(inmueble.isLavadero());
+		PatioCheckBox.setSelected(inmueble.isPatio());
+		PavimentoCheckBox.setSelected(inmueble.isPavimento());
+		PiscinaCheckBox.setSelected(inmueble.isPiscina());
+		PropiedadHorizontalCheckBox.setSelected(inmueble.ispHorizontal());
+		TelefenoCheckBox.setSelected(inmueble.isTelefono());
     	
 	}
     

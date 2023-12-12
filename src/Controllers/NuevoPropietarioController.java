@@ -88,7 +88,7 @@ public class NuevoPropietarioController implements Initializable {
     void CancelarPressed(ActionEvent event) {
     	try {
     		Parent root;
-    		root = FXMLLoader.load((getClass().getResource("/interfaces/ClientesPrincipal.fxml")));
+    		root = FXMLLoader.load((getClass().getResource("/interfaces/PropietariosPrincipal.fxml")));
     		
     		Stage window = (Stage)CancelarButton.getScene().getWindow();
     		window.setTitle("Clientes");
