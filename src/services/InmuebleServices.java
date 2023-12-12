@@ -16,6 +16,7 @@ import application.clases.Provincia;
 import application.clases.Reserva;
 import application.clases.TipoDNI;
 import application.clases.TipoInmueble;
+import application.dao.ClienteDAO;
 import application.dao.InmuebleDAO;
 import application.dao.PropietarioDAO;
 import application.dao.ReservaDAO;
@@ -35,6 +36,7 @@ public class InmuebleServices {
 	private static InmuebleDAO inmuebledao;
 	private static PropietarioDAO propietariodao;
 	private static ReservaDAO reservadao;
+	private static ClienteDAO clientedao;
 	
 	public static InmuebleServices getInstance() {
 		if(instance==null) {
@@ -42,6 +44,7 @@ public class InmuebleServices {
 			inmuebledao = InmuebleDAO.getInmuebleDAO(); 
 			propietariodao = PropietarioDAO.getPropietarioDAO();
 			reservadao=ReservaDAO.getReservaDAO();
+			clientedao=ClienteDAO.getClienteDAO();
 		}
 		return instance;
 	}
@@ -273,9 +276,8 @@ public class InmuebleServices {
 		
 	}
 	private Cliente toCliente( ClienteDTO entrada) {
-		TipoInmueble tipoInmueble= TipoInmueble.valueOf(entrada.getTipoInmuebleBuscado());
-		TipoDNI tipoDNI= TipoDNI.valueOf(entrada.getTipoDNI());
-		return new Cliente( entrada.getNombre(), entrada.getApellido(), entrada.getDni(),tipoDNI,entrada.getTelefono(),entrada.getEmail(),
-				entrada.getMontoDisponible(),tipoInmueble, entrada.getLocalidadBuscada(), entrada.getBarrios(),entrada.getCaracteristicasDeseadas());
+		Cliente cliente= clientedao.getClienteById(entrada.getId());
+		if(cliente==null) {return null;}
+		else {return cliente;}
 	}
 }
