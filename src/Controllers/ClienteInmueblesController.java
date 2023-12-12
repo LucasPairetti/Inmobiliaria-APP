@@ -104,12 +104,55 @@ public class ClienteInmueblesController implements Initializable {
     
     @FXML
     void ComprarPressed(ActionEvent event) {
-
-    }
+    	if(InmuebleTable.getSelectionModel().getSelectedItem()==null) {
+    		Alert alertaTipo = new Alert(Alert.AlertType.ERROR); //esto es un mensaje de alerta
+    		alertaTipo.setTitle("Venta"); //titulo
+    		alertaTipo.setContentText("Debe seleccionar un inmueble de la tabla antes de realizar una venta"); //informacion
+    		
+    	}else {
+    		Holder holder = Holder.getInstance();
+        	holder.setIdCliente(idCliente);
+        	
+        	holder.setIdInmueble(InmuebleTable.getSelectionModel().getSelectedItem().getId());
+        	try {
+        		Parent root;
+        		root = FXMLLoader.load((getClass().getResource("/interfaces/VentaPrincipal.fxml")));
+        		
+        		Stage window = (Stage)ComprarButton.getScene().getWindow();
+        		window.setTitle("Venta");
+        		window.setScene(new Scene(root));
+        	} catch (IOException e) {
+        		// TODO Auto-generated catch block
+        		e.printStackTrace();
+        	}
+        }
+    	}
+    
 
     @FXML
     void ReservarPressed(ActionEvent event) {
-
+    	if(InmuebleTable.getSelectionModel().getSelectedItem()==null) {
+    		Alert alertaTipo = new Alert(Alert.AlertType.ERROR); //esto es un mensaje de alerta
+    		alertaTipo.setTitle("Reserva"); //titulo
+    		alertaTipo.setContentText("Debe seleccionar un inmueble de la tabla antes de realizar una Reserva"); //informacion
+    		
+    	}else {
+    		Holder holder = Holder.getInstance();
+        	holder.setIdCliente(idCliente);
+        	
+        	holder.setIdInmueble(InmuebleTable.getSelectionModel().getSelectedItem().getId());
+        	try {
+        		Parent root;
+        		root = FXMLLoader.load((getClass().getResource("/interfaces/ReservaInmueblePrincipal.fxml")));
+        		
+        		Stage window = (Stage)ReservarButton.getScene().getWindow();
+        		window.setTitle("Reserva");
+        		window.setScene(new Scene(root));
+        	} catch (IOException e) {
+        		// TODO Auto-generated catch block
+        		e.printStackTrace();
+        	}
+        }
     }
 
     @FXML
@@ -132,7 +175,7 @@ public class ClienteInmueblesController implements Initializable {
         		root = FXMLLoader.load((getClass().getResource("/interfaces/VerMasInmueble.fxml")));
         		
         		Stage window = (Stage)VolverButton.getScene().getWindow();
-        		window.setTitle("Propietarios");
+        		window.setTitle("Detalles Inmueble");
         		window.setScene(new Scene(root));
         	} catch (IOException e) {
         		// TODO Auto-generated catch block

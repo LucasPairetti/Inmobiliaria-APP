@@ -1,0 +1,226 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane fx:id="Scenario" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.VentaConfirmadaController">
+   <children>
+      <ImageView fitHeight="800.0" fitWidth="1200.0" pickOnBounds="true">
+         <image>
+            <Image url="@imagenes/background.jpg" />
+         </image>
+      </ImageView>
+      <Label layoutX="302.0" layoutY="41.0" text="VENTA CONCLUIDA" textFill="WHITE">
+         <font>
+            <Font name="Verdana" size="64.0" />
+         </font>
+      </Label>
+      <Button fx:id="VolverButton" layoutX="513.0" layoutY="719.0" mnemonicParsing="false" onAction="#VolverPressed" prefHeight="53.0" prefWidth="143.0" text="Volver" />
+      <Label layoutX="84.0" layoutY="201.0" text="Cliente">
+         <font>
+            <Font name="System Bold" size="36.0" />
+         </font>
+      </Label>
+      <Label fx:id="nombreClienteLabel" layoutX="191.0" layoutY="258.0" text="Nombre">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Label>
+      <Label fx:id="apellidoClienteLabel" layoutX="191.0" layoutY="303.0" text="Apellido">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Label>
+      <Label layoutX="91.0" layoutY="348.0" text="Tipo de documento:">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Label>
+      <Label fx:id="tipoDocumentoLabel" layoutX="91.0" layoutY="387.0" text="Tipo de documento">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Label>
+      <Label layoutX="94.0" layoutY="425.0" text="Numero de documento:">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Label>
+      <Label fx:id="nroDocumentoClienteLabel" layoutX="94.0" layoutY="460.0" text="Numero  documento">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Label>
+      <Label fx:id="emailClienteLabel" layoutX="164.0" layoutY="495.0" text="Email">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Label>
+      <Label fx:id="telefonoClienteLabel" layoutX="198.0" layoutY="540.0" text="Telefono">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Label>
+      <Label layoutX="827.0" layoutY="197.0" text="Inmueble">
+         <font>
+            <Font name="System Bold" size="36.0" />
+         </font>
+      </Label>
+      <Label fx:id="provinciaInmuebleLabel" layoutX="933.0" layoutY="254.0" text="Provincia">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Label>
+      <Label fx:id="localidadInmuebleLabel" layoutX="941.0" layoutY="299.0" text="Localidad">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Label>
+      <Label fx:id="calleInmuebleLabel" layoutX="890.0" layoutY="344.0" text="Calle">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Label>
+      <Label fx:id="numeroInmuebleLabel" layoutX="929.0" layoutY="383.0" text="Numero">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Label>
+      <Label fx:id="pisoDeptoLabel" layoutX="1048.0" layoutY="456.0" text="PD">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Label>
+      <Label layoutX="827.0" layoutY="491.0" text="Propietario: ">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Label>
+      <Label fx:id="propietarioLabel" layoutX="827.0" layoutY="536.0" text="Nombre apellido prop">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Label>
+      <Label fx:id="tipoInmuebleLabel" layoutX="987.0" layoutY="425.0" text="Tipo">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <Line endX="203.0" layoutX="175.0" layoutY="183.0" startX="-100.0" />
+      <Line endX="203.0" layoutX="175.0" layoutY="583.0" startX="-100.0" />
+      <Line endX="-100.0" endY="-404.0" layoutX="174.0" layoutY="587.0" startX="-100.0" startY="-4.0" />
+      <Line endX="-100.0" endY="-395.0" layoutX="478.0" layoutY="578.0" startX="-100.0" startY="5.0" />
+      <Line endX="225.0" layoutX="905.0" layoutY="178.0" startX="-100.0" />
+      <Line endX="225.0" layoutX="905.0" layoutY="579.0" startX="-100.0" />
+      <Line endX="-100.0" endY="-404.0" layoutX="904.0" layoutY="583.0" startX="-100.0" startY="-4.0" />
+      <Line endX="-100.0" endY="-395.0" layoutX="1230.0" layoutY="574.0" startX="-100.0" startY="5.0" />
+      <Label layoutX="92.0" layoutY="258.0" text="Nombre:">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Label>
+      <Label layoutX="93.0" layoutY="303.0" text="Apellido:">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Label>
+      <Label layoutX="94.0" layoutY="495.0" text="Email:">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Label>
+      <Label layoutX="95.0" layoutY="540.0" text="Telefono:">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Label>
+      <Label layoutX="827.0" layoutY="254.0" text="Provincia:">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Label>
+      <Label layoutX="828.0" layoutY="299.0" text="Localidad:">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Label>
+      <Label layoutX="827.0" layoutY="344.0" text="Calle:">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Label>
+      <Label layoutX="825.0" layoutY="383.0" text="Numero:">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Label>
+      <Label layoutX="826.0" layoutY="421.0" text="Tipo inmueble:">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Label>
+      <Label layoutX="823.0" layoutY="456.0" text="Piso/Departamento:">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Label>
+      <Label layoutX="450.0" layoutY="381.0" text="Vendedor">
+         <font>
+            <Font name="System Bold" size="36.0" />
+         </font>
+      </Label>
+      <Label fx:id="nombreVendedorLabel" layoutX="557.0" layoutY="438.0" text="Nombre">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Label>
+      <Label fx:id="apellidoVendedorLabel" layoutX="557.0" layoutY="483.0" text="Apellido">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Label>
+      <Label fx:id="emailVendedorLabel" layoutX="527.0" layoutY="529.0" text="Email">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Label>
+      <Line endX="203.0" layoutX="541.0" layoutY="363.0" startX="-100.0" />
+      <Line endX="203.0" layoutX="540.0" layoutY="583.0" startX="-100.0" />
+      <Line endX="-100.0" endY="-404.0" layoutX="540.0" layoutY="767.0" startX="-100.0" startY="-183.0" />
+      <Line endX="-100.0" endY="-395.0" layoutX="844.0" layoutY="758.0" startX="-100.0" startY="-175.0" />
+      <Label layoutX="458.0" layoutY="438.0" text="Nombre:">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Label>
+      <Label layoutX="459.0" layoutY="483.0" text="Apellido:">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Label>
+      <Label layoutX="457.0" layoutY="529.0" text="Email:">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Label>
+      <Text layoutX="426.0" layoutY="210.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Muchas gracias por su compra!">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Text>
+      <Text layoutX="415.0" layoutY="267.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Se enviara un documento por la compra y se le enviará un correo a su email correspondiente" textAlignment="CENTER" wrappingWidth="354.3984375">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Text>
+      <TextField fx:id="fechaField" editable="false" layoutX="967.0" layoutY="747.0" prefHeight="42.0" prefWidth="193.0" />
+      <Label layoutX="967.0" layoutY="719.0" text="Fecha:" />
+   </children>
+</AnchorPane>
