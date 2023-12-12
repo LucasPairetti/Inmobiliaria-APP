@@ -307,14 +307,21 @@ public class ModificarInmuebleController implements Initializable {
     					LavaderoCheckBox.isSelected(), PavimentoCheckBox.isSelected(), TelefenoCheckBox.isSelected(), ObservacionesField.getText());
     					//modificar inmueble 
     			
-    			serviceInmueble.updateInmueble(nuevoInmueble);
+    			if(serviceInmueble.updateInmueble(nuevoInmueble)==1) {
+    				Parent root;
+            		root = FXMLLoader.load((getClass().getResource("/interfaces/ClientesPrincipal.fxml")));
+            		
+            		Stage window = (Stage)VolverButton.getScene().getWindow();
+            		window.setTitle("Clientes");
+            		window.setScene(new Scene(root));
+    			}else {
+    				Alert alertaTipo = new Alert(Alert.AlertType.ERROR); //esto es un mensaje de alerta
+    	    		alertaTipo.setTitle("Inmueble inexistente"); //titulo
+    	    		alertaTipo.setContentText("Este Inmueble no existe"); //informacion
+    	    		alertaTipo.showAndWait();
+    			}
     			
-        		Parent root;
-        		root = FXMLLoader.load((getClass().getResource("/interfaces/ClientesPrincipal.fxml")));
-        		
-        		Stage window = (Stage)VolverButton.getScene().getWindow();
-        		window.setTitle("Clientes");
-        		window.setScene(new Scene(root));
+        	
         	} catch (IOException e) {
         		// TODO Auto-generated catch block
         		e.printStackTrace();

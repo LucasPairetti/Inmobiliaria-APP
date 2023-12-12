@@ -145,17 +145,26 @@ public class ReservaPrincipalController implements Initializable{
         	
         	holder.setIdCliente(idCliente);
         	holder.setIdInmueble(idInmueble);
-        	try {
-        		Parent root;
-        		root = FXMLLoader.load((getClass().getResource("/interfaces/ReservaInmuebleConfirmada.fxml")));
-        		
-        		Stage window = (Stage)SalirButton.getScene().getWindow();
-        		window.setTitle("Clientes");
-        		window.setScene(new Scene(root));
-        	} catch (IOException e) {
-        		// TODO Auto-generated catch block
-        		e.printStackTrace();
+        	
+        	if(reservaServices.createReserva(reserva)==1) {
+        		try {
+            		Parent root;
+            		root = FXMLLoader.load((getClass().getResource("/interfaces/ReservaInmuebleConfirmada.fxml")));
+            		
+            		Stage window = (Stage)SalirButton.getScene().getWindow();
+            		window.setTitle("Clientes");
+            		window.setScene(new Scene(root));
+            	} catch (IOException e) {
+            		// TODO Auto-generated catch block
+            		e.printStackTrace();
+            	}
+        	}else {
+        		Alert alertaTipo = new Alert(Alert.AlertType.ERROR); //esto es un mensaje de alerta
+	    		alertaTipo.setTitle("Reserva incompleta"); //titulo
+	    		alertaTipo.setContentText("La reserva no se pudo realizar debido al monto especificado"); //informacion
+	    		alertaTipo.showAndWait();
         	}
+        	
     	}
     	
     }

@@ -161,15 +161,22 @@ public class ModificarPropietarioController implements Initializable {
     			
     			PropietarioDTO nuevoPropietario= new PropietarioDTO(propietarioID,NombreField.getText(), ApellidoField.getText(), TipoDocMenu.getValue(), DNIField.getText(), CalleField.getText(), Integer.parseInt(numeroField.getText()),
             			LocalidadMenu.getValue(), ProvinciaMenu.getValue(), Integer.parseInt(TelefonoField.getText()), emailField.getText());
-    			propietarioService.updatePropietario(nuevoPropietario);
+    			if(propietarioService.updatePropietario(nuevoPropietario)==1) {
+    				Parent root;
+            		root = FXMLLoader.load((getClass().getResource("/interfaces/PropietariosPrincipal.fxml")));
+            		
+            		Stage window = (Stage)CancelarButton.getScene().getWindow();
+            		window.setTitle("Propietarios");
+            		window.setScene(new Scene(root));
+    			}else {
+    				Alert alertaTipo = new Alert(Alert.AlertType.ERROR); //esto es un mensaje de alerta
+    	    		alertaTipo.setTitle("Propietario inexistente"); //titulo
+    	    		alertaTipo.setContentText("Este Propietario no existe "); //informacion
+    	    		alertaTipo.showAndWait();
+    			}
     			
     			
-        		Parent root;
-        		root = FXMLLoader.load((getClass().getResource("/interfaces/PropietariosPrincipal.fxml")));
         		
-        		Stage window = (Stage)CancelarButton.getScene().getWindow();
-        		window.setTitle("Propietarios");
-        		window.setScene(new Scene(root));
         	} catch (IOException e) {
         		// TODO Auto-generated catch block
         		e.printStackTrace();
