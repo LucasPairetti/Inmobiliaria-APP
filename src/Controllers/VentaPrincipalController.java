@@ -152,17 +152,25 @@ else {
 	holder.setIdCliente(idCliente);
 	holder.setIdInmueble(idInmueble);
 	holder.setIdVendedor(idVendedor);
-	try {
-		Parent root;
-		root = FXMLLoader.load((getClass().getResource("/interfaces/VentaConfirmada.fxml")));
-		
-		Stage window = (Stage)SalirButton.getScene().getWindow();
-		window.setTitle("Clientes");
-		window.setScene(new Scene(root));
-	} catch (IOException e) {
-		// TODO Auto-generated catch block
-		e.printStackTrace();
+	if(ventaServices.createVenta(venta)==1) {
+		try {
+			Parent root;
+			root = FXMLLoader.load((getClass().getResource("/interfaces/VentaConfirmada.fxml")));
+			
+			Stage window = (Stage)SalirButton.getScene().getWindow();
+			window.setTitle("Clientes");
+			window.setScene(new Scene(root));
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}else {
+		Alert alertaTipo = new Alert(Alert.AlertType.ERROR); //esto es un mensaje de alerta
+		alertaTipo.setTitle("Venta incompleta"); //titulo
+		alertaTipo.setContentText("La Venta no se pudo realizar debido al monto especificado"); //informacion
+		alertaTipo.showAndWait();
 	}
+	
 }
     	
     }

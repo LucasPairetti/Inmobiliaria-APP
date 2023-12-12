@@ -174,15 +174,23 @@ public class ModificarClienteController implements Initializable{
 			
     		ClienteDTO nuevoCliente = new ClienteDTO(idCliente,NombreField.getText(), ApellidoField.getText(), numeroDocField.getText(), tipoDocMenu.getValue(), Integer.parseInt(TelefonoField.getText()), 
         			EmailField.getText(), Double.parseDouble(MontoUSDField.getText()), InmuebleMenu.getValue(), LocalidadMenu.getValue(), barrioField.getText(), caracteristicasTextArea.getText());
-    		clienteServices.updateCliente(nuevoCliente);
-			
-			
-    		Parent root;
-    		root = FXMLLoader.load((getClass().getResource("/interfaces/ClientesPrincipalPrincipal.fxml")));
     		
-    		Stage window = (Stage)CancelarButton.getScene().getWindow();
-    		window.setTitle("Clientes");
-    		window.setScene(new Scene(root));
+    		if(clienteServices.updateCliente(nuevoCliente)==1) {
+    			Parent root;
+        		root = FXMLLoader.load((getClass().getResource("/interfaces/ClientesPrincipalPrincipal.fxml")));
+        		
+        		Stage window = (Stage)CancelarButton.getScene().getWindow();
+        		window.setTitle("Clientes");
+        		window.setScene(new Scene(root));
+    		}else {
+    			Alert alertaTipo = new Alert(Alert.AlertType.ERROR); //esto es un mensaje de alerta
+	    		alertaTipo.setTitle("Cliente inexistente"); //titulo
+	    		alertaTipo.setContentText("Este cliente no existe "); //informacion
+	    		alertaTipo.showAndWait();
+    		}
+			
+			
+    		
     	} catch (IOException e) {
     		// TODO Auto-generated catch block
     		e.printStackTrace();

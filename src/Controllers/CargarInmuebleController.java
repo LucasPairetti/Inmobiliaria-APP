@@ -281,18 +281,37 @@ public void setPropietarioID(int id) {
     			if(OtraLocalidadField.getText()!="") {
     				localidad=OtraLocalidadField.getText();
     			}
+    			/*
+    			 * public InmuebleDTO (int idPropietario,Date fechaCreacion, String estado, String provincia, String localidad, String calle,
+			int numero, String pisodpto, String barrio, String tipoInmueble,double precioVenta, String orientacion, float frente,float superficie,
+			float fondo, int antiguedad, int dormitorios, int banios,boolean garaje,boolean pHorizontal, boolean patio, boolean piscina, boolean aguaCorriente,
+			boolean cloacas, boolean gasNatural,boolean aguaCaliente, boolean lavadero, boolean pavimento, boolean telefono,
+			String observaciones)
+    			 */
     			
-    			InmuebleDTO nuevoInmueble= new InmuebleDTO(propietarioID, (java.sql.Date) fecha, "Disponible", ProvinciaMenu.getValue(), LocalidadMenu.getValue(), null, 0, null, null, null, 0, null, 0, 0, 0, 0, 0, 0, false, false, false, false, false, false, false, false, false, false, false, null);
+    			InmuebleDTO nuevoInmueble= new InmuebleDTO(propietarioID, (java.sql.Date) fecha, "Disponible", ProvinciaMenu.getValue(), LocalidadMenu.getValue(),
+    					CalleField.getText(), Integer.parseInt(NumeroField.getText()), PisoDeptoField.getText(), BarrioTextField.getText(), TipoInmuebleMenu.getValue(),
+    					Double.parseDouble(PrecioField.getText()), OrientacionMenu.getValue(), Float.parseFloat(FrenteField.getText()),Float.parseFloat(SuperficieField.getText()),
+    					Float.parseFloat(FondoField.getText()),Integer.parseInt(AntiguedadField.getText()), Integer.parseInt(DormitorioField.getText()),Integer.parseInt(BaniosField.getText()),
+    					GarajeCheckBox.isSelected(),PropiedadHorizontalCheckBox.isSelected(),PatioCheckBox.isSelected(),PiscinaCheckBox.isSelected(),AguaCheckBox.isSelected(),
+    					CloacasCheckBox.isSelected(),GasCheckBox.isSelected(),AguaCalienteCheckBox.isSelected(), LavaderoCheckBox.isSelected(),PavimentoCheckBox.isSelected(),TelefenoCheckBox.isSelected(), ObservacionesField.getText());
     					//crear inmueble -> 
     			
-    			serviceInmueble.createInmueble(nuevoInmueble);
+    			if(serviceInmueble.createInmueble(nuevoInmueble)==1) {
+    				Parent root;
+            		root = FXMLLoader.load((getClass().getResource("/interfaces/ClientesPrincipal.fxml")));
+            		
+            		Stage window = (Stage)VolverButton.getScene().getWindow();
+            		window.setTitle("Clientes");
+            		window.setScene(new Scene(root));
+    			}else {
+    				Alert alertaTipo = new Alert(Alert.AlertType.ERROR); //esto es un mensaje de alerta
+    	    		alertaTipo.setTitle("Inmueble existente"); //titulo
+    	    		alertaTipo.setContentText("Este Inmueble ya existe"); //informacion
+    	    		alertaTipo.showAndWait();
+    			}
     			
-        		Parent root;
-        		root = FXMLLoader.load((getClass().getResource("/interfaces/ClientesPrincipal.fxml")));
         		
-        		Stage window = (Stage)VolverButton.getScene().getWindow();
-        		window.setTitle("Clientes");
-        		window.setScene(new Scene(root));
         	} catch (IOException e) {
         		// TODO Auto-generated catch block
         		e.printStackTrace();
