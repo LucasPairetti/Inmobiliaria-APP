@@ -8,12 +8,14 @@ import java.util.ResourceBundle;
 
 import dto.ClienteDTO;
 import dto.InmuebleDTO;
+import dto.ReservaDTO;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -21,6 +23,8 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import services.ClienteServices;
 import services.InmuebleServices;
+import services.ReservaServices;
+import services.VentaServices;
 
 public class ReservaPrincipalController implements Initializable{
 
@@ -82,14 +86,15 @@ public class ReservaPrincipalController implements Initializable{
     
     private int idInmueble;
     private int idCliente;
-    
+    private Validacion validar;
     SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
     ClienteServices clienteServices = ClienteServices.getInstance();
     InmuebleServices inmuebleServices = InmuebleServices.getInstance();
-    
+    ReservaServices reservaServices = ReservaServices.getInstance();
+    Holder holder = Holder.getInstance();
     @Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
-    	Holder holder = Holder.getInstance();
+    	
     	idInmueble = holder.getIdInmueble();
     	idCliente = holder.getIdCliente();
 		// TODO Auto-generated method stub
@@ -116,21 +121,43 @@ public class ReservaPrincipalController implements Initializable{
     
     @FXML
     void ConfirmarPressedPressed(ActionEvent event) {
-
-    	Holder holder = Holder.getInstance();
-    	holder.setIdCliente(idCliente);
-    	holder.setIdInmueble(idInmueble);
-    	try {
-    		Parent root;
-    		root = FXMLLoader.load((getClass().getResource("/interfaces/ReservaInmuebleConfirmada.fxml")));
+    	/*public ReservaDTO(int inmueble,int cliente,int vendedor,double importe, Date fecha,float tiempoVigencia)
+		
+	}*/
+    	Date date = new Date();
+    	if(validar.esUnNumero(montoField.getText())!=1){
     		
-    		Stage window = (Stage)SalirButton.getScene().getWindow();
-    		window.setTitle("Clientes");
-    		window.setScene(new Scene(root));
-    	} catch (IOException e) {
-    		// TODO Auto-generated catch block
-    		e.printStackTrace();
+    		Alert alertaTipo = new Alert(Alert.AlertType.ERROR); //esto es un mensaje de alerta
+    		alertaTipo.setTitle("Monto invalido"); //titulo
+    		alertaTipo.setContentText("El campo 'Monto' debe ser de tipo numerico"); //informacion
+    		alertaTipo.showAndWait();
+    	} else if(validar.esUnNumero(tiempoVigenciaField.getText())!=1){
+    		
+    		Alert alertaTipo = new Alert(Alert.AlertType.ERROR); //esto es un mensaje de alerta
+    		alertaTipo.setTitle("Tiempo de vigencia invalido"); //titulo
+    		alertaTipo.setContentText("El campo 'Tiempo de vigencia' debe ser de tipo numerico"); //informacion
+    		alertaTipo.showAndWait();
+    	}else {
+    		ReservaDTO reserva = new ReservaDTO(idInmueble, idCliente, holder.getIdVendedor(), Double.parseDouble(montoField.getText()),(java.sql.Date) date,Float.parseFloat(tiempoVigenciaField.getText()));
+        	
+        	
+        	
+        	
+        	holder.setIdCliente(idCliente);
+        	holder.setIdInmueble(idInmueble);
+        	try {
+        		Parent root;
+        		root = FXMLLoader.load((getClass().getResource("/interfaces/ReservaInmuebleConfirmada.fxml")));
+        		
+        		Stage window = (Stage)SalirButton.getScene().getWindow();
+        		window.setTitle("Clientes");
+        		window.setScene(new Scene(root));
+        	} catch (IOException e) {
+        		// TODO Auto-generated catch block
+        		e.printStackTrace();
+        	}
     	}
+    	
     }
 
     @FXML
