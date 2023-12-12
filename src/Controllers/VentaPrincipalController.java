@@ -9,12 +9,14 @@ import java.util.ResourceBundle;
 import dto.ClienteDTO;
 import dto.InmuebleDTO;
 import dto.VendedorDTO;
+import dto.VentaDTO;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -23,6 +25,7 @@ import javafx.stage.Stage;
 import services.ClienteServices;
 import services.InmuebleServices;
 import services.VendedorServices;
+import services.VentaServices;
 
 public class VentaPrincipalController implements Initializable{
 
@@ -92,10 +95,12 @@ public class VentaPrincipalController implements Initializable{
     private int idInmueble;
     private int idCliente;
     private int idVendedor;
-    ;
+    private Validacion validar;
+    Holder holder = Holder.getInstance();
     ClienteServices clienteServices = ClienteServices.getInstance();
     InmuebleServices inmuebleServices = InmuebleServices.getInstance();
     VendedorServices vendedorServices = VendedorServices.getInstance();
+    VentaServices ventaServices = VentaServices.getInstance();
     @Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		// TODO Auto-generated method stub
@@ -131,21 +136,35 @@ public class VentaPrincipalController implements Initializable{
 
     @FXML
     void ConfirmarPressedPressed(ActionEvent event) {
-    	Holder holder = Holder.getInstance();
-    	holder.setIdCliente(idCliente);
-    	holder.setIdInmueble(idInmueble);
-    	holder.setIdVendedor(idVendedor);
-    	try {
-    		Parent root;
-    		root = FXMLLoader.load((getClass().getResource("/interfaces/VentaConfirmada.fxml")));
+if(validar.esUnNumero(montoField.getText())!=1){
     		
-    		Stage window = (Stage)SalirButton.getScene().getWindow();
-    		window.setTitle("Clientes");
-    		window.setScene(new Scene(root));
-    	} catch (IOException e) {
-    		// TODO Auto-generated catch block
-    		e.printStackTrace();
+    		Alert alertaTipo = new Alert(Alert.AlertType.ERROR); //esto es un mensaje de alerta
+    		alertaTipo.setTitle("Monto invalido"); //titulo
+    		alertaTipo.setContentText("El campo 'Monto' debe ser de tipo numerico"); //informacion
+    		alertaTipo.showAndWait();
     	}
+else {
+	Date date = new Date();
+	//public VentaDTO(int inmueble,int cliente,int vendedor,double importe, Date fecha)
+	VentaDTO venta = new VentaDTO(idInmueble, idCliente, idVendedor,Double.parseDouble(montoField.getText()),(java.sql.Date) date);
+	
+	ventaServices.createVenta(venta);
+	holder.setIdCliente(idCliente);
+	holder.setIdInmueble(idInmueble);
+	holder.setIdVendedor(idVendedor);
+	try {
+		Parent root;
+		root = FXMLLoader.load((getClass().getResource("/interfaces/VentaConfirmada.fxml")));
+		
+		Stage window = (Stage)SalirButton.getScene().getWindow();
+		window.setTitle("Clientes");
+		window.setScene(new Scene(root));
+	} catch (IOException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}
+}
+    	
     }
 
     @FXML
