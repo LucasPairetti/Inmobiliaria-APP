@@ -212,46 +212,55 @@ public void setPropietarioID(int id) {
     		Alert alertaTipo = new Alert(Alert.AlertType.ERROR); //esto es un mensaje de alerta
     		alertaTipo.setTitle("Numero de calle invalido"); //titulo
     		alertaTipo.setContentText("El campo 'Numero' para la calle debe ser de tipo numerico"); //informacion
+    		alertaTipo.showAndWait();
     	}else if(validar.esUnNumero(PrecioField.getText())!=1){
     		
     		Alert alertaTipo = new Alert(Alert.AlertType.ERROR); //esto es un mensaje de alerta
     		alertaTipo.setTitle("Precio invalido"); //titulo
     		alertaTipo.setContentText("El campo 'Precio' debe ser de tipo numerico"); //informacion
+    		alertaTipo.showAndWait();
     	}else if(validar.esUnNumero(SuperficieField.getText())!=1){
     		
     		Alert alertaTipo = new Alert(Alert.AlertType.ERROR); //esto es un mensaje de alerta
     		alertaTipo.setTitle("Superficie invalida"); //titulo
     		alertaTipo.setContentText("El campo 'superficie' debe ser de tipo numerico"); //informacion
+    		alertaTipo.showAndWait();
     	}else if(validar.esUnNumero(AntiguedadField.getText())!=1){
     		
     		Alert alertaTipo = new Alert(Alert.AlertType.ERROR); //esto es un mensaje de alerta
     		alertaTipo.setTitle("Antiguedad invalida"); //titulo
     		alertaTipo.setContentText("El campo 'Antiguedad' debe ser de tipo numerico"); //informacion
+    		alertaTipo.showAndWait();
     	}else if(validar.esUnNumero(DormitorioField.getText())!=1){
     		
     		Alert alertaTipo = new Alert(Alert.AlertType.ERROR); //esto es un mensaje de alerta
     		alertaTipo.setTitle("Dormitorios invalida"); //titulo
     		alertaTipo.setContentText("El campo 'Cantidad de Dormitorios' debe ser de tipo numerico"); //informacion
+    		alertaTipo.showAndWait();
     	}else if(validar.esUnNumero(FrenteField.getText())!=1){
     		
     		Alert alertaTipo = new Alert(Alert.AlertType.ERROR); //esto es un mensaje de alerta
     		alertaTipo.setTitle("Frente invalido"); //titulo
     		alertaTipo.setContentText("El campo 'Frente' debe ser de tipo numerico"); //informacion
+    		alertaTipo.showAndWait();
     	}else if(validar.esUnNumero(FondoField.getText())!=1){
     		
     		Alert alertaTipo = new Alert(Alert.AlertType.ERROR); //esto es un mensaje de alerta
     		alertaTipo.setTitle("Fondo invalido"); //titulo
     		alertaTipo.setContentText("El campo 'Fondo' debe ser de tipo numerico"); //informacion
+    		alertaTipo.showAndWait();
     	}else if(validar.esUnNumero(BaniosField.getText())!=1){
     		
     		Alert alertaTipo = new Alert(Alert.AlertType.ERROR); //esto es un mensaje de alerta
     		alertaTipo.setTitle("baños invalido"); //titulo
     		alertaTipo.setContentText("El campo 'Baños' debe ser de tipo numerico"); //informacion
+    		alertaTipo.showAndWait();
     	}else if(validar.esString(BarrioTextField.getText())!=1){
     		
     		Alert alertaTipo = new Alert(Alert.AlertType.ERROR); //esto es un mensaje de alerta
     		alertaTipo.setTitle("Barrio invalido"); //titulo
     		alertaTipo.setContentText("El campo 'Barrio' es invalido"); //informacion
+    		alertaTipo.showAndWait();
     	}
     	else {
     		

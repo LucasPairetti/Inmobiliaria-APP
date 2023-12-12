@@ -122,7 +122,7 @@ public class ReservaPrincipalController implements Initializable{
     	holder.setIdInmueble(idInmueble);
     	try {
     		Parent root;
-    		root = FXMLLoader.load((getClass().getResource("/interfaces/ReservaInmueleConfirmada.fxml")));
+    		root = FXMLLoader.load((getClass().getResource("/interfaces/ReservaInmuebleConfirmada.fxml")));
     		
     		Stage window = (Stage)SalirButton.getScene().getWindow();
     		window.setTitle("Clientes");
