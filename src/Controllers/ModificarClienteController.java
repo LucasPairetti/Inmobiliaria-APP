@@ -87,17 +87,14 @@ public class ModificarClienteController implements Initializable{
     	localidades.addAll(Localidad.getLocalidad());
     	LocalidadMenu.setItems(localidades);
     	ClienteDTO cliente= clienteServices.getClienteById(idCliente);
-    	tipoDocMenu.setValue(cliente.getTipoDNI());
+    	
     	NombreField.setText(cliente.getNombre());
-    	InmuebleMenu.setValue(cliente.getTipoInmuebleBuscado());
-    	LocalidadMenu.setValue(cliente.getLocalidadBuscada());
     	ApellidoField.setText(cliente.getApellido());
     	EmailField.setText(cliente.getEmail());
     	MontoUSDField.setText(String.valueOf(cliente.getMontoDisponible())); 
     	TelefonoField.setText(String.valueOf(cliente.getTelefono())); 
     	numeroDocField.setText(cliente.getDni());
     	barrioField.setText(cliente.getBarrios());
-    	caracteristicasTextArea.setText(cliente.getCaracteristicasDeseadas());
 	}
     
     public void setCliente(int id) {

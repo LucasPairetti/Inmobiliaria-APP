@@ -66,7 +66,7 @@ public class VendedoresPrincipalController implements Initializable{
     @FXML
     private Button VolverButton;
     
-    private Validacion validar =Validacion.getInstance();
+    private Validacion validar;
     private VendedorServices vendedorServices= VendedorServices.getInstance();
     private ObservableList<VendedorDTO> listaVendedores =FXCollections.observableArrayList();
     @Override

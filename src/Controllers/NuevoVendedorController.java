@@ -73,7 +73,7 @@ public class NuevoVendedorController implements Initializable {
     @FXML
     private ComboBox<String> tipoDocMenu;
 
-    private Validacion validar =Validacion.getInstance();
+    private Validacion validar;
     private VendedorServices vendedorServices= VendedorServices.getInstance();
     @Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
@@ -151,25 +151,7 @@ public class NuevoVendedorController implements Initializable {
      	    alertaTipo.setContentText("El campo 'fecha de nacimiento' no puede estar vacío");
      	    alertaTipo.showAndWait();
     		
-    	}else if(ProvinciaMenu.getValue()==null) {
-      		 Alert alertaTipo = new Alert(Alert.AlertType.ERROR);
-       	    alertaTipo.setTitle("Provincia vacía");
-       	    alertaTipo.setContentText("El campo 'provincia' no puede estar vacío");
-       	    alertaTipo.showAndWait();
-      		
-      	}else if(LocalidadMenu.getValue()==null) {
-       		 Alert alertaTipo = new Alert(Alert.AlertType.ERROR);
-        	    alertaTipo.setTitle("localidad vacía");
-        	    alertaTipo.setContentText("El campo 'localidad' no puede estar vacío");
-        	    alertaTipo.showAndWait();
-       		
-       	}else if(tipoDocMenu.getValue()==null) {
-      		 Alert alertaTipo = new Alert(Alert.AlertType.ERROR);
-         	    alertaTipo.setTitle("tipo de documento vacío");
-         	    alertaTipo.setContentText("El campo 'Tipo de documento' no puede estar vacío");
-         	    alertaTipo.showAndWait();
-        		
-        	}
+    	}
     	 else if (ClaveField.getText().equals("") || validar.esString(ClaveField.getText()) != 1) {
      	    Alert alertaTipo = new Alert(Alert.AlertType.ERROR);
      	    alertaTipo.setTitle("Clave inválida o vacío");
@@ -187,29 +169,21 @@ public class NuevoVendedorController implements Initializable {
      		VendedorDTO nuevoVendedor= new VendedorDTO(NombreField.getText(), ApellidoField.getText(), tipoDocMenu.getValue(), numeroDocField.getText(), CalleField.getText(),
      				Integer.parseInt(NumeroDomicilioField.getText()), LocalidadMenu.getValue(), ProvinciaMenu.getValue(), Integer.parseInt(TelefonoField.getText()),
      				EmailField.getText(), date, Double.parseDouble(SueldoField.getText()), ClaveField.getText());
-     		if(vendedorServices.createVendedor(nuevoVendedor)==1) {
-     			try {
-            		Parent root;
-            		root = FXMLLoader.load((getClass().getResource("/interfaces/VendedoresPrincipal.fxml")));
-            		
-            		Stage window = (Stage)GuardarBUtton.getScene().getWindow();
-            		window.setTitle("Vendedores");
-            		window.setScene(new Scene(root));
-            	} catch (IOException e) {
-            		// TODO Auto-generated catch block
-            		e.printStackTrace();
-            	}
-     		}else {
-     			Alert alertaTipo = new Alert(Alert.AlertType.ERROR); //esto es un mensaje de alerta
-	    		alertaTipo.setTitle("Vendedor existente"); //titulo
-	    		alertaTipo.setContentText("Este Vendedor ya existe"); //informacion
-	    		alertaTipo.showAndWait();
-     			
-     		}
+     		vendedorServices.createVendedor(nuevoVendedor);
      		
      	
      		
-     		
+     		try {
+        		Parent root;
+        		root = FXMLLoader.load((getClass().getResource("/interfaces/VendedoresPrincipal.fxml")));
+        		
+        		Stage window = (Stage)GuardarBUtton.getScene().getWindow();
+        		window.setTitle("Vendedores");
+        		window.setScene(new Scene(root));
+        	} catch (IOException e) {
+        		// TODO Auto-generated catch block
+        		e.printStackTrace();
+        	}
      		
      	}
     	
