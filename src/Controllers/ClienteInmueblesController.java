@@ -108,10 +108,11 @@ public class ClienteInmueblesController implements Initializable {
     		Alert alertaTipo = new Alert(Alert.AlertType.ERROR); //esto es un mensaje de alerta
     		alertaTipo.setTitle("Venta"); //titulo
     		alertaTipo.setContentText("Debe seleccionar un inmueble de la tabla antes de realizar una venta"); //informacion
-    		
+    		alertaTipo.showAndWait();
     	}else {
     		Holder holder = Holder.getInstance();
         	holder.setIdCliente(idCliente);
+        	holder.setIdVendedor(1);
         	
         	holder.setIdInmueble(InmuebleTable.getSelectionModel().getSelectedItem().getId());
         	try {
@@ -135,7 +136,7 @@ public class ClienteInmueblesController implements Initializable {
     		Alert alertaTipo = new Alert(Alert.AlertType.ERROR); //esto es un mensaje de alerta
     		alertaTipo.setTitle("Reserva"); //titulo
     		alertaTipo.setContentText("Debe seleccionar un inmueble de la tabla antes de realizar una Reserva"); //informacion
-    		
+    		alertaTipo.showAndWait();
     	}else {
     		Holder holder = Holder.getInstance();
         	holder.setIdCliente(idCliente);
@@ -161,7 +162,7 @@ public class ClienteInmueblesController implements Initializable {
     		Alert alertaTipo = new Alert(Alert.AlertType.ERROR); //esto es un mensaje de alerta
     		alertaTipo.setTitle("Inmueble"); //titulo
     		alertaTipo.setContentText("Debe seleccionar un Inmueble para ver sus detalles"); //informacion
-    		
+    		alertaTipo.showAndWait();
     	}else {
     		
     		

@@ -101,7 +101,7 @@ Parent root = FXMLLoader.load((getClass().getResource("/interfaces/PantallaPrinc
 		VentaServices ventaservices = VentaServices.getInstance();
 		ventaservices.generarPDF(venta);
 		*/
-		
+		/*
 		Cliente cliente = new Cliente("Tomas", "Auday","44444444",TipoDNI.DNI, 111111111,"sofia.30.10.99@gmail.com",40000000,
 				TipoInmueble.C, "Santa Fe", "Fomento/7 Jefes/Guadalupe",
 				"Varios banios, varios dormitorios, patio");
@@ -112,8 +112,8 @@ Parent root = FXMLLoader.load((getClass().getResource("/interfaces/PantallaPrinc
 		//System.out.print(inmservices.getInmueblesDisponibles());
 		//System.out.print(inmservices.inmueblesDisponiblesParaCliente(clientedto,TipoInmueble.C));
 		System.out.print(inmservices.reservasValidasCliente(clientedto));
-		
-		//launch(args);	
+		/*/
+		launch(args);	
 		
 		
 		

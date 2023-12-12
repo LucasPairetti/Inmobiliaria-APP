@@ -107,30 +107,37 @@ public class NuevoPropietarioController implements Initializable {
     	    Alert alertaTipo = new Alert(Alert.AlertType.ERROR);
     	    alertaTipo.setTitle("Número de calle inválido");
     	    alertaTipo.setContentText("El campo 'Número' para la calle debe ser de tipo numérico");
+    	    alertaTipo.showAndWait();
     	} else if (NombreField.getText().equals("") || validar.esString(NombreField.getText()) != 1) {
     	    Alert alertaTipo = new Alert(Alert.AlertType.ERROR);
     	    alertaTipo.setTitle("Nombre inválido o vacío");
     	    alertaTipo.setContentText("El campo 'Nombre' es inválido o está vacío");
+    	    alertaTipo.showAndWait();
     	} else if (ApellidoField.getText().equals("") || validar.esString(ApellidoField.getText()) != 1) {
     	    Alert alertaTipo = new Alert(Alert.AlertType.ERROR);
     	    alertaTipo.setTitle("Apellido inválido o vacío");
     	    alertaTipo.setContentText("El campo 'Apellido' es inválido o está vacío");
+    	    alertaTipo.showAndWait();
     	} else if (DNIField.getText().equals("") || validar.esString(DNIField.getText()) != 1) {
     	    Alert alertaTipo = new Alert(Alert.AlertType.ERROR);
     	    alertaTipo.setTitle("DNI inválido o vacío");
     	    alertaTipo.setContentText("El campo 'DNI' es inválido o está vacío");
+    	    alertaTipo.showAndWait();
     	} else if (CalleField.getText().equals("") || validar.esString(CalleField.getText()) != 1) {
     	    Alert alertaTipo = new Alert(Alert.AlertType.ERROR);
     	    alertaTipo.setTitle("Calle inválida o vacía");
     	    alertaTipo.setContentText("El campo 'Calle' es inválido o está vacío");
+    	    alertaTipo.showAndWait();
     	} else if (validar.esUnNumero(TelefonoField.getText()) != 1) {
     	    Alert alertaTipo = new Alert(Alert.AlertType.ERROR);
     	    alertaTipo.setTitle("Número de teléfono inválido");
     	    alertaTipo.setContentText("El campo 'Teléfono' debe ser de tipo numérico");
+    	    alertaTipo.showAndWait();
     	} else if (emailField.getText().equals("") || validar.esString(emailField.getText()) != 1) {
     	    Alert alertaTipo = new Alert(Alert.AlertType.ERROR);
     	    alertaTipo.setTitle("Email inválido o vacío");
     	    alertaTipo.setContentText("El campo 'Email' es inválido o está vacío");
+    	    alertaTipo.showAndWait();
     	}else {
     		/*
         	 * public PropietarioDTO(String nombre, String apellido, String tipodni, String dni, String calle, int numero,

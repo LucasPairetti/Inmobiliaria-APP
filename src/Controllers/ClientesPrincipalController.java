@@ -115,14 +115,17 @@ if(validar.esUnDNI(DocumentoField.getText())==1 ||DocumentoField.getText()=="" )
 	Alert alertaTipo = new Alert(Alert.AlertType.ERROR); //esto es un mensaje de alerta
 	alertaTipo.setTitle("DNI invalido"); //titulo
 	alertaTipo.setContentText("El DNI indicado es invalido para la busqueda"); //informacion
+	alertaTipo.showAndWait();
 }else if(validar.esString(NombreField.getText())==1 ||NombreField.getText()=="") {
 	Alert alertaTipo = new Alert(Alert.AlertType.ERROR); //esto es un mensaje de alerta
 	alertaTipo.setTitle("Nombre invalido"); //titulo
 	alertaTipo.setContentText("debe completar el campo 'nombre' para la busqueda"); //informacion
+	alertaTipo.showAndWait();
 }else if(validar.esString(ApellidoField.getText())==1 ||ApellidoField.getText()=="") {
 	Alert alertaTipo = new Alert(Alert.AlertType.ERROR); //esto es un mensaje de alerta
 	alertaTipo.setTitle("Apellido invalido"); //titulo
 	alertaTipo.setContentText("debe completar el campo 'Apellido' para la busqueda"); //informacion
+	alertaTipo.showAndWait();
 }
 else {
     	listaDeClientes= (ObservableList<ClienteDTO>) clientesService.getClientes(NombreField.getText(), ApellidoField.getText(), TipoDocMenu.getValue(), DocumentoField.getText());
@@ -143,6 +146,7 @@ else {
     		Alert alertaTipo = new Alert(Alert.AlertType.ERROR); //esto es un mensaje de alerta
     		alertaTipo.setTitle("Propietario"); //titulo
     		alertaTipo.setContentText("Debe seleccionar un Propietario de la tabla antes de eliminarlo"); //informacion
+    		alertaTipo.showAndWait();
     	}
     }
     
@@ -165,6 +169,7 @@ else {
     		Alert alertaTipo = new Alert(Alert.AlertType.ERROR); //esto es un mensaje de alerta
     		alertaTipo.setTitle("Cliente"); //titulo
     		alertaTipo.setContentText("Debe seleccionar un cliente de la tabla antes de modificarlo"); //informacion
+    		alertaTipo.showAndWait();
     		
     	}else {
     		
@@ -220,6 +225,7 @@ else {
     		Alert alertaTipo = new Alert(Alert.AlertType.ERROR); //esto es un mensaje de alerta
     		alertaTipo.setTitle("Cliente"); //titulo
     		alertaTipo.setContentText("Debe seleccionar un cliente de la tabla para buscar sus inmuebles disponibles"); //informacion
+    		alertaTipo.showAndWait();
     		
     	}else {
     		

@@ -115,34 +115,42 @@ public class NuevoClienteController implements Initializable{
     	    Alert alertaTipo = new Alert(Alert.AlertType.ERROR);
     	    alertaTipo.setTitle("Nombre inválido o vacío");
     	    alertaTipo.setContentText("El campo 'Nombre' es inválido o está vacío");
+    	    alertaTipo.showAndWait();
     	} else if (ApellidoField.getText().equals("") || validar.esString(ApellidoField.getText()) != 1) {
     	    Alert alertaTipo = new Alert(Alert.AlertType.ERROR);
     	    alertaTipo.setTitle("Apellido inválido o vacío");
     	    alertaTipo.setContentText("El campo 'Apellido' es inválido o está vacío");
+    	    alertaTipo.showAndWait();
     	} else if (numeroDocField.getText().equals("") || validar.esString(numeroDocField.getText()) != 1) {
     	    Alert alertaTipo = new Alert(Alert.AlertType.ERROR);
     	    alertaTipo.setTitle("Número de documento inválido o vacío");
     	    alertaTipo.setContentText("El campo 'Número de documento' es inválido o está vacío");
+    	    alertaTipo.showAndWait();
     	} else if (TelefonoField.getText().equals("") || validar.esUnNumero(TelefonoField.getText()) != 1) {
     	    Alert alertaTipo = new Alert(Alert.AlertType.ERROR);
     	    alertaTipo.setTitle("Número de teléfono inválido o vacío");
     	    alertaTipo.setContentText("El campo 'Teléfono' debe ser de tipo numérico y no puede estar vacío");
+    	    alertaTipo.showAndWait();
     	} else if (EmailField.getText().equals("") || validar.esString(EmailField.getText()) != 1) {
     	    Alert alertaTipo = new Alert(Alert.AlertType.ERROR);
     	    alertaTipo.setTitle("Email inválido o vacío");
     	    alertaTipo.setContentText("El campo 'Email' es inválido o está vacío");
+    	    alertaTipo.showAndWait();
     	} else if (MontoUSDField.getText().equals("") || validar.esUnNumero(MontoUSDField.getText()) != 1) {
     	    Alert alertaTipo = new Alert(Alert.AlertType.ERROR);
     	    alertaTipo.setTitle("Monto en USD inválido o vacío");
     	    alertaTipo.setContentText("El campo 'Monto en USD' debe ser de tipo numérico y no puede estar vacío");
+    	    alertaTipo.showAndWait();
     	} else if (barrioField.getText().equals("") || validar.esString(barrioField.getText()) != 1) {
     	    Alert alertaTipo = new Alert(Alert.AlertType.ERROR);
     	    alertaTipo.setTitle("Barrio inválido o vacío");
     	    alertaTipo.setContentText("El campo 'Barrio' es inválido o está vacío");
+    	    alertaTipo.showAndWait();
     	} else if (caracteristicasTextArea.getText().equals("") || validar.esString(caracteristicasTextArea.getText()) != 1) {
     	    Alert alertaTipo = new Alert(Alert.AlertType.ERROR);
     	    alertaTipo.setTitle("Características inválidas o vacías");
     	    alertaTipo.setContentText("El campo 'Características' es inválido o está vacío");
+    	    alertaTipo.showAndWait();
     	}else {
     		
     	
