@@ -65,6 +65,15 @@ public class VendedorServices {
 		return new VendedorDTO(vendedor);
 		}
 	}
+	public VendedorDTO validarVendedor(String email,String clave) {//si es null no esta validado, por ende no debe iniciar
+		return Optional.ofNullable(vendedordao.getAllVendedor())
+	            .map(List::stream)
+	            .orElseGet(Stream::empty)
+	            .filter(vendedor -> vendedor.getEmail().equals(email) && vendedor.getClave().equals(clave))
+	            .map(vendedor -> new VendedorDTO(vendedor))
+	            .findFirst()
+	            .orElse(null);
+	}
 	public VendedorDTO getVendedorById(int id) {
 	    Vendedor vendedor = vendedordao.getVendedorById(id);
 	    return vendedor != null ? new VendedorDTO(vendedor) : null;
