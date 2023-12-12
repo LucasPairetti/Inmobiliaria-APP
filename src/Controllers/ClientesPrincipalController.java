@@ -144,8 +144,8 @@ else {
     		ClientesTable.setItems(listaDeClientes);
     	}else {
     		Alert alertaTipo = new Alert(Alert.AlertType.ERROR); //esto es un mensaje de alerta
-    		alertaTipo.setTitle("Propietario"); //titulo
-    		alertaTipo.setContentText("Debe seleccionar un Propietario de la tabla antes de eliminarlo"); //informacion
+    		alertaTipo.setTitle("Cliente"); //titulo
+    		alertaTipo.setContentText("Debe seleccionar un Cliente de la tabla antes de eliminarlo"); //informacion
     		alertaTipo.showAndWait();
     	}
     }
