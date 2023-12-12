@@ -178,8 +178,7 @@ public class NuevoClienteController implements Initializable{
     		ClienteDTO nuevoCliente = new ClienteDTO(NombreField.getText(), ApellidoField.getText(), numeroDocField.getText(), tipoDocMenu.getValue(), Integer.parseInt(TelefonoField.getText()), 
         			EmailField.getText(), Double.parseDouble(MontoUSDField.getText()), InmuebleMenu.getValue(), LocalidadMenu.getValue(), barrioField.getText(), caracteristicasTextArea.getText());
     		
-    		
-    		if(clienteServices.createCliente(nuevoCliente)==1) {
+    		if(clienteServices.updateCliente(nuevoCliente)==1) {
     			Parent root;
         		root = FXMLLoader.load((getClass().getResource("/interfaces/ClientesPrincipal.fxml")));
         		

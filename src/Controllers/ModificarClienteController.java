@@ -188,7 +188,7 @@ public class ModificarClienteController implements Initializable{
     		
     		if(clienteServices.updateCliente(nuevoCliente)==1) {
     			Parent root;
-        		root = FXMLLoader.load((getClass().getResource("/interfaces/ClientesPrincipal.fxml")));
+        		root = FXMLLoader.load((getClass().getResource("/interfaces/ClientesPrincipalPrincipal.fxml")));
         		
         		Stage window = (Stage)CancelarButton.getScene().getWindow();
         		window.setTitle("Clientes");

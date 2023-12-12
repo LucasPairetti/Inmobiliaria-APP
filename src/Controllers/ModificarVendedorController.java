@@ -179,21 +179,28 @@ public class ModificarVendedorController implements Initializable {
      		VendedorDTO nuevoVendedor= new VendedorDTO(idVendedor,NombreField.getText(), ApellidoField.getText(), tipoDocMenu.getValue(), numeroDocField.getText(), CalleField.getText(),
      				Integer.parseInt(NumeroDomicilioField.getText()), LocalidadMenu.getValue(), ProvinciaMenu.getValue(), Integer.parseInt(TelefonoField.getText()),
      				EmailField.getText(), date, Double.parseDouble(SueldoField.getText()), ClaveField.getText());
-     		vendedorServices.updateVendedor(nuevoVendedor);
+     		if(vendedorServices.updateVendedor(nuevoVendedor)==1) {
+     			try {
+            		Parent root;
+            		root = FXMLLoader.load((getClass().getResource("/interfaces/VendedoresPrincipal.fxml")));
+            		
+            		Stage window = (Stage)GuardarBUtton.getScene().getWindow();
+            		window.setTitle("Vendedores");
+            		window.setScene(new Scene(root));
+            	} catch (IOException e) {
+            		// TODO Auto-generated catch block
+            		e.printStackTrace();
+            	}
+     		}else {
+     			Alert alertaTipo = new Alert(Alert.AlertType.ERROR); //esto es un mensaje de alerta
+	    		alertaTipo.setTitle("Vendedor inexistente"); //titulo
+	    		alertaTipo.setContentText("Este Vendedor no existe "); //informacion
+	    		alertaTipo.showAndWait();
+     		}
      		
      	
      		
-     		try {
-        		Parent root;
-        		root = FXMLLoader.load((getClass().getResource("/interfaces/VendedoresPrincipal.fxml")));
-        		
-        		Stage window = (Stage)GuardarBUtton.getScene().getWindow();
-        		window.setTitle("Vendedores");
-        		window.setScene(new Scene(root));
-        	} catch (IOException e) {
-        		// TODO Auto-generated catch block
-        		e.printStackTrace();
-        	}
+     		
      		
      	}
     }
