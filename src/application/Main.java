@@ -25,6 +25,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.stage.Stage;
 import services.InmuebleServices;
 import services.ReservaServices;
+import services.VendedorServices;
 import services.VentaServices;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
