@@ -178,6 +178,11 @@ public class ModificarInmuebleController implements Initializable {
     	OrientacionMenu.setItems(orientaciones);
     	
     	InmuebleDTO inmueble = serviceInmueble.getById(inmuebleID);
+    	OrientacionMenu.setValue(inmueble.getOrientacion());
+    	TipoInmuebleMenu.setValue(inmueble.getTipoInmueble());
+    	LocalidadMenu.setValue(inmueble.getLocalidad());
+    	ProvinciaMenu.setValue(inmueble.getProvincia());
+    	estadoMenu.setValue(inmueble.getEstado());
 		AntiguedadField.setText(String.valueOf(inmueble.getAntiguedad()));
 		BaniosField.setText(String.valueOf(inmueble.getBanios()));
 		BarrioField.setText(inmueble.getBarrio());

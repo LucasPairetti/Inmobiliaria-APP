@@ -85,6 +85,9 @@ public class ModificarPropietarioController implements Initializable {
      	TipoDocMenu.setItems(TipoDocumentos);
     	
      	PropietarioDTO propietario = propietarioService.getPropietarioById(propietarioID);
+     	LocalidadMenu.setValue(propietario.getLocalidad());
+     	ProvinciaMenu.setValue(propietario.getProvincia());
+     	TipoDocMenu.setValue(propietario.getTipodni());
      	ApellidoField.setText(propietario.getApellido());
      	CalleField.setText(propietario.getCalle());
      	DNIField.setText(propietario.getDni());
