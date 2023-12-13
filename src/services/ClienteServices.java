@@ -30,7 +30,7 @@ public class ClienteServices {
 		TipoDNI tipoDNI= TipoDNI.valueOf(entrada.getTipoDNI());
 		if(chequearDuplicado( tipoDNI,entrada.getDni())) {return -1;}//si existe un duplicado retorna -1
 		else {
-			Cliente cliente = toCliente(entrada);
+			Cliente cliente = toClienteNuevo(entrada);
 			 clientedao.createCliente(cliente);
 			return 1;}
 		
@@ -45,14 +45,13 @@ public class ClienteServices {
 	public int updateCliente(ClienteDTO entrada) {
 		Cliente og = clientedao.getClienteById(entrada.getId());
 		if(og !=null) {
-			Cliente cliente = toCliente(entrada);
-			cliente.setDni(og.getDni());
-			cliente.setTipodni(og.getTipodni());
-			clientedao.updateCliente(cliente);
+			actualizarCliente(og, entrada);
+			clientedao.updateCliente(og);
 			return 1;
-		}else {return -1;}
+		}else {System.out.println("No se ha podido recuperar el cliente"); return -1;}
 		
 	};
+	
 	public List<ClienteDTO> listClientes() {
 	    return Optional.ofNullable(clientedao.getAllClientes())
 	            .map(List::stream)
@@ -78,15 +77,35 @@ public class ClienteServices {
 		}
 		else {return null;}
 	}
-	private Cliente toCliente( ClienteDTO entrada) {
+	
+	private Cliente toClienteNuevo( ClienteDTO entrada) {
 		TipoInmueble tipoInmueble= TipoInmueble.valueOf(entrada.getTipoInmuebleBuscado());
 		TipoDNI tipoDNI= TipoDNI.valueOf(entrada.getTipoDNI());
 		return new Cliente( entrada.getNombre(), entrada.getApellido(), entrada.getDni(),tipoDNI,entrada.getTelefono(),entrada.getEmail(),
 				entrada.getMontoDisponible(),tipoInmueble, entrada.getLocalidadBuscada(), entrada.getBarrios(),entrada.getCaracteristicasDeseadas());
 	}
+	
+	private void actualizarCliente(Cliente clienteOriginal, ClienteDTO clienteActualizado) {
+		
+		TipoInmueble tipoInmueble= TipoInmueble.valueOf(clienteActualizado.getTipoInmuebleBuscado());
+		TipoDNI tipoDNI= TipoDNI.valueOf(clienteActualizado.getTipoDNI());
+		clienteOriginal.setNombre(clienteActualizado.getNombre());
+		clienteOriginal.setApellido(clienteActualizado.getApellido());
+		clienteOriginal.setDni(clienteActualizado.getDni());
+		clienteOriginal.setTipodni(tipoDNI);
+		clienteOriginal.setTelefono(clienteActualizado.getTelefono());
+		clienteOriginal.setEmail(clienteActualizado.getEmail());
+		clienteOriginal.setMontoDisponible(clienteActualizado.getMontoDisponible());
+		clienteOriginal.setTipoInmuebleBuscado(tipoInmueble);
+		clienteOriginal.setLocalidadBuscada(clienteActualizado.getLocalidadBuscada());
+		clienteOriginal.setBarrios(clienteActualizado.getBarrios());
+		clienteOriginal.setCaracteristicasDeseadas(clienteActualizado.getCaracteristicasDeseadas());
+		
+	}
+	
 	private boolean chequearDuplicado( TipoDNI tipo,String dni) {
-		List<Cliente> lista=clientedao.getCliente(dni, tipo, null, null);
-		if(lista==null){return false;}
-		else { return true;}
+		List<Cliente> lista = clientedao.getCliente(dni, tipo, null, null);
+		if(lista.isEmpty()) return false;
+		else return true;
 		}
 }

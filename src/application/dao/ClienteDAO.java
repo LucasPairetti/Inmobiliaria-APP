@@ -144,15 +144,15 @@ public class ClienteDAO {
 			
 			try {
 			
-			Query<Cliente> query = session.createQuery("SELECT * FROM CLIENTE WHERE"
-					+ "(DNI = ?1 OR ?1 IS NULL) AND"
-					+ "(TIPODNI = ?2 OR ?2 IS NULL) AND"
-					+ "(NOMBRE = ?3 OR ?3 IS NULL) AND"
-					+ "(APELLIDO = ?4 OR ?4 IS NULL)", Cliente.class);
-			query.setParameter(1, dni);
-			query.setParameter(2, tipo);
-			query.setParameter(3, nombre);
-			query.setParameter(4, apellido);
+			Query<Cliente> query = session.createQuery("SELECT a FROM Cliente a WHERE"
+					+ "(a.dni = :dni OR :dni IS NULL) AND "
+					+ "(a.tipodni = :tipodni OR :tipodni IS NULL) AND "
+					+ "(a.nombre = :nombre OR :nombre IS NULL) AND "
+					+ "(a.apellido = :apellido OR :apellido IS NULL)", Cliente.class);
+			query.setParameter("dni", dni);
+			query.setParameter("tipodni", tipo);
+			query.setParameter("nombre", nombre);
+			query.setParameter("apellido", apellido);
 			
 		    ArrayList<Cliente> clientes = (ArrayList<Cliente>) query.getResultList();
 		    
