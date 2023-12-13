@@ -124,7 +124,7 @@ public class ConsultaInmueblesController implements Initializable {
     ObservableList<InmuebleDTO> listaDeInmuebles= FXCollections.observableArrayList(); 
     //para redondeos
     DecimalFormat df = new DecimalFormat("###.##");
-    
+    private Validacion validar =Validacion.getInstance();
     @Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		// Este metodo inicializa los datos en pantalla, en caso de los inmuebles carga la lista de inmuebles

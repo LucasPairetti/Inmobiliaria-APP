@@ -148,7 +148,7 @@ public class ModificarInmuebleController implements Initializable {
   private int inmuebleID;
   private int IdPropietario;
     
-    private Validacion validar;
+  private Validacion validar =Validacion.getInstance();
     private InmuebleServices serviceInmueble= InmuebleServices.getInstance();
     SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
     @Override

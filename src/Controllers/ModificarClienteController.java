@@ -66,7 +66,7 @@ public class ModificarClienteController implements Initializable{
     private TextField EmailField;
     
     private int idCliente;
-    private Validacion validar;
+    private Validacion validar =Validacion.getInstance();
     private ClienteServices clienteServices= ClienteServices.getInstance();
 
     @Override

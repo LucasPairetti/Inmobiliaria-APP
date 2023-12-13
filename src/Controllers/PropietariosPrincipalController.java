@@ -100,7 +100,7 @@ public class PropietariosPrincipalController implements Initializable {
     @FXML
     private Button VolverButton;
     
-    private Validacion validar;
+    private Validacion validar =Validacion.getInstance();
     
     @FXML
     private Button TestButton;

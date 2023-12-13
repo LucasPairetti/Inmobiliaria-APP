@@ -68,7 +68,7 @@ public class NuevoClienteController implements Initializable{
 	    @FXML
 	    private ComboBox<String> tipoDocMenu;
     
-	    private Validacion validar;
+	    private Validacion validar =Validacion.getInstance();
 	    private ClienteServices clienteServices= ClienteServices.getInstance();
     
     
@@ -110,7 +110,7 @@ public class NuevoClienteController implements Initializable{
 
     @FXML
     void GuardarPressed(ActionEvent event) {
-
+    	
     	if (NombreField.getText().equals("") || validar.esString(NombreField.getText()) != 1) {
     	    Alert alertaTipo = new Alert(Alert.AlertType.ERROR);
     	    alertaTipo.setTitle("Nombre inválido o vacío");
@@ -160,7 +160,8 @@ public class NuevoClienteController implements Initializable{
     		ClienteDTO nuevoCliente = new ClienteDTO(NombreField.getText(), ApellidoField.getText(), numeroDocField.getText(), tipoDocMenu.getValue(), Integer.parseInt(TelefonoField.getText()), 
         			EmailField.getText(), Double.parseDouble(MontoUSDField.getText()), InmuebleMenu.getValue(), LocalidadMenu.getValue(), barrioField.getText(), caracteristicasTextArea.getText());
     		
-    		if(clienteServices.updateCliente(nuevoCliente)==1) {
+    		
+    		if(clienteServices.createCliente(nuevoCliente)==1) {
     			Parent root;
         		root = FXMLLoader.load((getClass().getResource("/interfaces/ClientesPrincipal.fxml")));
         		

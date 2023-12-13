@@ -70,7 +70,7 @@ public class ClientesPrincipalController implements Initializable {
     @FXML
     private Button VolverButton;
     
-    private Validacion validar;
+    private Validacion validar =Validacion.getInstance();
     private ObservableList<ClienteDTO> listaDeClientes= FXCollections.observableArrayList(); 
     private ClienteServices clientesService= ClienteServices.getInstance();
     
