@@ -261,7 +261,31 @@ public void setPropietarioID(int id) {
     		alertaTipo.setTitle("Barrio invalido"); //titulo
     		alertaTipo.setContentText("El campo 'Barrio' es invalido"); //informacion
     		alertaTipo.showAndWait();
-    	}
+    	}else if(ProvinciaMenu.getValue()==null) {
+     		 Alert alertaTipo = new Alert(Alert.AlertType.ERROR);
+        	    alertaTipo.setTitle("Provincia vacía");
+        	    alertaTipo.setContentText("El campo 'provincia' no puede estar vacío");
+        	    alertaTipo.showAndWait();
+       		
+       	}else if(LocalidadMenu.getValue()==null) {
+        		 Alert alertaTipo = new Alert(Alert.AlertType.ERROR);
+         	    alertaTipo.setTitle("localidad vacía");
+         	    alertaTipo.setContentText("El campo 'localidad' no puede estar vacío");
+         	    alertaTipo.showAndWait();
+        		
+        	}else if(TipoInmuebleMenu.getValue()==null) {
+       		 Alert alertaTipo = new Alert(Alert.AlertType.ERROR);
+          	    alertaTipo.setTitle("tipo de inmueble vacío");
+          	    alertaTipo.setContentText("El campo 'Tipo de inmueble' no puede estar vacío");
+          	    alertaTipo.showAndWait();
+         		
+         	}else if(OrientacionMenu.getValue()==null) {
+          		 Alert alertaTipo = new Alert(Alert.AlertType.ERROR);
+           	    alertaTipo.setTitle("orientacion vacía");
+           	    alertaTipo.setContentText("El campo 'Orientacion' no puede estar vacío");
+           	    alertaTipo.showAndWait();
+          		
+          	}
     	else {
     		
     		

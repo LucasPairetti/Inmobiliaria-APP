@@ -138,7 +138,25 @@ public class NuevoPropietarioController implements Initializable {
     	    alertaTipo.setTitle("Email inválido o vacío");
     	    alertaTipo.setContentText("El campo 'Email' es inválido o está vacío");
     	    alertaTipo.showAndWait();
-    	}else {
+    	}else if(ProvinciaMenu.getValue()==null) {
+      		 Alert alertaTipo = new Alert(Alert.AlertType.ERROR);
+       	    alertaTipo.setTitle("Provincia vacía");
+       	    alertaTipo.setContentText("El campo 'provincia' no puede estar vacío");
+       	    alertaTipo.showAndWait();
+      		
+      	}else if(LocalidadMenu.getValue()==null) {
+       		 Alert alertaTipo = new Alert(Alert.AlertType.ERROR);
+        	    alertaTipo.setTitle("localidad vacía");
+        	    alertaTipo.setContentText("El campo 'localidad' no puede estar vacío");
+        	    alertaTipo.showAndWait();
+       		
+       	}else if(TipoDocMenu.getValue()==null) {
+      		 Alert alertaTipo = new Alert(Alert.AlertType.ERROR);
+         	    alertaTipo.setTitle("tipo de documento vacío");
+         	    alertaTipo.setContentText("El campo 'Tipo de documento' no puede estar vacío");
+         	    alertaTipo.showAndWait();
+        		
+        	}else {
     		/*
         	 * public PropietarioDTO(String nombre, String apellido, String tipodni, String dni, String calle, int numero,
     			String localidad, String provincia, int telefono, String email)
