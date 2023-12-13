@@ -80,7 +80,7 @@ public class ModificarClienteController implements Initializable{
 		
 		dnis.addAll(TipoDNI.getTiposDNI());
 		tipoDocMenu.setItems(dnis);	
-    	
+		
     	ObservableList<String> Inmuebles=FXCollections.observableArrayList();
     	Inmuebles.addAll(TipoInmueble.getTipoInmueble());
     	InmuebleMenu.setItems(Inmuebles);
@@ -89,8 +89,10 @@ public class ModificarClienteController implements Initializable{
     	localidades.addAll(Localidad.getLocalidad());
     	LocalidadMenu.setItems(localidades);
     	ClienteDTO cliente= clienteServices.getClienteById(idCliente);
-    	
+    	tipoDocMenu.setValue(cliente.getTipoDNI());
     	NombreField.setText(cliente.getNombre());
+    	InmuebleMenu.setValue(cliente.getTipoInmuebleBuscado());
+    	LocalidadMenu.setValue(cliente.getLocalidadBuscada());
     	ApellidoField.setText(cliente.getApellido());
     	EmailField.setText(cliente.getEmail());
     	MontoUSDField.setText(String.valueOf(cliente.getMontoDisponible())); 
@@ -166,7 +168,25 @@ public class ModificarClienteController implements Initializable{
     	    alertaTipo.setTitle("Características inválidas o vacías");
     	    alertaTipo.setContentText("El campo 'Características' es inválido o está vacío");
     	    alertaTipo.showAndWait();
-    	}else {
+    	}else if(InmuebleMenu.getValue()==null) {
+     		 Alert alertaTipo = new Alert(Alert.AlertType.ERROR);
+        	    alertaTipo.setTitle("tipo de inmueble vacío");
+        	    alertaTipo.setContentText("El campo 'tipo de inmueble' no puede estar vacío");
+        	    alertaTipo.showAndWait();
+       		
+       	}else if(LocalidadMenu.getValue()==null) {
+        		 Alert alertaTipo = new Alert(Alert.AlertType.ERROR);
+         	    alertaTipo.setTitle("localidad vacía");
+         	    alertaTipo.setContentText("El campo 'localidad' no puede estar vacío");
+         	    alertaTipo.showAndWait();
+        		
+        	}else if(tipoDocMenu.getValue()==null) {
+       		 Alert alertaTipo = new Alert(Alert.AlertType.ERROR);
+          	    alertaTipo.setTitle("tipo de documento vacío");
+          	    alertaTipo.setContentText("El campo 'Tipo de documento' no puede estar vacío");
+          	    alertaTipo.showAndWait();
+         		
+         	}else {
     		
     	
     	

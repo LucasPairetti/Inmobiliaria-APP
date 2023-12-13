@@ -151,7 +151,25 @@ public class NuevoVendedorController implements Initializable {
      	    alertaTipo.setContentText("El campo 'fecha de nacimiento' no puede estar vacío");
      	    alertaTipo.showAndWait();
     		
-    	}
+    	}else if(ProvinciaMenu.getValue()==null) {
+      		 Alert alertaTipo = new Alert(Alert.AlertType.ERROR);
+       	    alertaTipo.setTitle("Provincia vacía");
+       	    alertaTipo.setContentText("El campo 'provincia' no puede estar vacío");
+       	    alertaTipo.showAndWait();
+      		
+      	}else if(LocalidadMenu.getValue()==null) {
+       		 Alert alertaTipo = new Alert(Alert.AlertType.ERROR);
+        	    alertaTipo.setTitle("localidad vacía");
+        	    alertaTipo.setContentText("El campo 'localidad' no puede estar vacío");
+        	    alertaTipo.showAndWait();
+       		
+       	}else if(tipoDocMenu.getValue()==null) {
+      		 Alert alertaTipo = new Alert(Alert.AlertType.ERROR);
+         	    alertaTipo.setTitle("tipo de documento vacío");
+         	    alertaTipo.setContentText("El campo 'Tipo de documento' no puede estar vacío");
+         	    alertaTipo.showAndWait();
+        		
+        	}
     	 else if (ClaveField.getText().equals("") || validar.esString(ClaveField.getText()) != 1) {
      	    Alert alertaTipo = new Alert(Alert.AlertType.ERROR);
      	    alertaTipo.setTitle("Clave inválida o vacío");
