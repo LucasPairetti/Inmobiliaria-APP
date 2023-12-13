@@ -3,6 +3,7 @@ package Controllers;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.Date;
+import java.text.SimpleDateFormat;
 import java.util.ResourceBundle;
 
 import application.clases.Estado;
@@ -147,9 +148,9 @@ public class ModificarInmuebleController implements Initializable {
   private int inmuebleID;
   private int IdPropietario;
     
-    private Validacion validar;
+  private Validacion validar =Validacion.getInstance();
     private InmuebleServices serviceInmueble= InmuebleServices.getInstance();
-    
+    SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
     @Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
     	
@@ -165,7 +166,7 @@ public class ModificarInmuebleController implements Initializable {
      	
      	ObservableList<String>estados=FXCollections.observableArrayList(); 
      	estados.addAll(Estado.getEstado());
-     	
+     	estadoMenu.setItems(estados);
      	ObservableList<String>provincia= FXCollections.observableArrayList(); 
      	provincia.addAll(Provincia.getProvincias());
     	ProvinciaMenu.setItems(provincia );
@@ -175,6 +176,41 @@ public class ModificarInmuebleController implements Initializable {
     	ObservableList<String>orientaciones=FXCollections.observableArrayList(); 
     	orientaciones.addAll(Orientacion.geOrientacion());
     	OrientacionMenu.setItems(orientaciones);
+    	
+    	InmuebleDTO inmueble = serviceInmueble.getById(inmuebleID);
+    	OrientacionMenu.setValue(inmueble.getOrientacion());
+    	TipoInmuebleMenu.setValue(inmueble.getTipoInmueble());
+    	LocalidadMenu.setValue(inmueble.getLocalidad());
+    	ProvinciaMenu.setValue(inmueble.getProvincia());
+    	estadoMenu.setValue(inmueble.getEstado());
+		AntiguedadField.setText(String.valueOf(inmueble.getAntiguedad()));
+		BaniosField.setText(String.valueOf(inmueble.getBanios()));
+		BarrioField.setText(inmueble.getBarrio());
+		CalleField.setText(inmueble.getCalle());
+		DormitorioField.setText(String.valueOf(inmueble.getDormitorios()));
+		FechaField.setText(sdf.format(inmueble.getFechaCreacion()));
+		FondoField.setText(String.valueOf(inmueble.getFondo()));
+		FrenteField.setText(String.valueOf(inmueble.getFrente()));
+		NumeroField.setText(String.valueOf(inmueble.getNumero()));
+		ObservacionesField.setText(inmueble.getObservaciones());
+		OtraLocalidadField.setText(inmueble.getLocalidad());
+		PisoDeptoField.setText(inmueble.getPisodpto());
+		PrecioField.setText(String.valueOf(inmueble.getPrecioVenta()));
+		PropietarioField.setText(inmueble.getNombreApellidoPropietario());
+		SuperficieField.setText(String.valueOf(inmueble.getSuperficie()));
+
+		
+		AguaCalienteCheckBox.setSelected(inmueble.isAguaCaliente());
+		AguaCheckBox.setSelected(inmueble.isAguaCorriente());
+		CloacasCheckBox.setSelected(inmueble.isCloacas());
+		GarajeCheckBox.setSelected(inmueble.isGaraje());
+		GasCheckBox.setSelected(inmueble.isGasNatural());
+		LavaderoCheckBox.setSelected(inmueble.isLavadero());
+		PatioCheckBox.setSelected(inmueble.isPatio());
+		PavimentoCheckBox.setSelected(inmueble.isPavimento());
+		PiscinaCheckBox.setSelected(inmueble.isPiscina());
+		PropiedadHorizontalCheckBox.setSelected(inmueble.ispHorizontal());
+		TelefenoCheckBox.setSelected(inmueble.isTelefono());
     	
 	}
     
@@ -202,47 +238,86 @@ public class ModificarInmuebleController implements Initializable {
     		Alert alertaTipo = new Alert(Alert.AlertType.ERROR); //esto es un mensaje de alerta
     		alertaTipo.setTitle("Numero de calle invalido"); //titulo
     		alertaTipo.setContentText("El campo 'Numero' para la calle debe ser de tipo numerico"); //informacion
+    		alertaTipo.showAndWait();
     	}else if(validar.esUnNumero(PrecioField.getText())!=1){
     		
     		Alert alertaTipo = new Alert(Alert.AlertType.ERROR); //esto es un mensaje de alerta
     		alertaTipo.setTitle("Precio invalido"); //titulo
     		alertaTipo.setContentText("El campo 'Precio' debe ser de tipo numerico"); //informacion
+    		alertaTipo.showAndWait();
     	}else if(validar.esUnNumero(SuperficieField.getText())!=1){
     		
     		Alert alertaTipo = new Alert(Alert.AlertType.ERROR); //esto es un mensaje de alerta
     		alertaTipo.setTitle("Superficie invalida"); //titulo
     		alertaTipo.setContentText("El campo 'superficie' debe ser de tipo numerico"); //informacion
+    		alertaTipo.showAndWait();
     	}else if(validar.esUnNumero(AntiguedadField.getText())!=1){
     		
     		Alert alertaTipo = new Alert(Alert.AlertType.ERROR); //esto es un mensaje de alerta
     		alertaTipo.setTitle("Antiguedad invalida"); //titulo
     		alertaTipo.setContentText("El campo 'Antiguedad' debe ser de tipo numerico"); //informacion
+    		alertaTipo.showAndWait();
     	}else if(validar.esUnNumero(DormitorioField.getText())!=1){
     		
     		Alert alertaTipo = new Alert(Alert.AlertType.ERROR); //esto es un mensaje de alerta
     		alertaTipo.setTitle("Dormitorios invalida"); //titulo
     		alertaTipo.setContentText("El campo 'Cantidad de Dormitorios' debe ser de tipo numerico"); //informacion
+    		alertaTipo.showAndWait();
     	}else if(validar.esUnNumero(FrenteField.getText())!=1){
     		
     		Alert alertaTipo = new Alert(Alert.AlertType.ERROR); //esto es un mensaje de alerta
     		alertaTipo.setTitle("Frente invalido"); //titulo
     		alertaTipo.setContentText("El campo 'Frente' debe ser de tipo numerico"); //informacion
+    		alertaTipo.showAndWait();
     	}else if(validar.esUnNumero(FondoField.getText())!=1){
     		
     		Alert alertaTipo = new Alert(Alert.AlertType.ERROR); //esto es un mensaje de alerta
     		alertaTipo.setTitle("Fondo invalido"); //titulo
     		alertaTipo.setContentText("El campo 'Fondo' debe ser de tipo numerico"); //informacion
+    		alertaTipo.showAndWait();
     	}else if(validar.esUnNumero(BaniosField.getText())!=1){
     		
     		Alert alertaTipo = new Alert(Alert.AlertType.ERROR); //esto es un mensaje de alerta
     		alertaTipo.setTitle("baños invalido"); //titulo
     		alertaTipo.setContentText("El campo 'Baños' debe ser de tipo numerico"); //informacion
+    		alertaTipo.showAndWait();
     	}else if(validar.esString(BarrioField.getText())!=1){
     		
     		Alert alertaTipo = new Alert(Alert.AlertType.ERROR); //esto es un mensaje de alerta
     		alertaTipo.setTitle("Barrio invalido"); //titulo
     		alertaTipo.setContentText("El campo 'Barrio' es invalido"); //informacion
-    	}
+    		alertaTipo.showAndWait();
+    	}else if(ProvinciaMenu.getValue()==null) {
+      		 Alert alertaTipo = new Alert(Alert.AlertType.ERROR);
+       	    alertaTipo.setTitle("Provincia vacía");
+       	    alertaTipo.setContentText("El campo 'provincia' no puede estar vacío");
+       	    alertaTipo.showAndWait();
+      		
+      	}else if(LocalidadMenu.getValue()==null) {
+       		 Alert alertaTipo = new Alert(Alert.AlertType.ERROR);
+        	    alertaTipo.setTitle("localidad vacía");
+        	    alertaTipo.setContentText("El campo 'localidad' no puede estar vacío");
+        	    alertaTipo.showAndWait();
+       		
+       	}else if(TipoInmuebleMenu.getValue()==null) {
+      		 Alert alertaTipo = new Alert(Alert.AlertType.ERROR);
+         	    alertaTipo.setTitle("tipo de inmueble vacío");
+         	    alertaTipo.setContentText("El campo 'Tipo de inmueble' no puede estar vacío");
+         	    alertaTipo.showAndWait();
+        		
+        	}else if(OrientacionMenu.getValue()==null) {
+         		 Alert alertaTipo = new Alert(Alert.AlertType.ERROR);
+          	    alertaTipo.setTitle("orientacion vacía");
+          	    alertaTipo.setContentText("El campo 'Orientacion' no puede estar vacío");
+          	    alertaTipo.showAndWait();
+         		
+         	}else if(estadoMenu.getValue()==null) {
+        		 Alert alertaTipo = new Alert(Alert.AlertType.ERROR);
+           	    alertaTipo.setTitle("estado vacío");
+           	    alertaTipo.setContentText("El campo 'estado' no puede estar vacío");
+           	    alertaTipo.showAndWait();
+          		
+          	}
     	else {
     		
     		
@@ -267,14 +342,21 @@ public class ModificarInmuebleController implements Initializable {
     					LavaderoCheckBox.isSelected(), PavimentoCheckBox.isSelected(), TelefenoCheckBox.isSelected(), ObservacionesField.getText());
     					//modificar inmueble 
     			
-    			serviceInmueble.updateInmueble(nuevoInmueble);
+    			if(serviceInmueble.updateInmueble(nuevoInmueble)==1) {
+    				Parent root;
+            		root = FXMLLoader.load((getClass().getResource("/interfaces/ClientesPrincipal.fxml")));
+            		
+            		Stage window = (Stage)VolverButton.getScene().getWindow();
+            		window.setTitle("Clientes");
+            		window.setScene(new Scene(root));
+    			}else {
+    				Alert alertaTipo = new Alert(Alert.AlertType.ERROR); //esto es un mensaje de alerta
+    	    		alertaTipo.setTitle("Inmueble inexistente"); //titulo
+    	    		alertaTipo.setContentText("Este Inmueble no existe"); //informacion
+    	    		alertaTipo.showAndWait();
+    			}
     			
-        		Parent root;
-        		root = FXMLLoader.load((getClass().getResource("/interfaces/ClientesPrincipal.fxml")));
-        		
-        		Stage window = (Stage)VolverButton.getScene().getWindow();
-        		window.setTitle("Clientes");
-        		window.setScene(new Scene(root));
+        	
         	} catch (IOException e) {
         		// TODO Auto-generated catch block
         		e.printStackTrace();

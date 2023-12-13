@@ -17,6 +17,7 @@ import application.clases.Cliente;
 import application.clases.Estado;
 import application.clases.Inmueble;
 import application.clases.Reserva;
+import application.clases.TipoInmueble;
 import application.clases.Vendedor;
 import application.clases.Venta;
 import application.dao.ClienteDAO;
@@ -133,7 +134,7 @@ private static ReservaServices instance;
         Document documento = new Document();
 
         try {
-            PdfWriter writer = PdfWriter.getInstance(documento, new FileOutputStream("ejemplo.pdf"));
+            PdfWriter writer = PdfWriter.getInstance(documento, new FileOutputStream("reserva.pdf"));
             documento.open();
 
             PdfContentByte cb = writer.getDirectContent();
@@ -149,17 +150,19 @@ private static ReservaServices instance;
             cb.setFontAndSize(font.getBaseFont(), 12);
             cb.showTextAligned(Element.ALIGN_RIGHT, fechaReserva.toString(), 559, 800, 0);
             cb.endText();
-
+            
+            String tipoinmueble = tipoinmuebletostring(reserva.getInmueble().getTipoInmueble());
+            
             // Agregar el texto principal (un párrafo)
             float alturaPagina = documento.getPageSize().getHeight();
             Paragraph espacio = new Paragraph(" ");
             Paragraph texto = new Paragraph("Se ha realizado una reserva para el inmueble " + 
-            reserva.getInmueble().getTipoInmueble().toString() + "ubicado en calle " + 
+            tipoinmueble + " ubicado en calle " + 
             		reserva.getInmueble().getCalle()+reserva.getInmueble().getNumero() + ", " + 
             reserva.getInmueble().getLocalidad().toString() +
-                    "A nombre de " + reserva.getCliente().toString() + " el día " + fechaReserva
+                    ". A nombre del/la " + reserva.getCliente().toString() + " el día " + fechaReserva
                     + " en la ciudad de SANTA FE, " + "por el monto de $" +
-                    reserva.getImporteReserva() + "(PESOS) " + "Valida por los siguientes: " 
+                    reserva.getImporteReserva() + " Valida por los siguientes: " 
                     + reserva.getTiempoVigencia() + " dias");
             texto.setSpacingBefore(alturaPagina/6);
             documento.add(espacio);
@@ -168,9 +171,9 @@ private static ReservaServices instance;
             writer.close();
 
             System.out.println("PDF generado correctamente.");
-            openpdf("ejemplo.pdf");
+            openpdf("reserva.pdf");
             if(reserva.getCliente().getEmail()!= null) {
-            send("ejemplo.pdf",reserva.getCliente().getEmail());
+            send("reserva.pdf",reserva.getCliente().getEmail());
             }
         } catch (DocumentException | FileNotFoundException e) {
             e.printStackTrace();
@@ -219,7 +222,7 @@ private static ReservaServices instance;
 	            Message message = new MimeMessage(session);
 	            message.setFrom(new InternetAddress(mail)); // Replace with your email
 	            message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(mailCliente)); // Replace with recipient's email
-	            message.setSubject("pdf test");
+	            message.setSubject("Comprobante de reserva");
 	            // Create the attachment
 	            MimeBodyPart attachmentBodyPart = new MimeBodyPart();
 	            attachmentBodyPart.attachFile(new File(pathpdf)); // Path to your generated PDF
@@ -238,5 +241,33 @@ private static ReservaServices instance;
 	            e.printStackTrace();
 	        }
 	    }
+	    
+	    private String tipoinmuebletostring(TipoInmueble t) {
+	    	String s;
+	    	switch (t) {
+            case C:
+                s = "casa";
+                break;
+            case L:
+            	s = "local";
+                break;
+            case D:
+            	s = "departamento";
+                break;
+            case T:
+            	s = "terreno";
+                break;
+            case Q:
+            	s = "quinta";
+                break;
+            case G:
+            	s = "garage";
+                break;
+            default:
+            	s = " ";
+                break;
+	    	}
+                return s;
+	    };
 	
 }

@@ -124,7 +124,7 @@ public class ConsultaInmueblesController implements Initializable {
     ObservableList<InmuebleDTO> listaDeInmuebles= FXCollections.observableArrayList(); 
     //para redondeos
     DecimalFormat df = new DecimalFormat("###.##");
-    
+    private Validacion validar =Validacion.getInstance();
     @Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		// Este metodo inicializa los datos en pantalla, en caso de los inmuebles carga la lista de inmuebles
@@ -248,6 +248,7 @@ public class ConsultaInmueblesController implements Initializable {
     		Alert alertaTipo = new Alert(Alert.AlertType.ERROR); //esto es un mensaje de alerta
     		alertaTipo.setTitle("Faltan tipos de inmueble"); //titulo
     		alertaTipo.setContentText("debe seleccionarse al menos un tipo de inmueble"); //informacion
+    		alertaTipo.showAndWait();
     		
     		return;
     		
@@ -294,6 +295,7 @@ public class ConsultaInmueblesController implements Initializable {
     		Alert alertaTipo = new Alert(Alert.AlertType.ERROR); //esto es un mensaje de alerta
     		alertaTipo.setTitle("Inmueble"); //titulo
     		alertaTipo.setContentText("Debe seleccionar un Inmueble para ver sus detalles"); //informacion
+    		alertaTipo.showAndWait();
     		
     	}else {
     		

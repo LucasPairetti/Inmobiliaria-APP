@@ -100,7 +100,7 @@ public class PropietariosPrincipalController implements Initializable {
     @FXML
     private Button VolverButton;
     
-    private Validacion validar;
+    private Validacion validar =Validacion.getInstance();
     
     @FXML
     private Button TestButton;
@@ -161,6 +161,7 @@ public class PropietariosPrincipalController implements Initializable {
     		Alert alertaTipo = new Alert(Alert.AlertType.ERROR); //esto es un mensaje de alerta
     		alertaTipo.setTitle("Propietario"); //titulo
     		alertaTipo.setContentText("Debe seleccionar un propietario de la tabla antes de agregar un inmueble"); //informacion
+    		alertaTipo.showAndWait();
     	}
     	
     }
@@ -189,18 +190,21 @@ public class PropietariosPrincipalController implements Initializable {
     		Alert alertaTipo = new Alert(Alert.AlertType.ERROR); //esto es un mensaje de alerta
     		alertaTipo.setTitle("Campo nombre incompleto"); //titulo
     		alertaTipo.setContentText("Debe completarse el campo nombre para buscar un propietario"); //informacion
+    		alertaTipo.showAndWait();
     		
     		return;
     	}else if(ApellidoField.getText()!="" || validar.esString(ApellidoField.getText())!=1) {
     		Alert alertaTipo = new Alert(Alert.AlertType.ERROR); //esto es un mensaje de alerta
     		alertaTipo.setTitle("Campo apellido incompleto"); //titulo
     		alertaTipo.setContentText("Debe completarse el campo apellido para buscar un propietario"); //informacion
+    		alertaTipo.showAndWait();
     		
     		
     	}else if(NumeroDocField.getText()!="" || validar.esUnNumero(NumeroDocField.getText())!=1) {
     		Alert alertaTipo = new Alert(Alert.AlertType.ERROR); //esto es un mensaje de alerta
     		alertaTipo.setTitle("Campo DNI incompleto"); //titulo
     		alertaTipo.setContentText("Debe completarse el campo apellido para buscar un propietario con un formato numerico"); //informacion
+    		alertaTipo.showAndWait();
     		
     		
     	}else {
@@ -238,6 +242,7 @@ public class PropietariosPrincipalController implements Initializable {
     		Alert alertaTipo = new Alert(Alert.AlertType.ERROR); //esto es un mensaje de alerta
     		alertaTipo.setTitle("Inmueble"); //titulo
     		alertaTipo.setContentText("Debe seleccionar un inmueble de la tabla antes de eliminarlo"); //informacion
+    		alertaTipo.showAndWait();
     	}
     }
 
@@ -253,6 +258,7 @@ public class PropietariosPrincipalController implements Initializable {
     		Alert alertaTipo = new Alert(Alert.AlertType.ERROR); //esto es un mensaje de alerta
     		alertaTipo.setTitle("Propietario"); //titulo
     		alertaTipo.setContentText("Debe seleccionar un propietario de la tabla antes de eliminarlo"); //informacion
+    		alertaTipo.showAndWait();
     	}
     	
     }
@@ -292,6 +298,7 @@ public class PropietariosPrincipalController implements Initializable {
     		Alert alertaTipo = new Alert(Alert.AlertType.ERROR); //esto es un mensaje de alerta
     		alertaTipo.setTitle("Inmueble"); //titulo
     		alertaTipo.setContentText("Debe seleccionar un inmueble de la tabla antes de modificarlo"); //informacion
+    		alertaTipo.showAndWait();
     	}
     }
 
@@ -320,6 +327,7 @@ public class PropietariosPrincipalController implements Initializable {
     		Alert alertaTipo = new Alert(Alert.AlertType.ERROR); //esto es un mensaje de alerta
     		alertaTipo.setTitle("Propietario"); //titulo
     		alertaTipo.setContentText("Debe seleccionar un Propietario de la tabla antes de modificarlo"); //informacion
+    		alertaTipo.showAndWait();
     	}
     	
     	

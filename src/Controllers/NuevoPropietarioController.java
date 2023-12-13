@@ -64,7 +64,7 @@ public class NuevoPropietarioController implements Initializable {
     @FXML
     private TextField numeroField;
     
-    private Validacion validar;
+    private Validacion validar =Validacion.getInstance();
     private PropietarioServices propietarioService= PropietarioServices.getInstance();
     
     @Override
@@ -88,7 +88,7 @@ public class NuevoPropietarioController implements Initializable {
     void CancelarPressed(ActionEvent event) {
     	try {
     		Parent root;
-    		root = FXMLLoader.load((getClass().getResource("/interfaces/ClientesPrincipal.fxml")));
+    		root = FXMLLoader.load((getClass().getResource("/interfaces/PropietariosPrincipal.fxml")));
     		
     		Stage window = (Stage)CancelarButton.getScene().getWindow();
     		window.setTitle("Clientes");
@@ -107,31 +107,56 @@ public class NuevoPropietarioController implements Initializable {
     	    Alert alertaTipo = new Alert(Alert.AlertType.ERROR);
     	    alertaTipo.setTitle("Número de calle inválido");
     	    alertaTipo.setContentText("El campo 'Número' para la calle debe ser de tipo numérico");
+    	    alertaTipo.showAndWait();
     	} else if (NombreField.getText().equals("") || validar.esString(NombreField.getText()) != 1) {
     	    Alert alertaTipo = new Alert(Alert.AlertType.ERROR);
     	    alertaTipo.setTitle("Nombre inválido o vacío");
     	    alertaTipo.setContentText("El campo 'Nombre' es inválido o está vacío");
+    	    alertaTipo.showAndWait();
     	} else if (ApellidoField.getText().equals("") || validar.esString(ApellidoField.getText()) != 1) {
     	    Alert alertaTipo = new Alert(Alert.AlertType.ERROR);
     	    alertaTipo.setTitle("Apellido inválido o vacío");
     	    alertaTipo.setContentText("El campo 'Apellido' es inválido o está vacío");
+    	    alertaTipo.showAndWait();
     	} else if (DNIField.getText().equals("") || validar.esString(DNIField.getText()) != 1) {
     	    Alert alertaTipo = new Alert(Alert.AlertType.ERROR);
     	    alertaTipo.setTitle("DNI inválido o vacío");
     	    alertaTipo.setContentText("El campo 'DNI' es inválido o está vacío");
+    	    alertaTipo.showAndWait();
     	} else if (CalleField.getText().equals("") || validar.esString(CalleField.getText()) != 1) {
     	    Alert alertaTipo = new Alert(Alert.AlertType.ERROR);
     	    alertaTipo.setTitle("Calle inválida o vacía");
     	    alertaTipo.setContentText("El campo 'Calle' es inválido o está vacío");
+    	    alertaTipo.showAndWait();
     	} else if (validar.esUnNumero(TelefonoField.getText()) != 1) {
     	    Alert alertaTipo = new Alert(Alert.AlertType.ERROR);
     	    alertaTipo.setTitle("Número de teléfono inválido");
     	    alertaTipo.setContentText("El campo 'Teléfono' debe ser de tipo numérico");
+    	    alertaTipo.showAndWait();
     	} else if (emailField.getText().equals("") || validar.esString(emailField.getText()) != 1) {
     	    Alert alertaTipo = new Alert(Alert.AlertType.ERROR);
     	    alertaTipo.setTitle("Email inválido o vacío");
     	    alertaTipo.setContentText("El campo 'Email' es inválido o está vacío");
-    	}else {
+    	    alertaTipo.showAndWait();
+    	}else if(ProvinciaMenu.getValue()==null) {
+      		 Alert alertaTipo = new Alert(Alert.AlertType.ERROR);
+       	    alertaTipo.setTitle("Provincia vacía");
+       	    alertaTipo.setContentText("El campo 'provincia' no puede estar vacío");
+       	    alertaTipo.showAndWait();
+      		
+      	}else if(LocalidadMenu.getValue()==null) {
+       		 Alert alertaTipo = new Alert(Alert.AlertType.ERROR);
+        	    alertaTipo.setTitle("localidad vacía");
+        	    alertaTipo.setContentText("El campo 'localidad' no puede estar vacío");
+        	    alertaTipo.showAndWait();
+       		
+       	}else if(TipoDocMenu.getValue()==null) {
+      		 Alert alertaTipo = new Alert(Alert.AlertType.ERROR);
+         	    alertaTipo.setTitle("tipo de documento vacío");
+         	    alertaTipo.setContentText("El campo 'Tipo de documento' no puede estar vacío");
+         	    alertaTipo.showAndWait();
+        		
+        	}else {
     		/*
         	 * public PropietarioDTO(String nombre, String apellido, String tipodni, String dni, String calle, int numero,
     			String localidad, String provincia, int telefono, String email)
@@ -141,15 +166,23 @@ public class NuevoPropietarioController implements Initializable {
     			
     			PropietarioDTO nuevoPropietario= new PropietarioDTO(NombreField.getText(), ApellidoField.getText(), TipoDocMenu.getValue(), DNIField.getText(), CalleField.getText(), Integer.parseInt(numeroField.getText()),
             			LocalidadMenu.getValue(), ProvinciaMenu.getValue(), Integer.parseInt(TelefonoField.getText()), emailField.getText());
-    			propietarioService.createPropietario(nuevoPropietario);
+    			
+    			if(propietarioService.createPropietario(nuevoPropietario)==1) {
+    				Parent root;
+            		root = FXMLLoader.load((getClass().getResource("/interfaces/PropietariosPrincipal.fxml")));
+            		
+            		Stage window = (Stage)CancelarButton.getScene().getWindow();
+            		window.setTitle("Propietarios");
+            		window.setScene(new Scene(root));
+    			}else {
+    				Alert alertaTipo = new Alert(Alert.AlertType.ERROR); //esto es un mensaje de alerta
+    	    		alertaTipo.setTitle("Propietario existente"); //titulo
+    	    		alertaTipo.setContentText("Este Propietario ya existe"); //informacion
+    	    		alertaTipo.showAndWait();
+    			}
     			
     			
-        		Parent root;
-        		root = FXMLLoader.load((getClass().getResource("/interfaces/PropietariosPrincipal.fxml")));
         		
-        		Stage window = (Stage)CancelarButton.getScene().getWindow();
-        		window.setTitle("Propietarios");
-        		window.setScene(new Scene(root));
         	} catch (IOException e) {
         		// TODO Auto-generated catch block
         		e.printStackTrace();

@@ -39,9 +39,9 @@
       <CheckBox fx:id="PiscinaCheckBox" layoutX="524.0" layoutY="456.0" mnemonicParsing="false" text="Piscina" />
       <TextField fx:id="OtraLocalidadField" editable="false" layoutX="315.0" layoutY="292.0" prefHeight="34.0" prefWidth="176.0" text="otra localidad" />
       <Label layoutX="315.0" layoutY="248.0" text="Otra:" />
-      <TextField fx:id="CalleField" layoutX="71.0" layoutY="474.0" prefHeight="34.0" prefWidth="176.0" />
+      <TextField fx:id="CalleField" layoutX="71.0" layoutY="474.0" prefHeight="34.0" prefWidth="176.0" promptText="Hunin" />
       <Label layoutX="71.0" layoutY="430.0" text="Calle:" />
-      <TextField fx:id="NumeroField" layoutX="71.0" layoutY="579.0" prefHeight="34.0" prefWidth="176.0" />
+      <TextField fx:id="NumeroField" layoutX="71.0" layoutY="579.0" prefHeight="34.0" prefWidth="176.0" promptText="1234" />
       <Label layoutX="71.0" layoutY="535.0" text="Numero:" />
       <TextField fx:id="PrecioField" layoutX="309.0" layoutY="196.0" prefHeight="34.0" prefWidth="176.0" promptText="USD" />
       <Label layoutX="309.0" layoutY="152.0" text="Precio:" />
@@ -74,9 +74,9 @@
       <Line endX="-111.0" endY="617.0" layoutX="1293.0" layoutY="114.0" startX="-111.5" startY="29.5" stroke="WHITE" />
       <TextField fx:id="FechaField" editable="false" layoutX="974.0" layoutY="69.0" prefHeight="34.0" prefWidth="176.0" promptText="Fecha" />
       <Label layoutX="918.0" layoutY="77.0" text="Fecha:" />
-      <TextField fx:id="BarrioTextField" layoutX="69.0" layoutY="375.0" prefHeight="34.0" prefWidth="176.0" />
+      <TextField fx:id="BarrioTextField" layoutX="69.0" layoutY="375.0" prefHeight="34.0" prefWidth="176.0" promptText="Candiotti" />
       <CheckBox fx:id="AguaCalienteCheckBox" layoutX="949.0" layoutY="443.0" mnemonicParsing="false" text="Agua Caliente" />
-      <TextField fx:id="PisoDeptoField" layoutX="72.0" layoutY="674.0" prefHeight="34.0" prefWidth="176.0" />
+      <TextField fx:id="PisoDeptoField" layoutX="72.0" layoutY="674.0" prefHeight="34.0" prefWidth="176.0" promptText="4A" />
       <Label layoutX="72.0" layoutY="630.0" text="Piso/Departamiento" />
       <Label layoutX="309.0" layoutY="346.0" text="Tipo de Inmueble" />
       <Label layoutX="309.0" layoutY="441.0" text="Orientacion:" />

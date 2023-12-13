@@ -140,8 +140,8 @@ public class VendedorDAO {
 			try {
 			
 			Query<Vendedor> query = session.createQuery("SELECT a FROM Vendedor a WHERE "
-					+ "(DNI = :dni) AND "
-					+ "(TIPODNI = :tipodni)", Vendedor.class);
+					+ "(a.dni = :dni) AND "
+					+ "(a.tipodni = :tipodni)", Vendedor.class);
 			query.setParameter("dni", dni);
 			query.setParameter("tipodni", tipodni);
 			
