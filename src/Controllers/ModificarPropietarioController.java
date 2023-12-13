@@ -63,7 +63,7 @@ public class ModificarPropietarioController implements Initializable {
     private TextField numeroField;
 
     private int propietarioID;
-    private Validacion validar;
+    private Validacion validar =Validacion.getInstance();
     private PropietarioServices propietarioService= PropietarioServices.getInstance();
 
     @Override

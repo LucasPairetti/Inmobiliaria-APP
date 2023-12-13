@@ -64,7 +64,7 @@ public class NuevoPropietarioController implements Initializable {
     @FXML
     private TextField numeroField;
     
-    private Validacion validar;
+    private Validacion validar =Validacion.getInstance();
     private PropietarioServices propietarioService= PropietarioServices.getInstance();
     
     @Override

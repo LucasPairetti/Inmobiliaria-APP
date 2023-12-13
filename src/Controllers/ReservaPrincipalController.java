@@ -86,7 +86,7 @@ public class ReservaPrincipalController implements Initializable{
     
     private int idInmueble;
     private int idCliente;
-    private Validacion validar;
+    private Validacion validar =Validacion.getInstance();
     SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
     ClienteServices clienteServices = ClienteServices.getInstance();
     InmuebleServices inmuebleServices = InmuebleServices.getInstance();

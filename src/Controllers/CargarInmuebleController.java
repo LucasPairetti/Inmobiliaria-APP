@@ -142,7 +142,7 @@ public class CargarInmuebleController implements Initializable{
     
     private int propietarioID;
     
-    private Validacion validar;
+    private Validacion validar =Validacion.getInstance();
     private InmuebleServices serviceInmueble= InmuebleServices.getInstance();
     SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
     Date fecha = new Date();

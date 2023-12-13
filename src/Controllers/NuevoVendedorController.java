@@ -73,7 +73,7 @@ public class NuevoVendedorController implements Initializable {
     @FXML
     private ComboBox<String> tipoDocMenu;
 
-    private Validacion validar;
+    private Validacion validar =Validacion.getInstance();
     private VendedorServices vendedorServices= VendedorServices.getInstance();
     @Override
 	public void initialize(URL arg0, ResourceBundle arg1) {

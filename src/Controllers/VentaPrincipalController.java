@@ -95,7 +95,7 @@ public class VentaPrincipalController implements Initializable{
     private int idInmueble;
     private int idCliente;
     private int idVendedor;
-    private Validacion validar;
+    private Validacion validar =Validacion.getInstance();
     Holder holder = Holder.getInstance();
     ClienteServices clienteServices = ClienteServices.getInstance();
     InmuebleServices inmuebleServices = InmuebleServices.getInstance();
