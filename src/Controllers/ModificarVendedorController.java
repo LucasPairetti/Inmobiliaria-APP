@@ -81,6 +81,9 @@ public class ModificarVendedorController implements Initializable {
     	Holder holder = Holder.getInstance();
     	idVendedor = holder.getIdVendedor();
     	VendedorDTO vendedor= vendedorServices.getVendedorById(idVendedor);
+    	ObservableList<String> TipoDocumentos=  FXCollections.observableArrayList();
+    	TipoDocumentos.addAll(TipoDNI.getTiposDNI());
+    	tipoDocMenu.setItems(TipoDocumentos);
     	ObservableList<String> localidades=  FXCollections.observableArrayList();
     	localidades.addAll(Localidad.getLocalidad());
     	ObservableList<String> provincias=  FXCollections.observableArrayList();
