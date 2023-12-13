@@ -77,10 +77,13 @@ public class InmuebleServices {
 		
 		Inmueble og = inmuebledao.getInmuebleById(entrada.getId());
 		if(og != null) {
-		Inmueble inmueble = toInmueble(og.getPropietario(),entrada);
-		chequearModificaciones(og,inmueble); //si se modifico algo que no se debia se vuelve al original
-		inmuebledao.updateInmueble(inmueble);
-		return 1;}
+			Propietario propietarioI = propietariodao.getPropietarioById(entrada.getIdPropietario());
+			if(propietarioI!=null) {
+				chequearModificaciones(og,entrada,propietarioI); //si se modifico algo que no se debia se vuelve al original
+				inmuebledao.updateInmueble(og);
+				return 1;
+			}else {return -2;}//el propietario entrante no existe;
+		}
 		else {return -1;}//no existia el inmueble con esa id
 	}
 	
@@ -237,20 +240,38 @@ public class InmuebleServices {
 	}
 
 	
-	private void chequearModificaciones(Inmueble og, Inmueble i) {
-		if(og.getEstado()!=Estado.Vendido) {
-			i.setPropietario(og.getPropietario());
-			}else {
-				i.setEstado(Estado.Disponible);
+	private void chequearModificaciones(Inmueble og, InmuebleDTO i,Propietario p) {
+		if(og.getEstado()==Estado.Vendido) {
+			og.setPropietario(p);
+			og.setEstado(Estado.Disponible);
 			}
-		i.setFechaCreacion(og.getFechaCreacion());
-		i.setProvincia(og.getProvincia());
-		i.setLocalidad(og.getLocalidad());
-		i.setCalle(og.getCalle());
-		i.setNumero(og.getNumero());
-		i.setPisodpto(og.getPisodpto());
-		i.setBarrio(og.getBarrio());
+		TipoInmueble tipo =TipoInmueble.valueOf(i.getTipoInmueble());
+		Orientacion orientacion = Orientacion.valueOf(i.getOrientacion());
+		og.setTipoInmueble(tipo);
+	    og.setPrecioVenta(i.getPrecioVenta());
+	    og.setOrientacion(orientacion);
+	    og.setFrente(i.getFrente());
+	    og.setFondo(i.getFondo());
+	    og.setSuperficie(i.getSuperficie());
+	    og.setAntiguedad(i.getAntiguedad());
+	    og.setDormitorios(i.getDormitorios());
+	    og.setBanios(i.getBanios());
+	    og.setpHorizontal(i.ispHorizontal());
+	    og.setGaraje(i.isGaraje());
+	    og.setPatio(i.isPatio());
+	    og.setPiscina(i.isPiscina());
+	    og.setAguaCorriente(i.isAguaCorriente());
+	    og.setCloacas(i.isCloacas());
+	    og.setGasNatural(i.isGasNatural());
+	    og.setAguaCaliente(i.isAguaCaliente());
+	    og.setLavadero(i.isLavadero());
+	    og.setPavimento(i.isPavimento());
+	    og.setTelefono(i.isTelefono());
+	    og.setObservaciones(i.getObservaciones());
 	}
+		
+		
+	
 	private boolean chequearDuplicado( Provincia provincia, String localidad,String calle, int numero,
 			String pisodpto, TipoInmueble tipoInmueble) {
 		List<Inmueble> lista=inmuebledao.getInmueble(provincia,localidad,calle,numero,pisodpto,tipoInmueble);

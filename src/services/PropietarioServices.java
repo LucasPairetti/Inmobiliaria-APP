@@ -9,10 +9,12 @@ import application.clases.Propietario;
 import application.clases.Provincia;
 import application.clases.TipoDNI;
 import application.clases.TipoInmueble;
+import application.clases.Vendedor;
 import application.dao.InmuebleDAO;
 import application.dao.PropietarioDAO;
 import dto.InmuebleDTO;
 import dto.PropietarioDTO;
+import dto.VendedorDTO;
 
 public class PropietarioServices {
 	private static PropietarioServices instance;
@@ -47,10 +49,8 @@ public class PropietarioServices {
 	public int updatePropietario(PropietarioDTO entrada) {
 		Propietario og = propietariodao.getPropietarioById(entrada.getId());
 		if(og != null) {//si existe el propierario reestablece los datos que no se modifican y guarda los nuevos.
-			Propietario propietario = toPropietario(entrada);
-			propietario.setDni(og.getDni());
-			propietario.setTipodni(og.getTipodni());
-			propietariodao.updatePropietario(propietario);
+			actualizarPropietario(og,entrada);
+			propietariodao.updatePropietario(og);
 			return 1;}
 		else {return -1;}
 	}
@@ -89,6 +89,19 @@ public class PropietarioServices {
 		Propietario propietario = new Propietario(entrada.getNombre(),entrada.getApellido(),tipodni,entrada.getDni(),entrada.getCalle(),entrada.getNumero(),
 				entrada.getLocalidad(),provincia,entrada.getTelefono(),entrada.getEmail());
 		return propietario;
+	}
+private void actualizarPropietario(Propietario original, PropietarioDTO nuevo) {
+		
+		Provincia provincia =Provincia.valueOf(nuevo.getProvincia());
+		original.setNombre(nuevo.getNombre());
+		original.setApellido(nuevo.getApellido());
+		original.setCalle(nuevo.getCalle());
+		original.setNumero(nuevo.getNumero());
+		original.setLocalidad(nuevo.getLocalidad());
+		original.setProvincia(provincia);
+		original.setEmail(nuevo.getEmail());
+		original.setTelefono(nuevo.getTelefono());
+		
 	}
 	private boolean chequearDuplicado( TipoDNI tipo,String dni) {
 		List<Propietario> lista=propietariodao.getPropietario(tipo,dni,null,null);
