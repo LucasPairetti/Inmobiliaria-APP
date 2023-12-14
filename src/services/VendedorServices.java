@@ -1,5 +1,6 @@
 package services;
 
+import java.sql.Date;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -42,10 +43,8 @@ public class VendedorServices {
 	public int updateVendedor(VendedorDTO entrada) {
 		Vendedor og= vendedordao.getVendedorById(entrada.getId());
 		if(og !=null) {
-			Vendedor vendedor = toVendedor(entrada);
-			vendedor.setDni(og.getDni());
-			vendedor.setTipodni(og.getTipodni());
-			vendedordao.updateVendedor(vendedor);
+			actualizarVendedor(og,entrada);
+			vendedordao.updateVendedor(og);
 			return 1;
 		}else {return -1;}//no existia el vendedor con esa id
 		
@@ -65,6 +64,15 @@ public class VendedorServices {
 		return new VendedorDTO(vendedor);
 		}
 	}
+	public VendedorDTO validarVendedor(String email,String clave) {//si es null no esta validado, por ende no debe iniciar
+		return Optional.ofNullable(vendedordao.getAllVendedor())
+	            .map(List::stream)
+	            .orElseGet(Stream::empty)
+	            .filter(vendedor -> vendedor.getEmail().equals(email) && vendedor.getClave().equals(clave))
+	            .map(vendedor -> new VendedorDTO(vendedor))
+	            .findFirst()
+	            .orElse(null);
+	}
 	public VendedorDTO getVendedorById(int id) {
 	    Vendedor vendedor = vendedordao.getVendedorById(id);
 	    return vendedor != null ? new VendedorDTO(vendedor) : null;
@@ -75,6 +83,20 @@ public class VendedorServices {
 		return new Vendedor( entrada.getNombre(), entrada.getApellido(),tipoDni, entrada.getDni(),entrada.getCalle(),entrada.getNumero(),
 				entrada.getLocalidad(), provincia,entrada.getTelefono(),entrada.getEmail(),entrada.getFechaNacimiento(),entrada.getSueldo(),entrada.getClave());
 		
+	}
+	private void actualizarVendedor(Vendedor vendedorOriginal, VendedorDTO vendedorNuevo) {
+		
+		Provincia provincia =Provincia.valueOf(vendedorNuevo.getProvincia());
+		vendedorOriginal.setNombre(vendedorNuevo.getNombre());
+		vendedorOriginal.setApellido(vendedorNuevo.getApellido());
+		vendedorOriginal.setCalle(vendedorNuevo.getCalle());
+		vendedorOriginal.setNumero(vendedorNuevo.getNumero());
+		vendedorOriginal.setLocalidad(vendedorNuevo.getLocalidad());
+		vendedorOriginal.setProvincia(provincia);
+		vendedorOriginal.setEmail(vendedorNuevo.getEmail());
+		vendedorOriginal.setFechaNacimiento(vendedorNuevo.getFechaNacimiento());
+		vendedorOriginal.setSueldo(vendedorNuevo.getSueldo());
+		vendedorOriginal.setClave(vendedorNuevo.getClave());
 	}
 	private boolean chequearDuplicado( TipoDNI tipo,String dni) {
 		Vendedor vendedor=vendedordao.getVendedor(tipo,dni);
