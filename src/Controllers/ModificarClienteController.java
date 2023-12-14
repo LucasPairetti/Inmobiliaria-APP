@@ -74,8 +74,6 @@ public class ModificarClienteController implements Initializable{
 		// TODO Auto-generated method stub
     	Holder holder = Holder.getInstance();
     	idCliente= holder.getIdCliente();
-    	
-    	System.out.println(idCliente);
     	ObservableList<String> dnis= FXCollections.observableArrayList();
 		
 		dnis.addAll(TipoDNI.getTiposDNI());
@@ -99,6 +97,7 @@ public class ModificarClienteController implements Initializable{
     	TelefonoField.setText(String.valueOf(cliente.getTelefono())); 
     	numeroDocField.setText(cliente.getDni());
     	barrioField.setText(cliente.getBarrios());
+    	caracteristicasTextArea.setText(cliente.getCaracteristicasDeseadas());
 	}
     
     public void setCliente(int id) {
@@ -122,11 +121,6 @@ public class ModificarClienteController implements Initializable{
 
     @FXML
     void GuardarPressed(ActionEvent event) {
-    	
-    	/*public ClienteDTO( String nombre, String apellido,String dni,String tipoDNI, int telefono,String email, double montoDisponible,
-		String tipoInmuebleBuscado, String localidadBuscada, String barrios,
-		String caracteristicasDeseadas)
-    	*/
     	
     	if (NombreField.getText().equals("") || validar.esString(NombreField.getText()) != 1) {
     	    Alert alertaTipo = new Alert(Alert.AlertType.ERROR);
@@ -197,7 +191,7 @@ public class ModificarClienteController implements Initializable{
     		
     		if(clienteServices.updateCliente(nuevoCliente)==1) {
     			Parent root;
-        		root = FXMLLoader.load((getClass().getResource("/interfaces/ClientesPrincipalPrincipal.fxml")));
+        		root = FXMLLoader.load((getClass().getResource("/interfaces/ClientesPrincipal.fxml")));
         		
         		Stage window = (Stage)CancelarButton.getScene().getWindow();
         		window.setTitle("Clientes");
