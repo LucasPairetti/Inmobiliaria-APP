@@ -31,6 +31,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 import services.InmuebleServices;
+import services.PropietarioServices;
 
 public class ModificarInmuebleController implements Initializable {
 
@@ -145,14 +146,17 @@ public class ModificarInmuebleController implements Initializable {
     
   private Validacion validar =Validacion.getInstance();
     private InmuebleServices serviceInmueble= InmuebleServices.getInstance();
+    private PropietarioServices propietarioServices= PropietarioServices.getInstance();
     SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
     @Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
     	
     	
     	Holder holder = Holder.getInstance();
-    	IdPropietario= holder.getIdCliente();
+    	IdPropietario= holder.getIdPropietario();
     	inmuebleID= holder.getIdInmueble();
+    	
+    	System.out.println(propietarioServices.getPropietarioById(IdPropietario).getApellido());
 		// TODO Auto-generated method stub
     	ObservableList<String>localidades= FXCollections.observableArrayList(); 
     	localidades.addAll(Localidad.getLocalidad());
