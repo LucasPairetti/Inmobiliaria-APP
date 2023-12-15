@@ -105,7 +105,7 @@ private void actualizarPropietario(Propietario original, PropietarioDTO nuevo) {
 	}
 	private boolean chequearDuplicado( TipoDNI tipo,String dni) {
 		List<Propietario> lista=propietariodao.getPropietario(tipo,dni,null,null);
-		if(lista==null){return false;}
-		else { return true;}
+		if(lista.isEmpty()) return false;
+		else return true;
 		}
 }

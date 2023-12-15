@@ -141,15 +141,15 @@ public class PropietarioDAO {
 				
 				try {
 				
-				Query<Propietario> query = session.createQuery("SELECT * FROM PROPIETARIO WHERE"
-						+ "(TIPODNI = ?1 OR ?1 IS NULL) AND"
-						+ "(DNI = ?2 OR ?2 IS NULL) AND"
-						+ "(NOMBRE = ?3 OR ?3 IS NULL) AND"
-						+ "(APELLIDO = ?4 OR ?4 IS NULL)", Propietario.class);
-				query.setParameter(1, tipo);
-				query.setParameter(2, dni);
-				query.setParameter(3, nombre);
-				query.setParameter(4, apellido);
+				Query<Propietario> query = session.createQuery("SELECT a FROM Propietario a WHERE"
+						+ "(a.tipodni = :tipodni OR :tipodni IS NULL) AND "
+						+ "(a.dni = :dni OR :dni IS NULL) AND "
+						+ "(a.nombre = :nombre OR :nombre IS NULL) AND "
+						+ "(a.apellido = :apellido OR :apellido IS NULL)", Propietario.class);
+				query.setParameter("tipodni", tipo);
+				query.setParameter("dni", dni);
+				query.setParameter("nombre", nombre);
+				query.setParameter("apellido", apellido);
 				
 			    ArrayList<Propietario> propietarios = (ArrayList<Propietario>) query.getResultList();
 			    
