@@ -48,7 +48,7 @@ public class ClienteServices {
 			actualizarCliente(og, entrada);
 			clientedao.updateCliente(og);
 			return 1;
-		}else {System.out.println("No se ha podido recuperar el cliente"); return -1;}
+		}else { return -1;}
 		
 	};
 	

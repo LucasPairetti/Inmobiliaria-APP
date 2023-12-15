@@ -86,6 +86,14 @@ public class InmuebleServices {
 		}
 		else {return -1;}//no existia el inmueble con esa id
 	}
+	public int updateCliente(ClienteDTO entrada) {
+		Cliente og = clientedao.getClienteById(entrada.getId());
+		if(og !=null) {
+			actualizarCliente(og, entrada);
+			clientedao.updateCliente(og);
+			return 1;
+		}else { return -1;}
+		
 	
 	public List<InmuebleDTO> listInmuebles() {
 	    return Optional.ofNullable(inmuebledao.getAllInmuebles())
