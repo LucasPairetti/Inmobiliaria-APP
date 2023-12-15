@@ -40,7 +40,7 @@ try {
 			//inicializar cosas antes de mostrar pantalla
 			
 			
-Parent root = FXMLLoader.load((getClass().getResource("/interfaces/PantallaPrincipal.fxml")));
+Parent root = FXMLLoader.load((getClass().getResource("/interfaces/LoginPrincipal.fxml")));
 			
 			Scene scene = new Scene(root);
 			primaryStage.setTitle("Ingreso al sistema");

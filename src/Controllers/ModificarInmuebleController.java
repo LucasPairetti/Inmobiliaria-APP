@@ -82,11 +82,6 @@ public class ModificarInmuebleController implements Initializable {
     @FXML
     private TextField IdField;
 
-    @FXML
-    private ImageView ImageView;
-
-    @FXML
-    private Button ImagenButton;
 
     @FXML
     private CheckBox LavaderoCheckBox;

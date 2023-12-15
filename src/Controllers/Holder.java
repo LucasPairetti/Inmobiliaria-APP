@@ -10,9 +10,23 @@ public class Holder {
 	 private int idReserva;
 	 private int idVenta;
 	 private int pantalla;
+	 private int idUsuario; //vendedor que logeó
 	 
 	 
-	 
+	public int getIdUsuario() {
+		return idUsuario;
+	}
+
+
+
+
+	public void setIdUsuario(int idUsuario) {
+		this.idUsuario = idUsuario;
+	}
+
+
+
+
 	public int getPantalla() {
 		return pantalla;
 	}

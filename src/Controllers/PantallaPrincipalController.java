@@ -58,7 +58,7 @@ try {
     		root = FXMLLoader.load((getClass().getResource("/interfaces/InmueblesBusqueda.fxml")));
     		
     		Stage window = (Stage)ClientesButton.getScene().getWindow();
-    		window.setTitle("Buscar Inmueble");
+    		window.setTitle("Menu Principal");
     		window.setScene(new Scene(root));
     	} catch (IOException e) {
     		// TODO Auto-generated catch block
@@ -99,8 +99,17 @@ try {
 
     @FXML
     void SalirPressed(ActionEvent event) {
-    	Stage stage = (Stage) Scenario.getScene().getWindow();
-    	stage.close();
+    	try {
+    		Parent root;
+    		root = FXMLLoader.load((getClass().getResource("/interfaces/LoginPrincipal.fxml")));
+    		
+    		Stage window = (Stage)VendedoresButton.getScene().getWindow();
+    		window.setTitle("Ingreso al sistema");
+    		window.setScene(new Scene(root));
+    	} catch (IOException e) {
+    		// TODO Auto-generated catch block
+    		e.printStackTrace();
+    	}
     }
 
 }

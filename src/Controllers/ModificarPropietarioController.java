@@ -71,7 +71,7 @@ public class ModificarPropietarioController implements Initializable {
 		// TODO Auto-generated method stub
 		
     	Holder holder = Holder.getInstance();
-    	propietarioID= holder.getIdCliente();
+    	propietarioID= holder.getIdPropietario();
     	
     	
     	ObservableList<String> localidades=  FXCollections.observableArrayList();

@@ -112,7 +112,7 @@ public class ClienteInmueblesController implements Initializable {
     	}else {
     		Holder holder = Holder.getInstance();
         	holder.setIdCliente(idCliente);
-        	holder.setIdVendedor(1);
+        	holder.setIdVendedor(holder.getIdUsuario());
         	
         	holder.setIdInmueble(InmuebleTable.getSelectionModel().getSelectedItem().getId());
         	try {

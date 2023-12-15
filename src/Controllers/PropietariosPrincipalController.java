@@ -141,22 +141,21 @@ public class PropietariosPrincipalController implements Initializable {
     	if(propietariosTable.getSelectionModel().getSelectedItem()!=null) {
     		int idPropietario= propietariosTable.getSelectionModel().getSelectedItem().getId();
     	
-    	try {
-    		
-    		Parent root;
-    	// root = FXMLLoader.load((getClass().getResource("/interfaces/NuevoPropietario.fxml")));
-    		FXMLLoader loader = new FXMLLoader(getClass().getResource("/interfaces/NuevoPropietario.fxml"));
-    		root = loader.load();
-    		CargarInmuebleController controladorCargaInmuele = loader.getController();
-    		controladorCargaInmuele.setPropietarioID(idPropietario);
-    		
-    		Stage window = (Stage)AgregarInmuebleButton.getScene().getWindow();
-    		window.setTitle("Cargar Inmueble");
-    		window.setScene(new Scene(root));
-    	} catch (IOException e) {
-    		// TODO Auto-generated catch block
-    		e.printStackTrace();
-    	}
+
+    		try {
+    			
+    			Holder holder = Holder.getInstance();
+    			holder.setIdPropietario(idPropietario);
+        		Parent root;
+        		root = FXMLLoader.load((getClass().getResource("/interfaces/CargarInmueble.fxml")));
+        		
+        		Stage window = (Stage)ModificarInmuebleButton.getScene().getWindow();
+        		window.setTitle("Propietarios");
+        		window.setScene(new Scene(root));
+        	} catch (IOException e) {
+        		// TODO Auto-generated catch block
+        		e.printStackTrace();
+        	}
     	}else {
     		Alert alertaTipo = new Alert(Alert.AlertType.ERROR); //esto es un mensaje de alerta
     		alertaTipo.setTitle("Propietario"); //titulo
@@ -305,6 +304,7 @@ public class PropietariosPrincipalController implements Initializable {
     @FXML
     void ModificarPropietarioPressed(ActionEvent event) {
     	if(propietariosTable.getSelectionModel().getSelectedItem()!=null) {
+    		
     		
     		
     	
