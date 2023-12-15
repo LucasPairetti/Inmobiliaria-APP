@@ -220,37 +220,70 @@ public class ConsultaInmueblesController implements Initializable {
     void BuscarPressed(ActionEvent event) {
     	List<String>tipo= new ArrayList<String>();
     	
-    	//esto permite saber el tipo de inmueble que habra, el .isSelected() te indica si el checkbox está activada y devuelve true o false
-    	
-    	if (LocalCheckBox.isSelected()) {
-    	    tipo.add("L");
-    	}
-    	if (CasaCheckBox.isSelected()) {
-    	    tipo.add("C");
-    	}
-    	if (DepartamentoCheckBox.isSelected()) {
-    	    tipo.add("D");
-    	}
-    	if (TerrenoCheckBox.isSelected()) {
-    	    tipo.add("T");
-    	}
-    	if (QuintaCheckBox.isSelected()) {
-    	    tipo.add("Q");
-    	}
-    	if (GalponCheckBox.isSelected()) {
-    	    tipo.add("G");
-    	}
-    	if (OficinaCheckBox.isSelected()) {
-    	    tipo.add("O");
-    	}
-    	
-    	if(tipo.isEmpty()){
-    		Alert alertaTipo = new Alert(Alert.AlertType.ERROR); //esto es un mensaje de alerta
-    		alertaTipo.setTitle("Faltan tipos de inmueble"); //titulo
-    		alertaTipo.setContentText("debe seleccionarse al menos un tipo de inmueble"); //informacion
-    		alertaTipo.showAndWait();
+    	if(ProvinciaMenu.getValue()==null) {
+    		 Alert alertaTipo = new Alert(Alert.AlertType.ERROR);
+       	    alertaTipo.setTitle("Provincia vacía");
+       	    alertaTipo.setContentText("El campo 'provincia' no puede estar vacío");
+       	    alertaTipo.showAndWait();
+      		
+      	}else if(LocalidadMenu.getValue()==null) {
+       		 Alert alertaTipo = new Alert(Alert.AlertType.ERROR);
+        	    alertaTipo.setTitle("localidad vacía");
+        	    alertaTipo.setContentText("El campo 'localidad' no puede estar vacío");
+        	    alertaTipo.showAndWait();
+      	}else if(validar.esString(BarrioTextField.getText())!=1){
     		
-    		return;
+    		Alert alertaTipo = new Alert(Alert.AlertType.ERROR); //esto es un mensaje de alerta
+    		alertaTipo.setTitle("Barrio invalido"); //titulo
+    		alertaTipo.setContentText("El campo 'Barrio' es invalido"); //informacion
+    		alertaTipo.showAndWait();
+    	}else {
+    		//esto permite saber el tipo de inmueble que habra, el .isSelected() te indica si el checkbox está activada y devuelve true o false
+        	
+        	if (LocalCheckBox.isSelected()) {
+        	    tipo.add("L");
+        	}
+        	if (CasaCheckBox.isSelected()) {
+        	    tipo.add("C");
+        	}
+        	if (DepartamentoCheckBox.isSelected()) {
+        	    tipo.add("D");
+        	}
+        	if (TerrenoCheckBox.isSelected()) {
+        	    tipo.add("T");
+        	}
+        	if (QuintaCheckBox.isSelected()) {
+        	    tipo.add("Q");
+        	}
+        	if (GalponCheckBox.isSelected()) {
+        	    tipo.add("G");
+        	}
+        	if (OficinaCheckBox.isSelected()) {
+        	    tipo.add("O");
+        	}
+        	
+        	if(tipo.isEmpty()){
+        		Alert alertaTipo = new Alert(Alert.AlertType.ERROR); //esto es un mensaje de alerta
+        		alertaTipo.setTitle("Faltan tipos de inmueble"); //titulo
+        		alertaTipo.setContentText("debe seleccionarse al menos un tipo de inmueble"); //informacion
+        		alertaTipo.showAndWait();
+        	}
+        	else {
+    		//busqueda
+        		/*List<InmuebleDTO> getInmueble(String p, String l, String b, List<String> tipos, int cantdorm,float min, float max)
+        		 * 
+        		 */
+        		listaDeInmuebles.clear();
+        		listaDeInmuebles.addAll( inmuebleService.getInmueble(ProvinciaMenu.getValue(), LocalidadMenu.getValue(), BarrioTextField.getText(), tipo,(int) DormitorioSlider.getValue(),(int)MinPriceSlider.getValue(),(int) MaxPriceSlider.getValue()));
+        		InmuebleTable.setItems(listaDeInmuebles);
+    	}
+    	
+    	
+    	
+    		
+    		
+    		
+    			
     		
     	}
     	
