@@ -54,16 +54,22 @@ public class InmuebleServices {
 		Propietario p = propietariodao.getPropietarioById(entrada.getIdPropietario());
 		if(p == null) {
 			return -2;//no existe el propietario
-		}
-		Inmueble inmueble= toInmueble(p, entrada);
-		if(chequearDuplicado(inmueble.getProvincia(), inmueble.getLocalidad(), inmueble.getCalle(), inmueble.getNumero(),
-				inmueble.getPisodpto(), inmueble.getTipoInmueble())) {
-			return -3;//el inmueble ya existe
-		}
+		}else {Provincia provincia = Provincia.valueOf(entrada.getProvincia());
+		TipoInmueble tipoInmueble = TipoInmueble.valueOf(entrada.getTipoInmueble());
 		
-		inmuebledao.createInmueble(inmueble);
-		return 1;
+			if(chequearDuplicado(provincia, entrada.getLocalidad(), entrada.getCalle(), entrada.getNumero(),
+					entrada.getPisodpto(), tipoInmueble)) {
+				return -3;//el inmueble ya existe
+			}else {
+				Inmueble inmueble= toInmueble(p, entrada);
+				inmuebledao.createInmueble(inmueble);
+				return 1;
+			}
+		}
 	}
+	
+	
+	
 	
 	public int deleteInmueble(int i) {
 		Inmueble inmueble = inmuebledao.getInmuebleById(i);
@@ -86,14 +92,7 @@ public class InmuebleServices {
 		}
 		else {return -1;}//no existia el inmueble con esa id
 	}
-	public int updateCliente(ClienteDTO entrada) {
-		Cliente og = clientedao.getClienteById(entrada.getId());
-		if(og !=null) {
-			actualizarCliente(og, entrada);
-			clientedao.updateCliente(og);
-			return 1;
-		}else { return -1;}
-		
+
 	
 	public List<InmuebleDTO> listInmuebles() {
 	    return Optional.ofNullable(inmuebledao.getAllInmuebles())
@@ -288,6 +287,7 @@ public class InmuebleServices {
 		{return false;}
 		else { return true;}
 		}
+	
 	private Inmueble toInmueble(Propietario propietario, InmuebleDTO entrada) {
 		
 		Provincia provincia = Provincia.valueOf(entrada.getProvincia());
