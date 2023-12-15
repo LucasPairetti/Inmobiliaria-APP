@@ -23,7 +23,7 @@
       </Label>
       <TextField fx:id="NombreField" layoutX="76.0" layoutY="205.0" prefHeight="53.0" prefWidth="255.0" promptText="nombre" />
       <TextField fx:id="ApellidoField" layoutX="76.0" layoutY="310.0" prefHeight="53.0" prefWidth="255.0" promptText="Apellido" />
-      <TextField fx:id="TelefonoField" layoutX="356.0" layoutY="210.0" prefHeight="53.0" prefWidth="255.0" promptText="tel: 03424512345" />
+      <TextField fx:id="TelefonoField" layoutX="356.0" layoutY="210.0" prefHeight="53.0" prefWidth="255.0" promptText="tel: 1543515454" />
       <Label layoutX="76.0" layoutY="180.0" text="nombre:" />
       <Label layoutX="76.0" layoutY="292.0" text="Apellido:" />
       <Label layoutX="362.0" layoutY="185.0" text="telefono:" />

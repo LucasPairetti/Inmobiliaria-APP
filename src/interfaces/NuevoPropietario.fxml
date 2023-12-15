@@ -23,8 +23,8 @@
       </Label>
       <TextField fx:id="NombreField" layoutX="76.0" layoutY="205.0" prefHeight="53.0" prefWidth="255.0" promptText="nombre" />
       <TextField fx:id="ApellidoField" layoutX="76.0" layoutY="310.0" prefHeight="53.0" prefWidth="255.0" promptText="Apellido" />
-      <TextField fx:id="TelefonoField" layoutX="356.0" layoutY="210.0" prefHeight="53.0" prefWidth="255.0" promptText="tel: 03424512345" />
-      <TextField fx:id="barrioField" layoutX="644.0" layoutY="430.0" prefHeight="53.0" prefWidth="255.0" promptText="Apellido" text="Barrio" />
+      <TextField fx:id="TelefonoField" layoutX="356.0" layoutY="210.0" prefHeight="53.0" prefWidth="255.0" promptText="tel: 157653151" />
+      <TextField fx:id="barrioField" layoutX="644.0" layoutY="430.0" prefHeight="53.0" prefWidth="255.0" promptText="Barrio" />
       <Label layoutX="76.0" layoutY="180.0" text="nombre:" />
       <Label layoutX="76.0" layoutY="292.0" text="Apellido:" />
       <Label layoutX="362.0" layoutY="185.0" text="telefono:" />
@@ -41,9 +41,9 @@
       <Label layoutX="76.0" layoutY="400.0" text="Tipo de documento:" />
       <TextField fx:id="DNIField" layoutX="364.0" layoutY="430.0" prefHeight="53.0" prefWidth="255.0" promptText="123456789" />
       <Label layoutX="363.0" layoutY="397.0" text="Numero de documento:" />
-      <TextField fx:id="CalleField" layoutX="916.0" layoutY="210.0" prefHeight="53.0" prefWidth="255.0" promptText="Apellido" text="Calle" />
+      <TextField fx:id="CalleField" layoutX="916.0" layoutY="210.0" prefHeight="53.0" prefWidth="255.0" promptText="Calle" />
       <Label layoutX="916.0" layoutY="185.0" text="Calle:" />
-      <TextField fx:id="numeroField" layoutX="916.0" layoutY="305.0" prefHeight="53.0" prefWidth="255.0" promptText="Apellido" text="Numero:" />
+      <TextField fx:id="numeroField" layoutX="916.0" layoutY="305.0" prefHeight="53.0" prefWidth="255.0" promptText="Numero" />
       <Label layoutX="916.0" layoutY="280.0" text="Numero:" />
    </children>
 </AnchorPane>

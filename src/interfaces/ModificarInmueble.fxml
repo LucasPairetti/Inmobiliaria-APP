@@ -48,14 +48,14 @@
       <Label layoutX="309.0" layoutY="342.0" text="Tipo de Inmueble" />
       <Label layoutX="309.0" layoutY="437.0" text="Orientacion:" />
       <Label layoutX="795.0" layoutY="108.0" text="Datos del edificio" />
-      <TextField fx:id="SuperficieField" layoutX="515.0" layoutY="208.0" prefHeight="34.0" prefWidth="176.0" text="Metros cuadrados" />
+      <TextField fx:id="SuperficieField" layoutX="515.0" layoutY="208.0" prefHeight="34.0" prefWidth="176.0" promptText="Metros cuadrados" />
       <Label layoutX="524.0" layoutY="176.0" text="Superficie:" />
       <CheckBox fx:id="PropiedadHorizontalCheckBox" layoutX="950.0" layoutY="400.0" mnemonicParsing="false" text="Propiedad horizontal" />
-      <TextField fx:id="AntiguedadField" layoutX="719.0" layoutY="211.0" prefHeight="34.0" prefWidth="176.0" text="Años" />
+      <TextField fx:id="AntiguedadField" layoutX="719.0" layoutY="211.0" prefHeight="34.0" prefWidth="176.0" promptText="Años" />
       <Label layoutX="719.0" layoutY="176.0" text="antiguedad:" />
-      <TextField fx:id="FrenteField" layoutX="524.0" layoutY="309.0" prefHeight="34.0" prefWidth="176.0" text="Metros" />
+      <TextField fx:id="FrenteField" layoutX="524.0" layoutY="309.0" prefHeight="34.0" prefWidth="176.0" promptText="Metros" />
       <Label layoutX="528.0" layoutY="274.0" text="Frente" />
-      <TextField fx:id="FondoField" layoutX="719.0" layoutY="309.0" prefHeight="34.0" prefWidth="176.0" text="Metros" />
+      <TextField fx:id="FondoField" layoutX="719.0" layoutY="309.0" prefHeight="34.0" prefWidth="176.0" promptText="Metros" />
       <Label layoutX="719.0" layoutY="275.0" text="Fondo:" />
       <TextField fx:id="DormitorioField" layoutX="918.0" layoutY="212.0" prefHeight="34.0" prefWidth="176.0" />
       <Label layoutX="918.0" layoutY="177.0" text="Cantidad de dormitorios:" />
