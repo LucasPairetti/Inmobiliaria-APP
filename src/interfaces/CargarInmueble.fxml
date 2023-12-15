@@ -37,7 +37,7 @@
       <CheckBox fx:id="GarajeCheckBox" layoutX="524.0" layoutY="379.0" mnemonicParsing="false" text="Garaje/Cochera" />
       <CheckBox fx:id="PatioCheckBox" layoutX="524.0" layoutY="418.0" mnemonicParsing="false" text="Patio" />
       <CheckBox fx:id="PiscinaCheckBox" layoutX="524.0" layoutY="456.0" mnemonicParsing="false" text="Piscina" />
-      <TextField fx:id="OtraLocalidadField" editable="false" layoutX="315.0" layoutY="292.0" prefHeight="34.0" prefWidth="176.0" text="otra localidad" />
+      <TextField fx:id="OtraLocalidadField" editable="false" layoutX="315.0" layoutY="292.0" prefHeight="34.0" prefWidth="176.0" promptText="otra localidad" />
       <Label layoutX="315.0" layoutY="248.0" text="Otra:" />
       <TextField fx:id="CalleField" layoutX="71.0" layoutY="474.0" prefHeight="34.0" prefWidth="176.0" promptText="Hunin" />
       <Label layoutX="71.0" layoutY="430.0" text="Calle:" />
@@ -46,14 +46,14 @@
       <TextField fx:id="PrecioField" layoutX="309.0" layoutY="196.0" prefHeight="34.0" prefWidth="176.0" promptText="USD" />
       <Label layoutX="309.0" layoutY="152.0" text="Precio:" />
       <Label layoutX="795.0" layoutY="108.0" text="Datos del edificio" />
-      <TextField fx:id="SuperficieField" layoutX="515.0" layoutY="208.0" prefHeight="34.0" prefWidth="176.0" text="Metros cuadrados" />
+      <TextField fx:id="SuperficieField" layoutX="515.0" layoutY="208.0" prefHeight="34.0" prefWidth="176.0" promptText="v" />
       <Label layoutX="524.0" layoutY="176.0" text="Superficie:" />
       <CheckBox fx:id="PropiedadHorizontalCheckBox" layoutX="950.0" layoutY="396.0" mnemonicParsing="false" text="Propiedad horizontal" />
-      <TextField fx:id="AntiguedadField" layoutX="719.0" layoutY="211.0" prefHeight="34.0" prefWidth="176.0" text="Años" />
+      <TextField fx:id="AntiguedadField" layoutX="719.0" layoutY="211.0" prefHeight="34.0" prefWidth="176.0" promptText="Años" />
       <Label layoutX="719.0" layoutY="176.0" text="antiguedad:" />
-      <TextField fx:id="FrenteField" layoutX="524.0" layoutY="309.0" prefHeight="34.0" prefWidth="176.0" text="Metros" />
+      <TextField fx:id="FrenteField" layoutX="524.0" layoutY="309.0" prefHeight="34.0" prefWidth="176.0" promptText="Metros" />
       <Label layoutX="528.0" layoutY="274.0" text="Frente" />
-      <TextField fx:id="FondoField" layoutX="719.0" layoutY="309.0" prefHeight="34.0" prefWidth="176.0" text="Metros" />
+      <TextField fx:id="FondoField" layoutX="719.0" layoutY="309.0" prefHeight="34.0" prefWidth="176.0" promptText="Metros" />
       <Label layoutX="719.0" layoutY="275.0" text="Fondo:" />
       <TextField fx:id="DormitorioField" layoutX="918.0" layoutY="212.0" prefHeight="34.0" prefWidth="176.0" />
       <Label layoutX="918.0" layoutY="177.0" text="Cantidad de dormitorios:" />
@@ -64,10 +64,8 @@
       <CheckBox fx:id="PavimentoCheckBox" layoutX="818.0" layoutY="456.0" mnemonicParsing="false" text="Pavimento" />
       <TextField fx:id="PropietarioField" editable="false" layoutX="309.0" layoutY="579.0" prefHeight="34.0" prefWidth="176.0" promptText="Nombre" />
       <Label layoutX="309.0" layoutY="535.0" text="Propietario:" />
-      <TextArea fx:id="ObservacionesField" layoutX="524.0" layoutY="531.0" prefHeight="177.0" prefWidth="400.0" />
+      <TextArea fx:id="ObservacionesField" layoutX="524.0" layoutY="531.0" prefHeight="177.0" prefWidth="641.0" />
       <Label layoutX="532.0" layoutY="505.0" text="Observaciones:" />
-      <Button fx:id="ImagenButton" layoutX="996.0" layoutY="508.0" mnemonicParsing="false" onAction="#ImagenPressed" prefHeight="30.0" prefWidth="126.0" text="Agregar Imagen" />
-      <ImageView fx:id="ImageView" fitHeight="150.0" fitWidth="200.0" layoutX="959.0" layoutY="545.0" pickOnBounds="true" preserveRatio="true" />
       <Line endX="569.0" layoutX="612.0" layoutY="144.0" startX="-100.0" stroke="WHITE" />
       <Line endX="-111.0" endY="617.0" layoutX="623.0" layoutY="114.0" startX="-111.0" startY="31.0" stroke="WHITE" />
       <Line endX="569.0" layoutX="613.0" layoutY="731.0" startX="-100.0" stroke="WHITE" />

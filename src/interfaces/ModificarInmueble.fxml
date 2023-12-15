@@ -37,7 +37,7 @@
       <CheckBox fx:id="GarajeCheckBox" layoutX="524.0" layoutY="379.0" mnemonicParsing="false" text="Garaje/Cochera" />
       <CheckBox fx:id="PatioCheckBox" layoutX="524.0" layoutY="418.0" mnemonicParsing="false" text="Patio" />
       <CheckBox fx:id="PiscinaCheckBox" layoutX="524.0" layoutY="456.0" mnemonicParsing="false" text="Piscina" />
-      <TextField fx:id="OtraLocalidadField" editable="false" layoutX="315.0" layoutY="292.0" prefHeight="34.0" prefWidth="176.0" text="otra localidad" />
+      <TextField fx:id="OtraLocalidadField" editable="false" layoutX="315.0" layoutY="292.0" prefHeight="34.0" prefWidth="176.0" promptText="otra localidad" />
       <Label layoutX="315.0" layoutY="248.0" text="Otra:" />
       <TextField fx:id="CalleField" layoutX="71.0" layoutY="474.0" prefHeight="34.0" prefWidth="176.0" />
       <Label layoutX="71.0" layoutY="430.0" text="Calle:" />
@@ -66,10 +66,8 @@
       <CheckBox fx:id="PavimentoCheckBox" layoutX="818.0" layoutY="456.0" mnemonicParsing="false" text="Pavimento" />
       <TextField fx:id="PropietarioField" editable="false" layoutX="309.0" layoutY="579.0" prefHeight="34.0" prefWidth="176.0" promptText="Nombre" />
       <Label layoutX="309.0" layoutY="535.0" text="Propietario:" />
-      <TextArea fx:id="ObservacionesField" layoutX="524.0" layoutY="531.0" prefHeight="177.0" prefWidth="400.0" />
+      <TextArea fx:id="ObservacionesField" layoutX="524.0" layoutY="531.0" prefHeight="177.0" prefWidth="628.0" />
       <Label layoutX="532.0" layoutY="505.0" text="Observaciones:" />
-      <Button fx:id="ImagenButton" layoutX="996.0" layoutY="508.0" mnemonicParsing="false" onAction="#ImagenPressed" prefHeight="30.0" prefWidth="126.0" text="Agregar Imagen" />
-      <ImageView fx:id="ImageView" fitHeight="150.0" fitWidth="200.0" layoutX="959.0" layoutY="545.0" pickOnBounds="true" preserveRatio="true" />
       <Line endX="569.0" layoutX="612.0" layoutY="144.0" startX="-100.0" stroke="WHITE" />
       <Line endX="-111.0" endY="617.0" layoutX="623.0" layoutY="114.0" startX="-111.0" startY="31.0" stroke="WHITE" />
       <Line endX="569.0" layoutX="613.0" layoutY="731.0" startX="-100.0" stroke="WHITE" />

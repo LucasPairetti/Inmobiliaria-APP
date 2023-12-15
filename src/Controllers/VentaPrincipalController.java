@@ -107,7 +107,7 @@ public class VentaPrincipalController implements Initializable{
     	Holder holder = Holder.getInstance();
     	idInmueble = holder.getIdInmueble();
     	idCliente = holder.getIdCliente();
-    	idVendedor = holder.getIdVendedor();
+    	idVendedor = holder.getIdUsuario();
      	ClienteDTO cliente = clienteServices.getClienteById(idCliente);
     		InmuebleDTO inmueble = inmuebleServices.getById(idInmueble);
     		VendedorDTO vendedor = vendedorServices.getVendedorById(idVendedor);

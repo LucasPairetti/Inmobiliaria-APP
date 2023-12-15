@@ -2,7 +2,7 @@ package Controllers;
 
 import java.io.IOException;
 import java.net.URL;
-import java.util.Date;
+import java.sql.Date;
 import java.text.SimpleDateFormat;
 
 import java.util.ResourceBundle;
@@ -33,6 +33,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 import services.InmuebleServices;
+import services.PropietarioServices;
 
 public class CargarInmuebleController implements Initializable{
 
@@ -81,11 +82,6 @@ public class CargarInmuebleController implements Initializable{
     @FXML
     private Button GuardarButton;
 
-    @FXML
-    private ImageView ImageView;
-
-    @FXML
-    private Button ImagenButton;
 
     @FXML
     private CheckBox LavaderoCheckBox;
@@ -144,11 +140,14 @@ public class CargarInmuebleController implements Initializable{
     
     private Validacion validar =Validacion.getInstance();
     private InmuebleServices serviceInmueble= InmuebleServices.getInstance();
+    private PropietarioServices propietarioService = PropietarioServices.getInstance();
     SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-    Date fecha = new Date();
+    Date fecha = new Date(System.currentTimeMillis());
     @Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
-    	
+    	Holder holder = Holder.getInstance();
+    	propietarioID = holder.getIdPropietario();
+    	PropietarioField.setText(propietarioService.getPropietarioById(propietarioID).getApellido());
     	ObservableList<String>localidades= FXCollections.observableArrayList(); 
     	localidades.addAll(Localidad.getLocalidad());
     	localidades.add("Otra localidad");
@@ -168,9 +167,7 @@ public class CargarInmuebleController implements Initializable{
     	FechaField.setText(sdf.format(fecha));
 	}
     
-public void setPropietarioID(int id) {
-	propietarioID=id;
-}
+
     
     
     @FXML
@@ -313,7 +310,7 @@ public void setPropietarioID(int id) {
 			String observaciones)
     			 */
     			
-    			InmuebleDTO nuevoInmueble= new InmuebleDTO(propietarioID, (java.sql.Date) fecha, "Disponible", ProvinciaMenu.getValue(), LocalidadMenu.getValue(),
+    			InmuebleDTO nuevoInmueble= new InmuebleDTO(propietarioID, fecha, "Disponible", ProvinciaMenu.getValue(), LocalidadMenu.getValue(),
     					CalleField.getText(), Integer.parseInt(NumeroField.getText()), PisoDeptoField.getText(), BarrioTextField.getText(), TipoInmuebleMenu.getValue(),
     					Double.parseDouble(PrecioField.getText()), OrientacionMenu.getValue(), Float.parseFloat(FrenteField.getText()),Float.parseFloat(SuperficieField.getText()),
     					Float.parseFloat(FondoField.getText()),Integer.parseInt(AntiguedadField.getText()), Integer.parseInt(DormitorioField.getText()),Integer.parseInt(BaniosField.getText()),
