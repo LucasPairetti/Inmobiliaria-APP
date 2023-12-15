@@ -209,10 +209,7 @@ public class ModificarInmuebleController implements Initializable {
     	
 	}
     
-    public void setInmueblePropietario(int idInm, int idProp) {
-    	inmuebleID= idInm;
-    	IdPropietario=idProp;
-    }
+  
 
     @FXML
     void ImagenPressed(ActionEvent event) {
@@ -337,17 +334,23 @@ public class ModificarInmuebleController implements Initializable {
     					LavaderoCheckBox.isSelected(), PavimentoCheckBox.isSelected(), TelefenoCheckBox.isSelected(), ObservacionesField.getText());
     					//modificar inmueble 
     			
-    			if(serviceInmueble.updateInmueble(nuevoInmueble)==1) {
+    			int result=serviceInmueble.updateInmueble(nuevoInmueble);
+    			if(result==1) {
     				Parent root;
-            		root = FXMLLoader.load((getClass().getResource("/interfaces/ClientesPrincipal.fxml")));
+            		root = FXMLLoader.load((getClass().getResource("/interfaces/PropietariosPrincipal.fxml")));
             		
             		Stage window = (Stage)VolverButton.getScene().getWindow();
-            		window.setTitle("Clientes");
+            		window.setTitle("Propietarios");
             		window.setScene(new Scene(root));
-    			}else {
+    			}else if(result==-1){
     				Alert alertaTipo = new Alert(Alert.AlertType.ERROR); //esto es un mensaje de alerta
     	    		alertaTipo.setTitle("Inmueble inexistente"); //titulo
     	    		alertaTipo.setContentText("Este Inmueble no existe"); //informacion
+    	    		alertaTipo.showAndWait();
+    			}else {
+    				Alert alertaTipo = new Alert(Alert.AlertType.ERROR); //esto es un mensaje de alerta
+    	    		alertaTipo.setTitle("propietario inexistente"); //titulo
+    	    		alertaTipo.setContentText("El propietario de este inmueble no existe"); //informacion
     	    		alertaTipo.showAndWait();
     			}
     			
