@@ -3,7 +3,7 @@ package Controllers;
 import java.io.IOException;
 import java.net.URL;
 import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.sql.Date;
 import java.util.ResourceBundle;
 
 import dto.ClienteDTO;
@@ -101,6 +101,7 @@ public class VentaPrincipalController implements Initializable{
     InmuebleServices inmuebleServices = InmuebleServices.getInstance();
     VendedorServices vendedorServices = VendedorServices.getInstance();
     VentaServices ventaServices = VentaServices.getInstance();
+    Date fecha = new Date(System.currentTimeMillis());
     @Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		// TODO Auto-generated method stub
@@ -111,8 +112,8 @@ public class VentaPrincipalController implements Initializable{
      	ClienteDTO cliente = clienteServices.getClienteById(idCliente);
     		InmuebleDTO inmueble = inmuebleServices.getById(idInmueble);
     		VendedorDTO vendedor = vendedorServices.getVendedorById(idVendedor);
-    		Date date = new Date();
-    		fechaField.setText(sdf.format(date));
+    		
+    		fechaField.setText(sdf.format(fecha));
     		//cliente
     		nombreClienteLabel.setText(cliente.getNombre());
     		apellidoClienteLabel.setText(cliente.getApellido());
@@ -144,9 +145,9 @@ if(validar.esUnNumero(montoField.getText())!=1){
     		alertaTipo.showAndWait();
     	}
 else {
-	Date date = new Date();
+	
 	//public VentaDTO(int inmueble,int cliente,int vendedor,double importe, Date fecha)
-	VentaDTO venta = new VentaDTO(idInmueble, idCliente, idVendedor,Double.parseDouble(montoField.getText()),(java.sql.Date) date);
+	VentaDTO venta = new VentaDTO(idInmueble, idCliente, idVendedor,Double.parseDouble(montoField.getText()),fecha);
 	
 	ventaServices.createVenta(venta);
 	holder.setIdCliente(idCliente);

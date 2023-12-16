@@ -221,11 +221,12 @@ public class PropietariosPrincipalController implements Initializable {
     
     @FXML
     void PropietarioSeleccionado(MouseEvent event) {
+    	if(propietariosTable.getSelectionModel().getSelectedItem()!=null) {
     	int idPropietario= propietariosTable.getSelectionModel().getSelectedItem().getId();
     	listaDeInmuebles.clear();
     	listaDeInmuebles.addAll(inmuebleService.getInmueblesByPropietario(idPropietario));
     	InmuebleTable.setItems(listaDeInmuebles);
-    	
+    	}
 
     }
 

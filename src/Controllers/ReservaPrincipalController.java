@@ -3,7 +3,7 @@ package Controllers;
 import java.io.IOException;
 import java.net.URL;
 import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.sql.Date;
 import java.util.ResourceBundle;
 
 import dto.ClienteDTO;
@@ -92,6 +92,7 @@ public class ReservaPrincipalController implements Initializable{
     InmuebleServices inmuebleServices = InmuebleServices.getInstance();
     ReservaServices reservaServices = ReservaServices.getInstance();
     Holder holder = Holder.getInstance();
+    Date fecha = new Date(System.currentTimeMillis());
     @Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
     	
@@ -100,8 +101,8 @@ public class ReservaPrincipalController implements Initializable{
 		// TODO Auto-generated method stub
 		ClienteDTO cliente = clienteServices.getClienteById(idCliente);
 		InmuebleDTO inmueble = inmuebleServices.getById(idInmueble);
-		Date date = new Date();
-		fechaField.setText(sdf.format(date));
+		
+		fechaField.setText(sdf.format(fecha));
 		//cliente
 		nombreClienteLabel.setText(cliente.getNombre());
 		apellidoClienteLabel.setText(cliente.getApellido());
@@ -124,7 +125,7 @@ public class ReservaPrincipalController implements Initializable{
     	/*public ReservaDTO(int inmueble,int cliente,int vendedor,double importe, Date fecha,float tiempoVigencia)
 		
 	}*/
-    	Date date = new Date();
+    	
     	if(validar.esUnNumero(montoField.getText())!=1){
     		
     		Alert alertaTipo = new Alert(Alert.AlertType.ERROR); //esto es un mensaje de alerta
@@ -138,7 +139,7 @@ public class ReservaPrincipalController implements Initializable{
     		alertaTipo.setContentText("El campo 'Tiempo de vigencia' debe ser de tipo numerico"); //informacion
     		alertaTipo.showAndWait();
     	}else {
-    		ReservaDTO reserva = new ReservaDTO(idInmueble, idCliente, holder.getIdVendedor(), Double.parseDouble(montoField.getText()),(java.sql.Date) date,Float.parseFloat(tiempoVigenciaField.getText()));
+    		ReservaDTO reserva = new ReservaDTO(idInmueble, idCliente, holder.getIdVendedor(), Double.parseDouble(montoField.getText()),fecha,Float.parseFloat(tiempoVigenciaField.getText()));
         	
         	
         	
