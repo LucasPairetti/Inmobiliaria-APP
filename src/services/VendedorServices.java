@@ -26,7 +26,7 @@ public class VendedorServices {
 	}
 	public int createVendedor(VendedorDTO entrada) {
 		TipoDNI tipoDNI= TipoDNI.valueOf(entrada.getTipodni());
-		if(chequearDuplicado( tipoDNI,entrada.getDni())) {return -1;}//si existe un duplicado retorna -1
+		if(chequearDuplicado( tipoDNI,entrada.getDni())) {System.out.println("Vendedor ya existente"); return -1;}//si existe un duplicado retorna -1
 		else {
 			Vendedor vendedor = toVendedor(entrada);
 			vendedordao.createVendedor(vendedor);

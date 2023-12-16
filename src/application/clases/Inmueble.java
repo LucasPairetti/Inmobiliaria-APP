@@ -26,7 +26,7 @@ public class Inmueble {
 	@GeneratedValue(strategy= GenerationType.IDENTITY)
 	@Column(name="idInmueble")
 	int id;
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne(cascade = CascadeType.MERGE)
 	@JoinColumn(name="idPropietario", nullable = false, referencedColumnName="idPropietario", 
 				foreignKey=@ForeignKey(name="FK_Inmueble_Propietario", value=ConstraintMode.CONSTRAINT))
 	Propietario propietario;

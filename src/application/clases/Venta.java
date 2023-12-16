@@ -2,18 +2,9 @@ package application.clases;
 
 import java.sql.Date;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import jakarta.persistence.*;
 
-import jakarta.persistence.CascadeType;
-import jakarta.persistence.ConstraintMode;
-import jakarta.persistence.ForeignKey;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.OneToOne;
+
 
 @Entity
 @Table(name="Venta")
@@ -23,15 +14,15 @@ public class Venta {
 	@GeneratedValue(strategy= GenerationType.IDENTITY)
 	@Column(name="idVenta")
 	int id;
-	@OneToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name="propiedad_id", nullable = false, referencedColumnName="idPropiedad", 
+	@OneToOne(cascade = CascadeType.MERGE)
+	@JoinColumn(name="propiedad_id", nullable = false, referencedColumnName="idInmueble", 
 				foreignKey=@ForeignKey(name="FK_Venta_Propiedad", value=ConstraintMode.CONSTRAINT))
 	Inmueble propiedad;
-	@OneToOne(cascade = CascadeType.ALL)
+	@OneToOne(cascade = CascadeType.MERGE)
 	@JoinColumn(name="cliente_id", nullable = false, referencedColumnName="idCliente", 
 				foreignKey=@ForeignKey(name="FK_Venta_Cliente", value=ConstraintMode.CONSTRAINT))
 	Cliente cliente;
-	@OneToOne(cascade = CascadeType.ALL)
+	@OneToOne(cascade = CascadeType.MERGE)
 	@JoinColumn(name="vendedor_id", nullable = false, referencedColumnName="idVendedor", 
 				foreignKey=@ForeignKey(name="FK_Venta_Vendedor", value=ConstraintMode.CONSTRAINT))
 	Vendedor vendedor;
@@ -41,6 +32,10 @@ public class Venta {
 	@Column(name="fecha", nullable=false)
 	Date fecha;
 	
+	
+	public Venta() {
+		super();
+	}
 	
 	public Venta(Inmueble propiedad, Cliente cliente, Vendedor vendedor, double importeVenta, Date fecha) {
 		super();

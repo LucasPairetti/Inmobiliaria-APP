@@ -3,7 +3,8 @@ package Controllers;
 import java.io.IOException;
 import java.net.URL;
 import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.time.LocalDate;
+import java.sql.Date;
 import java.util.ResourceBundle;
 
 import dto.ClienteDTO;
@@ -111,7 +112,8 @@ public class VentaPrincipalController implements Initializable{
      	ClienteDTO cliente = clienteServices.getClienteById(idCliente);
     		InmuebleDTO inmueble = inmuebleServices.getById(idInmueble);
     		VendedorDTO vendedor = vendedorServices.getVendedorById(idVendedor);
-    		Date date = new Date();
+    		LocalDate today = LocalDate.now();
+    		Date date = Date.valueOf(today);
     		fechaField.setText(sdf.format(date));
     		//cliente
     		nombreClienteLabel.setText(cliente.getNombre());
@@ -144,9 +146,11 @@ if(validar.esUnNumero(montoField.getText())!=1){
     		alertaTipo.showAndWait();
     	}
 else {
-	Date date = new Date();
+
+	LocalDate today = LocalDate.now();
+	Date date = Date.valueOf(today);
 	//public VentaDTO(int inmueble,int cliente,int vendedor,double importe, Date fecha)
-	VentaDTO venta = new VentaDTO(idInmueble, idCliente, idVendedor,Double.parseDouble(montoField.getText()),(java.sql.Date) date);
+	VentaDTO venta = new VentaDTO(idInmueble, idCliente, idVendedor,Double.parseDouble(montoField.getText()), date);
 	
 	ventaServices.createVenta(venta);
 	holder.setIdCliente(idCliente);
