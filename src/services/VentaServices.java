@@ -55,6 +55,8 @@ public class VentaServices {
 			ventadao = VentaDAO.getVentaDAO();
 			inmuebledao= InmuebleDAO.getInmuebleDAO();
 			reservadao=ReservaDAO.getReservaDAO();
+			vendedordao=VendedorDAO.getVendedorDAO();
+			clientedao=ClienteDAO.getClienteDAO();
 		}
 		return instance;
 	}
@@ -68,7 +70,7 @@ public class VentaServices {
 		
 		List<Reserva> reservas =reservadao.getReservasByInmueble(inmueble);
 		double monto =0.0;
-		if(reservas!= null) {
+		if(!reservas.isEmpty()) {
 			List<Reserva> reservasValidas = reservas.stream().filter(Reserva::esReservaValida).collect(Collectors.toList());
 			if(!reservasValidas.isEmpty()) {
 				if(reservasValidas.get(0).getCliente().getId() != cliente.getId()) {
@@ -83,7 +85,7 @@ public class VentaServices {
 		Vendedor vendedor= vendedordao.getVendedorById(venta.getVendedor());
 		if(vendedor==null) {return -4;}//no existe el vendedor
 		
-		Venta ventafinal = toVenta(venta,inmueble,cliente,vendedor);
+		Venta ventafinal = toVenta(venta, inmueble, cliente, vendedor);
 		ventadao.createVenta(ventafinal);
 		inmueble.setEstado(Estado.Vendido);
 		inmuebledao.updateInmueble(inmueble);
@@ -114,7 +116,7 @@ public class VentaServices {
 	            .collect(Collectors.toList());
 	}
 	private Venta toVenta(VentaDTO entrada,Inmueble inmueble,Cliente cliente, Vendedor vendedor ) {
-		return new Venta(inmueble,cliente,vendedor,entrada.getImporteReserva(),entrada.getFecha());
+		return new Venta(inmueble, cliente, vendedor, entrada.getImporteReserva(), entrada.getFecha());
 	}
 	
 	public void generarPDF(Venta venta){

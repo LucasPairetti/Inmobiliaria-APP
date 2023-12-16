@@ -3,9 +3,10 @@ package Controllers;
 import java.io.IOException;
 import java.net.URL;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.sql.Date;
+import java.util.Calendar;
 import java.util.ResourceBundle;
-
 import dto.ClienteDTO;
 import dto.InmuebleDTO;
 import dto.ReservaDTO;
@@ -101,8 +102,9 @@ public class ReservaPrincipalController implements Initializable{
 		// TODO Auto-generated method stub
 		ClienteDTO cliente = clienteServices.getClienteById(idCliente);
 		InmuebleDTO inmueble = inmuebleServices.getById(idInmueble);
-		
-		fechaField.setText(sdf.format(fecha));
+		LocalDate today = LocalDate.now();
+		Date date = Date.valueOf(today);
+		fechaField.setText(sdf.format(date));
 		//cliente
 		nombreClienteLabel.setText(cliente.getNombre());
 		apellidoClienteLabel.setText(cliente.getApellido());
@@ -125,7 +127,8 @@ public class ReservaPrincipalController implements Initializable{
     	/*public ReservaDTO(int inmueble,int cliente,int vendedor,double importe, Date fecha,float tiempoVigencia)
 		
 	}*/
-    	
+    	LocalDate today = LocalDate.now();
+		Date date = Date.valueOf(today);
     	if(validar.esUnNumero(montoField.getText())!=1){
     		
     		Alert alertaTipo = new Alert(Alert.AlertType.ERROR); //esto es un mensaje de alerta
@@ -139,13 +142,16 @@ public class ReservaPrincipalController implements Initializable{
     		alertaTipo.setContentText("El campo 'Tiempo de vigencia' debe ser de tipo numerico"); //informacion
     		alertaTipo.showAndWait();
     	}else {
-    		ReservaDTO reserva = new ReservaDTO(idInmueble, idCliente, holder.getIdVendedor(), Double.parseDouble(montoField.getText()),fecha,Float.parseFloat(tiempoVigenciaField.getText()));
+    		ReservaDTO reserva = new ReservaDTO(idInmueble, idCliente, holder.getIdUsuario(), Double.parseDouble(montoField.getText()), date,Float.parseFloat(tiempoVigenciaField.getText()));
         	
         	
         	
         	
         	holder.setIdCliente(idCliente);
         	holder.setIdInmueble(idInmueble);
+        	
+        	System.out.println(reserva.getVendedor());
+        	System.out.println(reservaServices.createReserva(reserva));
         	
         	if(reservaServices.createReserva(reserva)==1) {
         		try {

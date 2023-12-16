@@ -1,21 +1,14 @@
 package application.clases;
 
 import java.sql.Date;
+import java.util.*;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
+import java.util.Calendar;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
-
-import jakarta.persistence.CascadeType;
-import jakarta.persistence.ConstraintMode;
-import jakarta.persistence.ForeignKey;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
+import jakarta.persistence.*;
 
 @Entity
 @Table(name="Reserva")
@@ -25,15 +18,15 @@ public class Reserva {
 	@GeneratedValue(strategy= GenerationType.IDENTITY)
 	@Column(name="idPropietario")
 	int id;
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne(cascade = CascadeType.MERGE)
 	@JoinColumn(name="inmueble_id", nullable = false, referencedColumnName="idInmueble", 
 				foreignKey=@ForeignKey(name="FK_Reserva_Inmueble", value=ConstraintMode.CONSTRAINT))
 	Inmueble inmueble;
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne(cascade = CascadeType.MERGE)
 	@JoinColumn(name="cliente_id", nullable = false, referencedColumnName="idCliente", 
 				foreignKey=@ForeignKey(name="FK_Reserva_Cliente", value=ConstraintMode.CONSTRAINT))
 	Cliente cliente;
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne(cascade = CascadeType.MERGE)
 	@JoinColumn(name="vendedor_id", nullable = false, referencedColumnName="idVendedor", 
 				foreignKey=@ForeignKey(name="FK_Reserva_Vendedor", value=ConstraintMode.CONSTRAINT))
 	Vendedor vendedor;
@@ -46,6 +39,11 @@ public class Reserva {
 	
 	
 	
+	public Reserva() {
+		super();
+	}
+
+
 	public Reserva(Inmueble inmueble, Cliente cliente, Vendedor vendedor, double importeReserva, float tiempoVigencia,
 			Date fecha) {
 		super();
@@ -59,11 +57,16 @@ public class Reserva {
    
 
     public boolean esReservaValida() {
-      
-        LocalDateTime fechaActual = LocalDateTime.now();
-        LocalDateTime fechaCreacion = this.fecha.toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime();
-        LocalDateTime fechaVencimiento = fechaCreacion.plusDays((long) this.tiempoVigencia);
-        return fechaActual.isBefore(fechaVencimiento);
+    	
+        LocalDate today = LocalDate.now();
+        Date fechaActual = Date.valueOf(today);
+        Date fechaCreacion = this.fecha;
+        Calendar cal = Calendar.getInstance();  
+    	java.util.Date utilDate = new java.util.Date(fechaCreacion.getTime());
+        cal.setTime(fechaCreacion);
+        cal.add(Calendar.DAY_OF_MONTH, (int) this.tiempoVigencia);
+        return fechaActual.before(cal.getTime());
+        
     }
 
 
