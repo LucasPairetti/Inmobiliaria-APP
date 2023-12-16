@@ -146,6 +146,7 @@ public class InmuebleServices {
             .filter(Reserva::esReservaValida)
             .collect(Collectors.toList());
 	}
+	
 	public List<InmuebleDTO> inmueblesDisponiblesParaCliente(ClienteDTO c, TipoInmueble tipo){
 		return Optional.ofNullable(inmuebledao.getInmueble(null,c.getLocalidadBuscada(),c.getBarrios(),tipo,
     		null,(float)0.0,(float) c.getMontoDisponible()))
@@ -282,7 +283,7 @@ public class InmuebleServices {
 	private boolean chequearDuplicado( Provincia provincia, String localidad,String calle, int numero,
 			String pisodpto, TipoInmueble tipoInmueble) {
 		List<Inmueble> lista=inmuebledao.getInmueble(provincia,localidad,calle,numero,pisodpto,tipoInmueble);
-		if(lista==null||
+		if(!lista.isEmpty()||
 			lista.stream().filter(i -> TipoInmueble.D.equals(i.getTipoInmueble())).noneMatch(i->pisodpto.equals(i.getPisodpto())))
 		{return false;}
 		else { return true;}

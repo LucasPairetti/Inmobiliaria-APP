@@ -51,6 +51,9 @@ private static ReservaServices instance;
 			instance = new ReservaServices();
 			reservadao = ReservaDAO.getReservaDAO();
 			inmuebledao = InmuebleDAO.getInmuebleDAO();
+			clientedao = ClienteDAO.getClienteDAO();
+			vendedordao = VendedorDAO.getVendedorDAO();
+
 		}
 		return instance;
 	}
@@ -67,8 +70,9 @@ private static ReservaServices instance;
 		if(vendedor==null) {return -4;}//no existe el vendedor
 		
 		List<Reserva> reservasInmueble = reservadao.getReservasByInmueble(inmueble);
+		System.out.println(reservasInmueble);
 		double monto=0.0;
-		if(reservasInmueble !=null) {
+		if(!reservasInmueble.isEmpty()) {
 			List<Reserva> reservasValidas = reservasInmueble.stream().filter(Reserva::esReservaValida).collect(Collectors.toList());
 			if(!reservasValidas.isEmpty()) {
 				return reservasValidas.get(0).getCliente().getId(); // existe otra reserva vigente en este momento y te digo de que cliente es
@@ -76,6 +80,7 @@ private static ReservaServices instance;
 						monto=reservasValidas.get(0).getImporteReserva();
 				}
 			}
+		System.out.println(monto);
 		if(monto>inmueble.getPrecioVenta()) {return -1;}//esta reservando por mayor valor del que debia
 		
 		Reserva reservaTerminada = toReserva(reserva,inmueble,cliente,vendedor);

@@ -116,12 +116,12 @@ Parent root = FXMLLoader.load((getClass().getResource("/interfaces/LoginPrincipa
 		/*/
 		//launch(args);
 		
-		Date fecha = Date.valueOf("1999-06-15");
-		VendedorDTO vendedor = new VendedorDTO("Julio", "Chort", TipoDNI.DNI.toString(), "41906985", "Necochea", 4101,
-				"Santa Fe", "Santa Fe", 155282518, "juliochort@gmail.com", fecha, 300000.0,
+		/*Date fecha = Date.valueOf("1999-06-15");
+		VendedorDTO vendedor = new VendedorDTO("Juan", "Chort", TipoDNI.DNI.toString(), "41906985", "Necochea", 4101,
+				"Santa Fe", "Santa Fe", 155282518, "julio@gmail.com", fecha, 300000.0,
 				"1234");
 		VendedorServices vendedors = VendedorServices.getInstance();
-		vendedors.createVendedor(vendedor);
+		vendedors.createVendedor(vendedor);*/
 		
 		
 	}
