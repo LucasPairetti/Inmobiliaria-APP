@@ -70,14 +70,16 @@ public class VentaServices {
 		
 		List<Reserva> reservas =reservadao.getReservasByInmueble(inmueble);
 		double monto =0.0;
-		if(!reservas.isEmpty()) {
+		if(reservas != null) {
 			List<Reserva> reservasValidas = reservas.stream().filter(Reserva::esReservaValida).collect(Collectors.toList());
-			if(!reservasValidas.isEmpty()) {
-				if(reservasValidas.get(0).getCliente().getId() != cliente.getId()) {
-				return reservasValidas.get(0).getCliente().getId();}// existe una reserva vigente en este momento y te digo de que cliente es
-				else{
-					monto=reservasValidas.get(0).getImporteReserva();
-				}
+			if (!reservasValidas.isEmpty()) {
+			    Reserva reservaVigente = reservasValidas.get(0);
+			    System.out.print(reservaVigente.getCliente());
+			    if (reservaVigente.getCliente().getId() != cliente.getId()) {
+			        return reservaVigente.getCliente().getId();
+			    } else {
+			        monto = reservaVigente.getImporteReserva();
+			    }
 			}
 			
 		}

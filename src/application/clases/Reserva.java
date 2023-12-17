@@ -56,18 +56,16 @@ public class Reserva {
 	}
    
 
-    public boolean esReservaValida() {
-    	
-        LocalDate today = LocalDate.now();
-        Date fechaActual = Date.valueOf(today);
-        Date fechaCreacion = this.fecha;
-        Calendar cal = Calendar.getInstance();  
-    	java.util.Date utilDate = new java.util.Date(fechaCreacion.getTime());
-        cal.setTime(fechaCreacion);
-        cal.add(Calendar.DAY_OF_MONTH, (int) this.tiempoVigencia);
-        return fechaActual.before(cal.getTime());
-        
-    }
+	public boolean esReservaValida() {
+	    LocalDate today = LocalDate.now();
+	    LocalDate fechaActual = LocalDate.now();
+	    LocalDate fechaCreacion = this.fecha.toLocalDate();
+
+	    LocalDate fechaVencimiento = fechaCreacion.plusDays((int) this.tiempoVigencia);
+
+	    return !fechaActual.isAfter(fechaVencimiento);
+	}
+
 
 
 	public Inmueble getInmueble() {
