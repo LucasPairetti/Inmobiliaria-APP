@@ -234,7 +234,7 @@ public class PropietariosPrincipalController implements Initializable {
     void EliminarInmueblePressed(ActionEvent event) {
     	InmuebleDTO Inmueble= InmuebleTable.getSelectionModel().getSelectedItem();
     	if(Inmueble!=null) {
-    	propietarioService.deletePropietario(Inmueble.getId());
+    		inmuebleService.deleteInmueble(Inmueble.getId());
     	
     	listaDeInmuebles.remove(Inmueble);
     	InmuebleTable.setItems(listaDeInmuebles);

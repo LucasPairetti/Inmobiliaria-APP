@@ -46,7 +46,7 @@
       <TextField fx:id="PrecioField" layoutX="309.0" layoutY="196.0" prefHeight="34.0" prefWidth="176.0" promptText="USD" />
       <Label layoutX="309.0" layoutY="152.0" text="Precio:" />
       <Label layoutX="795.0" layoutY="108.0" text="Datos del edificio" />
-      <TextField fx:id="SuperficieField" layoutX="515.0" layoutY="208.0" prefHeight="34.0" prefWidth="176.0" promptText="v" />
+      <TextField fx:id="SuperficieField" layoutX="515.0" layoutY="208.0" prefHeight="34.0" prefWidth="176.0" promptText="Metros cuadrados" />
       <Label layoutX="524.0" layoutY="176.0" text="Superficie:" />
       <CheckBox fx:id="PropiedadHorizontalCheckBox" layoutX="950.0" layoutY="396.0" mnemonicParsing="false" text="Propiedad horizontal" />
       <TextField fx:id="AntiguedadField" layoutX="719.0" layoutY="211.0" prefHeight="34.0" prefWidth="176.0" promptText="Años" />

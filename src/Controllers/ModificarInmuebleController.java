@@ -156,7 +156,7 @@ public class ModificarInmuebleController implements Initializable {
     	IdPropietario= holder.getIdPropietario();
     	inmuebleID= holder.getIdInmueble();
     	
-    	System.out.println(propietarioServices.getPropietarioById(IdPropietario).getApellido());
+    
 		// TODO Auto-generated method stub
     	ObservableList<String>localidades= FXCollections.observableArrayList(); 
     	localidades.addAll(Localidad.getLocalidad());

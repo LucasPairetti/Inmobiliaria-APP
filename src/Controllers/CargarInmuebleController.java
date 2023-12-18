@@ -320,7 +320,7 @@ public class CargarInmuebleController implements Initializable{
     			
     			if(serviceInmueble.createInmueble(nuevoInmueble)==1) {
     				Parent root;
-            		root = FXMLLoader.load((getClass().getResource("/interfaces/ClientesPrincipal.fxml")));
+            		root = FXMLLoader.load((getClass().getResource("/interfaces/PropietariosPrincipal.fxml")));
             		
             		Stage window = (Stage)VolverButton.getScene().getWindow();
             		window.setTitle("Clientes");
