@@ -58,7 +58,7 @@
       </Label>
       <Label fx:id="emailClienteLabel" layoutX="319.0" layoutY="548.0" text="Email">
          <font>
-            <Font size="24.0" />
+            <Font size="18.0" />
          </font>
       </Label>
       <Label fx:id="telefonoClienteLabel" layoutX="353.0" layoutY="593.0" text="Telefono">

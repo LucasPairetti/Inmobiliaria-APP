@@ -30,6 +30,9 @@ import services.VentaServices;
 
 public class VentaPrincipalController implements Initializable{
 
+	 @FXML
+	    private Label PrecioField;
+
     @FXML
     private Button SalirButton;
 
@@ -131,10 +134,12 @@ public class VentaPrincipalController implements Initializable{
     		propietarioLabel.setText(inmueble.getNombreApellidoPropietario());
     		provinciaInmuebleLabel.setText(inmueble.getProvincia());
     		tipoInmuebleLabel.setText(inmueble.getTipoInmueble());
+    		PrecioField.setText(String.valueOf(inmueble.getPrecioVenta()));
     		//vendedor
     		apellidoVendedorLabel.setText(vendedor.getApellido());
     		emailVendedorLabel.setText(vendedor.getEmail());
     		nombreVendedorLabel.setText(vendedor.getNombre());
+    		
 	}
 
     @FXML
@@ -157,7 +162,8 @@ else {
 	holder.setIdCliente(idCliente);
 	holder.setIdInmueble(idInmueble);
 	holder.setIdVendedor(idVendedor);
-	if(ventaServices.createVenta(venta)==1) {
+	int result=ventaServices.createVenta(venta);
+	if(result==0) {
 		try {
 			Parent root;
 			root = FXMLLoader.load((getClass().getResource("/interfaces/VentaConfirmada.fxml")));
@@ -170,6 +176,7 @@ else {
 			e.printStackTrace();
 		}
 	}else {
+		System.out.print(result);
 		Alert alertaTipo = new Alert(Alert.AlertType.ERROR); //esto es un mensaje de alerta
 		alertaTipo.setTitle("Venta incompleta"); //titulo
 		alertaTipo.setContentText("La Venta no se pudo realizar debido al monto especificado"); //informacion

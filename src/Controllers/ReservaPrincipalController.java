@@ -31,6 +31,9 @@ public class ReservaPrincipalController implements Initializable{
 
     @FXML
     private Button SalirButton;
+    @FXML
+    private Label PrecioField;
+
 
     @FXML
     private AnchorPane Scenario;
@@ -120,6 +123,7 @@ public class ReservaPrincipalController implements Initializable{
 		propietarioLabel.setText(inmueble.getNombreApellidoPropietario());
 		provinciaInmuebleLabel.setText(inmueble.getProvincia());
 		tipoInmuebleLabel.setText(inmueble.getTipoInmueble());
+		PrecioField.setText(String.valueOf(inmueble.getPrecioVenta()));
 	}	
     
     @FXML

@@ -83,7 +83,7 @@ public class VentaServices {
 			}
 			
 		}
-		if(inmueble.getPrecioVenta()<(monto+ venta.getImporteReserva())) {return -1;}//no es suficiente la suma de la reserva y el importe ingresado.
+		
 		Vendedor vendedor= vendedordao.getVendedorById(venta.getVendedor());
 		if(vendedor==null) {return -4;}//no existe el vendedor
 		

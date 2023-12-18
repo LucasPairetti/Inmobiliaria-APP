@@ -60,7 +60,7 @@
       </Label>
       <Label fx:id="emailClienteLabel" layoutX="164.0" layoutY="495.0" text="Email">
          <font>
-            <Font size="24.0" />
+            <Font size="18.0" />
          </font>
       </Label>
       <Label fx:id="telefonoClienteLabel" layoutX="198.0" layoutY="540.0" text="Telefono">
@@ -188,7 +188,7 @@
       </Label>
       <Label fx:id="emailVendedorLabel" layoutX="527.0" layoutY="529.0" text="Email">
          <font>
-            <Font size="24.0" />
+            <Font size="18.0" />
          </font>
       </Label>
       <Line endX="203.0" layoutX="541.0" layoutY="363.0" startX="-100.0" />
@@ -210,12 +210,12 @@
             <Font size="24.0" />
          </font>
       </Label>
-      <Text layoutX="426.0" layoutY="210.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Muchas gracias por su compra!">
+      <Text fill="WHITE" layoutX="426.0" layoutY="210.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Muchas gracias por su compra!">
          <font>
             <Font size="24.0" />
          </font>
       </Text>
-      <Text layoutX="415.0" layoutY="267.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Se enviara un documento por la compra y se le enviará un correo a su email correspondiente" textAlignment="CENTER" wrappingWidth="354.3984375">
+      <Text fill="WHITE" layoutX="415.0" layoutY="267.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Se enviara un documento por la compra y se le enviará un correo a su email correspondiente" textAlignment="CENTER" wrappingWidth="354.3984375">
          <font>
             <Font size="24.0" />
          </font>
